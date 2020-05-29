@@ -1,0 +1,27 @@
+<div class="box">
+    <div class="title">Amiss Process</div>
+    <div class="form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Tài khoản</label>
+                <input type="text" class="form-control" formControlName="username" id="username" placeholder="Nhập tài khoản" autofocus>
+                <div *ngIf="submitted && data.username.errors">
+                    <div class="error-alert" *ngIf="data.username.errors.required">Username is required</div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="Nhập mật khẩu" id="password">
+                <div *ngIf="submitted && data.password.errors">
+                <div class="error-alert" *ngIf="data.password.errors.required" >Password is required</div>
+               
+                </div>
+
+            </div>
+            <div class="error-alert" *ngIf="message" >{{message}}</div>
+            <button type="submit"  class="btn btn-primary btn-block" >Đăng nhập</button>
+        </form>
+        
+    </div>
+</div>
