@@ -1,19 +1,112 @@
+<h3 class="title">{{ route.snapshot.data['title'] }}</h3>
+<div class="action">
+    <div class="clr-row ">
+        <div class="clr-col-md-2 clr-col-12">
+            <button class="btn btn-primary btn-sm" (click)="showModalAdd = true">Thêm mới</button>
+            <clr-modal [(clrModalOpen)]="showModalAdd" class="addModal">
 
-<clr-datagrid>
-    <clr-dg-column>Tên quy trình</clr-dg-column>
-    <clr-dg-column>Người tạo</clr-dg-column>
-    <clr-dg-column>Thời gian tạo</clr-dg-column>
-    <clr-dg-column>Chỉnh sửa mới nhất</clr-dg-column>
-    <clr-dg-column>Trạng thái</clr-dg-column>
-    <clr-dg-column>Danh mục</clr-dg-column>
-    <clr-dg-row *ngFor="let item of data">
-        <clr-dg-cell>{{item.name}}</clr-dg-cell>
-        <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
-        <clr-dg-cell>{{item.createdTime | date}}</clr-dg-cell>
-        <clr-dg-cell>{{item.updatedTime + ' bởi ' + item.updatedBy }}</clr-dg-cell>
-        <clr-dg-cell>{{item.status}}</clr-dg-cell>
-        <clr-dg-cell>{{item.category.name}}</clr-dg-cell>
-    </clr-dg-row>
+                <h3 class="modal-title">Tạo quy trình mới</h3>
 
-    <clr-dg-footer>{{data.length}} item</clr-dg-footer>
-</clr-datagrid>
+                <div class="modal-body">
+                    <span *ngIf="errorMessage != null">{{ errorMessage}}</span>
+                    <form clrForm>
+                        <clr-input-container>
+                            <label class="clr-control-label clr-col-12 clr-col-md-6">Tên quy trình</label>
+                            <input clrInput type="text" [(ngModel)]="newProcess.name" name="example"
+                                class="clr-input clr-col-12 clr-col-md-12" required />
+                        </clr-input-container>
+                        <clr-textarea-container>
+                            <label class="clr-control-label clr-col-12 clr-col-md-6">Mô tả</label>
+                            <textarea clrTextarea [(ngModel)]="newProcess.description" name="description"
+                                class=" clr-col-12 clr-col-md-12" required></textarea>
+                        </clr-textarea-container>
+                        <clr-select-container>
+                            <label class="clr-control-label clr-col-12 clr-col-md-6">Danh mục</label>
+                            <select clrSelect name="options" [(ngModel)]="newProcess.categoryId"
+                                (change)="showSortByOption()" class="clr-col-md-12 clr-col-12">
+                                <option [value]="item.id" *ngFor="let item of listCategory">{{ item.name}}</option>
+                            </select>
+                        </clr-select-container>
+                        <clr-input-container>
+                            <label class="clr-control-label clr-col-12 clr-col-md-6">Chưa có danh mục? Tạo mới</label>
+                            <input clrInput type="text" [(ngModel)]="newCategory" name="example"
+                                class="clr-input clr-col-12 clr-col-md-12" />
+                              
+                        </clr-input-container>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" (click)="showModalAdd = false">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="addProcessHandle()">Ok</button>
+                </div>
+            </clr-modal>
+        </div>
+        <div class="clr-col-md-6 clr-col-12">
+            <form class="search">
+                <input id="search_input" type="text" placeholder="Tìm kiếm">
+            </form>
+        </div>
+        <div class="clr-col-md-2 clr-col-12">
+            <form clrForm>
+                <clr-select-container class="clr-row select">
+                    <label class="clr-col-md-5  clr-col-12">Tìm theo</label>
+                    <select clrSelect name="options" [(ngModel)]="optionFilterSelected" (change)="showFilterOption()"
+                        class="clr-col-md-6 clr-col-12">
+                        <option value="name">Tên quy trình</option>
+                        <option value="creator">Người tạo</option>
+                        <option value="createdTime">Thời gian tạo</option>
+                        <option value="category">Danh mục</option>
+                    </select>
+                </clr-select-container>
+            </form>
+
+        </div>
+        <div class="clr-col-md-2 clr-col-12">
+            <form clrForm>
+                <clr-select-container class="clr-row select">
+                    <label class="clr-col-md-5  clr-col-12">Sắp xếp theo</label>
+                    <select clrSelect name="options" [(ngModel)]="optionSortBySelected" (change)="showSortByOption()"
+                        class="clr-col-md-6 clr-col-12">
+                        <option value="name">Tên quy trình</option>
+                        <option value="creator">Người tạo</option>
+                        <option value="createdTime">Thời gian tạo</option>
+                        <option value="updatedTime">Chỉnh sửa mới nhất</option>
+                        <option value="category">Danh mục</option>
+                    </select>
+                </clr-select-container>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<div>
+    <clr-datagrid>
+        <clr-dg-column >Tên quy trình</clr-dg-column>
+        <clr-dg-column >Người tạo</clr-dg-column>
+        <clr-dg-column >Thời gian tạo</clr-dg-column>
+        <clr-dg-column >Chỉnh sửa mới nhất</clr-dg-column>
+        <clr-dg-column >Trạng thái</clr-dg-column>
+        <clr-dg-column >Danh mục</clr-dg-column>
+        <clr-dg-row *clrDgItems="let item of listProcess">
+            <clr-dg-action-overflow>
+                <button class="action-item" (click)="onChangeStatus(item)">Chi tiết</button>
+                <button class="action-item" (click)="onChangeStatus(item)">Chuyển trạng thái</button>
+            </clr-dg-action-overflow>
+            <clr-dg-cell>{{item.name}}</clr-dg-cell>
+            <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
+            <clr-dg-cell>{{item.createdTime | date}}</clr-dg-cell>
+            <clr-dg-cell>{{item.updatedTime + ' bởi ' + item.updatedBy }}</clr-dg-cell>
+            <clr-dg-cell>{{item.status}}</clr-dg-cell>
+            <clr-dg-cell>{{item.category.name}}</clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Item per page</clr-dg-page-size>
+                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                of {{pagination.totalItems}} users
+            </clr-dg-pagination>
+        </clr-dg-footer>
+    </clr-datagrid>
+</div>

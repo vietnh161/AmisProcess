@@ -5,23 +5,34 @@ import { AuthGuard } from '../_helpers/auth.guard';
 
 import { MainLayoutComponent } from '../layout/layout.component';
 import { ListProcessComponent } from './list-process/list-process.component';
+import { DetailProcessComponent } from './detail-process/detail-process.component';
 
 
 const routes: Routes = [
     {
         path: '',
         component: MainLayoutComponent,
-        canActivate: [AuthGuard],
+        //   canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                redirectTo: 'list-process',
-                pathMatch: 'full'
-            },
+            // {
+            //     path: '',
+            //     redirectTo: 'list-process',
+            //     pathMatch: 'full'
+            // },
             {
                 path: 'list-process',
-               component: ListProcessComponent,
-                
+                data:
+                {
+                    title: 'Danh sách quy trình',
+                },
+                component: ListProcessComponent,
+
+            },
+            {
+                path: 'process/:id',
+               // component: DetailProcessComponent
+                loadChildren: () => import(`./detail-process/detail-process.module`).then(m => m.DetailProcessModule),
+
             }
         ]
     }
