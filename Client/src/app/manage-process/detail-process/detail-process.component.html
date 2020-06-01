@@ -1,1 +1,32 @@
 <h3 class="title">{{process.name}}</h3>
+<p>Người tạo: {{ process.createdBy}}</p>
+<p>Thời gian tạo: {{ process.createdTime | date:'medium'}}</p>
+<p>Chỉnh sửa gần nhất: {{ process.updatedTime | date:'medium'}} bởi {{ process.updatedBy}}</p>
+<div class="clr-row">
+    <div class="clr-col-lg-3 clr-col-md-4 clr-col-12" *ngFor="let item of phases">
+        <div class="card">
+            <div class="card-header">
+               {{item.serial + '. ' + item.name}}
+            </div>
+            <div class="card-block">
+                <div class="card-title">
+                   {{item.description}}
+                </div>
+                <div class="card-text">
+                    ...
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm">Sửa</button>
+                <button class="btn btn-sm" (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/add/' + item.serial)">Thêm</button>
+                <clr-tooltip>
+                    <clr-icon clrTooltipTrigger shape="info-circle" size="24" aria-label="Uniq tooltip 1"></clr-icon>
+                    <clr-tooltip-content clrPosition="top-right" clrSize="md" *clrIfOpen>
+                        <span>Thêm một giai đoạn mới ngay sau giai đoạn này</span>
+                    </clr-tooltip-content>
+                </clr-tooltip>
+            </div>
+        </div>
+        
+    </div>
+</div>

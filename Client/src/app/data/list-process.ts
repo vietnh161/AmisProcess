@@ -7,6 +7,7 @@ export var listProcessData =  [
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -20,6 +21,7 @@ export var listProcessData =  [
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -33,6 +35,7 @@ export var listProcessData =  [
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -46,6 +49,7 @@ export var listProcessData =  [
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -59,6 +63,7 @@ export var listProcessData =  [
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -72,6 +77,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -85,6 +91,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -97,6 +104,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -109,6 +117,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Dừng',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -121,6 +130,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -134,6 +144,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -147,6 +158,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',
@@ -160,6 +172,7 @@ export var listProcessData =  [
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
         status: 'Đang hoạt động',
+        categoryId: 1,
          category:{
            id: 1,
            name: 'Tài sản',

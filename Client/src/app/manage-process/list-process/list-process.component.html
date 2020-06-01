@@ -31,7 +31,7 @@
                             <label class="clr-control-label clr-col-12 clr-col-md-6">Chưa có danh mục? Tạo mới</label>
                             <input clrInput type="text" [(ngModel)]="newCategory" name="example"
                                 class="clr-input clr-col-12 clr-col-md-12" />
-                              
+
                         </clr-input-container>
                     </form>
                 </div>
@@ -82,21 +82,21 @@
 </div>
 <div>
     <clr-datagrid>
-        <clr-dg-column >Tên quy trình</clr-dg-column>
-        <clr-dg-column >Người tạo</clr-dg-column>
-        <clr-dg-column >Thời gian tạo</clr-dg-column>
-        <clr-dg-column >Chỉnh sửa mới nhất</clr-dg-column>
-        <clr-dg-column >Trạng thái</clr-dg-column>
-        <clr-dg-column >Danh mục</clr-dg-column>
+        <clr-dg-column>Tên quy trình</clr-dg-column>
+        <clr-dg-column>Người tạo</clr-dg-column>
+        <clr-dg-column>Thời gian tạo</clr-dg-column>
+        <clr-dg-column>Chỉnh sửa mới nhất</clr-dg-column>
+        <clr-dg-column>Trạng thái</clr-dg-column>
+        <clr-dg-column>Danh mục</clr-dg-column>
         <clr-dg-row *clrDgItems="let item of listProcess">
             <clr-dg-action-overflow>
-                <button class="action-item" (click)="onChangeStatus(item)">Chi tiết</button>
+                <button class="action-item" (click)="router.navigateByUrl('manage-process/process/' + item.id)">Chi tiết</button>
                 <button class="action-item" (click)="onChangeStatus(item)">Chuyển trạng thái</button>
             </clr-dg-action-overflow>
             <clr-dg-cell>{{item.name}}</clr-dg-cell>
             <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
-            <clr-dg-cell>{{item.createdTime | date}}</clr-dg-cell>
-            <clr-dg-cell>{{item.updatedTime + ' bởi ' + item.updatedBy }}</clr-dg-cell>
+            <clr-dg-cell>{{item.createdTime | date : 'medium'}}</clr-dg-cell>
+            <clr-dg-cell>{{item.updatedTime | date : 'medium'}} bởi {{ item.updatedBy}}</clr-dg-cell>
             <clr-dg-cell>{{item.status}}</clr-dg-cell>
             <clr-dg-cell>{{item.category.name}}</clr-dg-cell>
         </clr-dg-row>

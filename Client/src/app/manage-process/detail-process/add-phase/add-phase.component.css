@@ -1,0 +1,21 @@
+
+.title {
+    margin-top: 0px; 
+    margin-bottom: 10px;
+}
+
+.inline-block{
+    margin-right: 5px;
+    display: inline-block !important;  
+}
+.inline-block select{
+   top : 1px
+}
+
+input[type="text"]{
+    width: 95%;
+}
+
+textarea{
+    width: 95%;
+}

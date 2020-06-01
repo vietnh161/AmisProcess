@@ -38,11 +38,6 @@ const routes: Routes = [
     
   // },
   {
-    path: 'create-process',
-   loadChildren: () => import(`./create-process/create-process.module`).then(m => m.CreateProcessModule),
-    
-  },
-  {
     path: 'manage-process',
    loadChildren: () => import(`./manage-process/manage-process.module`).then(m => m.ManageProcessModule),
     
