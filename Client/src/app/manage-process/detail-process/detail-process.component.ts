@@ -20,13 +20,27 @@ export class DetailProcessComponent implements OnInit {
         if(this.process == null ){
             this.router.navigateByUrl('notfound');
         }
-        this.phases = phaseData.filter(x => x.processId == this.processId).sort((x,y) => x.serial - y.serial)
-        console.log(this.process);
+        // this.phases = phaseData.filter(x => x.processId == this.processId).sort((x,y) => x.serial - y.serial)
         
     }
 
     ngOnInit(): void {
         
+        
+        
+        this.phases = phaseData.filter(x => x.processId == this.processId).sort((x,y) => x.serial - y.serial);
+        this.phases.forEach(element => {
+            element.isDel = false;
+        });
+
+        
     }
 
+    deletePhaseHandle(phase){
+
+       
+        phaseData.splice(phaseData.findIndex(x=> x.id == phase.id),1)
+     
+        this.phases = phaseData.filter(x => x.processId == this.processId).sort((x,y) => x.serial - y.serial);
+    }
 }

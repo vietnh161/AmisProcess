@@ -29,6 +29,7 @@ export class ListProcessComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.listProcess = listProcessData;
     this.listCategory = categoryData;
+    
 
   }
 
@@ -70,12 +71,13 @@ export class ListProcessComponent implements OnInit {
      this.listProcess.push(item);
 
      
-     var newPharse = [
+     var newPhase = [
        {
       id: 1 + phaseData.map(x=> x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
       serial: 1,
       name: 'Khởi tạo',
       description: '',
+      canDel:false,
       timeImplementType:'',
       timeImplement: null,
       personImplementType:'all',
@@ -88,7 +90,8 @@ export class ListProcessComponent implements OnInit {
       serial: 2,
       name: 'Hoàn thành',
       description: '',
-      timeImplementType:'h',
+      timeImplementType:'',
+      canDel:false,
         timeImplement: null,
         personImplementType:'all',
       personImplement: [],
@@ -96,8 +99,8 @@ export class ListProcessComponent implements OnInit {
       processId: item.id,
      },
     ]
-     phaseData.push(newPharse[0])
-     phaseData.push(newPharse[1])
+     phaseData.push(newPhase[0])
+     phaseData.push(newPhase[1])
 
 
      this.router.navigateByUrl("manage-process/process/" + item.id )

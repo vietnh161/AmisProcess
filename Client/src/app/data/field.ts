@@ -1,4 +1,6 @@
-export var fieldData = [
+import { Field } from '../_models';
+
+export var fieldData:Field[] = [
     {
         id: 1,
         name: 'Ngày bắt đầu',

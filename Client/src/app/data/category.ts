@@ -1,22 +1,24 @@
-export var categoryData = [
+import { Category } from '../_models';
+
+export var categoryData: Category[] = [
     {
-        id: '1',
+        id: 1,
         name: 'Tài sản'
     },
     {
-        id: '2',
+        id: 2,
         name: 'Hành chính'
     },
     {
-        id: '3',
+        id: 3,
         name: 'Nhân sự'
     },
     {
-        id: '4',
+        id: 4,
         name: 'Mua hàng'
     },
     {
-        id: '5',
+        id: 5,
         name: 'Bán hàng'
     },
 ];

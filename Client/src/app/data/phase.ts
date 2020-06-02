@@ -1,9 +1,12 @@
-export var phaseData = [
+import { Phase } from '../_models';
+
+export var phaseData: Phase[] = [
     {
         id: 1,
         serial: 1,
         name: 'Khởi tạo',
         description: 'Phần này hiển thị mô tả',
+        canDel:false,
         timeImplementType:'h',
         timeImplement: 3,
         personImplementType:'all',
@@ -35,6 +38,7 @@ export var phaseData = [
         serial: 4,
         name: 'Hoàn thành',
         description: 'Phần này hiển thị mô tả',
+        canDel:false,
         timeImplementType:'h',
         timeImplement: 3,
         personImplementType:'all',
@@ -52,6 +56,7 @@ export var phaseData = [
         serial: 2,
         name: 'Quản lý phê duyệt',
         description: 'Phần này hiển thị mô tả',
+        canDel:true,
         timeImplementType:'d',
         timeImplement: 3,
         personImplementType:'limit',
@@ -64,13 +69,13 @@ export var phaseData = [
         
             },
             {
-                id: '2',
+                id: 2,
                 employeeCode:'2',
                 firstName: 'Hà',
                 lastName: 'Hồ Quang',
             },
             {
-                id: '3',
+                id: 3,
                 employeeCode:'3',
                 firstName: 'Bảo',
                 lastName: 'Lê Ngọc',
@@ -87,6 +92,7 @@ export var phaseData = [
         serial: 3,
         name: 'Giám đốc phê duyệt',
         description: 'Phần này hiển thị mô tả',
+        canDel:true,
         timeImplementType:'m',
         timeImplement: 3,
         personImplementType:'all',
@@ -98,5 +104,6 @@ export var phaseData = [
         ],
         processId: 1,
 
-    }
+    },
+     
 ]

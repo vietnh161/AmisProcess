@@ -1,4 +1,6 @@
-export var listProcessData =  [
+import { Process } from '../_models';
+
+export var listProcessData : Process[] =  [
     {
         id: 1,
         name: 'Quy trình xin cấp tài sản',

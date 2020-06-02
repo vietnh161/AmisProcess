@@ -3,7 +3,7 @@ import { NgModule, Component } from '@angular/core';
 
 // import { AuthGuard } from '../_helpers/auth.guard';
 import { DetailProcessComponent } from './detail-process.component';
-import { AddPhaseComponent } from './add-phase/add-phase.component';
+import { DetailPhaseComponent } from './add-phase/detail-phase.component';
 
 
 const routes: Routes = [
@@ -12,8 +12,8 @@ const routes: Routes = [
         component: DetailProcessComponent,
     },
     {
-        path: 'add/:serial',
-        component: AddPhaseComponent,
+        path: ':mode/:serial',
+        component: DetailPhaseComponent,
 
 
     }
