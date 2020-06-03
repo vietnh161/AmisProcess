@@ -6,6 +6,7 @@ export var fieldData:Field[] = [
         name: 'Ngày bắt đầu',
         description: '',
         type: 'Date',
+        options:[],
         required: true,
         pharseId: 2,
         
@@ -17,6 +18,6 @@ export var fieldData:Field[] = [
         type: 'Date',
         required: true,
         pharseId: 2,
-        
+        options:[],
     }
 ]

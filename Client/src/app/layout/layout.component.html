@@ -2,7 +2,7 @@
 	<!-- begin header -->
 	<header class="header-6">
 		<div class="branding">
-			<a href="..." class="nav-link">
+			<a href="run-process" class="nav-link">
 				<span class="title">Amis Process</span>
 			</a>
 		</div>
@@ -13,8 +13,8 @@
 					<clr-icon shape="caret down"></clr-icon>
 				</button>
 				<clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-					<a href="..." clrDropdownItem>Hồ sơ</a>
-					<a href="..." clrDropdownItem>Đăng xuất</a>
+					<a href="..." clrDropdownItem> <clr-icon shape="user" ></clr-icon>Hồ sơ </a>
+					<a href="..." clrDropdownItem> <clr-icon shape="logout" ></clr-icon>Đăng xuất</a>
 				</clr-dropdown-menu>
 			</clr-dropdown>
 		</div>
@@ -31,7 +31,7 @@
 
 			<div *ngFor="let item of sidebarLinks">
 			<clr-vertical-nav-group routerLinkActive="" *ngIf="item.childs">
-				<clr-icon shape="user" clrVerticalNavIcon></clr-icon>
+				<clr-icon attr.shape="{{item.icon}}" clrVerticalNavIcon></clr-icon>
 				{{item.name}}
 				<clr-vertical-nav-group-children>
 					<a clrVerticalNavLink routerLink="{{'/'+ item.path+'/'+ child.path}}" routerLinkActive="active" *ngFor="let child of item.childs">
@@ -41,7 +41,7 @@
 			</clr-vertical-nav-group>
 
 			<a clrVerticalNavLink routerLinkActive="" [routerLink]="'/'+ item.path" *ngIf="!item.childs" >
-				<clr-icon shape="certificate" clrVerticalNavIcon></clr-icon>
+				<clr-icon attr.shape="{{item.icon}}" clrVerticalNavIcon></clr-icon>
 				{{item.name}}
 			</a>
 		</div>

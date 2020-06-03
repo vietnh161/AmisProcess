@@ -14,9 +14,12 @@ export class DetailProcessComponent implements OnInit {
     processId;
     process;
     phases;
+    currentProcessStatus;
     constructor(private route: ActivatedRoute,private router: Router) {
         this.processId =  this.route.snapshot.paramMap.get("id");
         this.process = listProcessData.find(x=> x.id == this.processId);
+        this.currentProcessStatus = this.process.status;
+
         if(this.process == null ){
             this.router.navigateByUrl('notfound');
         }
@@ -27,13 +30,28 @@ export class DetailProcessComponent implements OnInit {
     ngOnInit(): void {
         
         
+       
         
         this.phases = phaseData.filter(x => x.processId == this.processId).sort((x,y) => x.serial - y.serial);
         this.phases.forEach(element => {
             element.isDel = false;
         });
-
         
+    }
+
+    changeStatus(ok){
+        
+        if(ok){
+            
+            this.process.updatedTime= new Date();
+          //  this.process.updatedBy = 
+
+
+
+        }else{
+             this.currentProcessStatus = this.process.status ; 
+        }
+       
     }
 
     deletePhaseHandle(phase){

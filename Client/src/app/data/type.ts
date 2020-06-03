@@ -1,46 +1,57 @@
 export var listType = [
     {
     
-       name: 'Text'
+       name: 'Text',
+       icon:'text'
     },
     {
       
-        name: 'Long Text'
+        name: 'Long Text',
+        icon:'text'
      },
      {
       
-        name: 'Email'
+        name: 'Email',
+        icon:'envelop'
      },
      {
         
-        name: 'Number'
+        name: 'Number',
+        icon:'text'
      },
      {
      
-        name: 'Datetime'
+        name: 'Datetime',
+        icon:'calendar'
      },
      {
      
-        name: 'Date'
+        name: 'Date',
+        icon:'calendar'
      },
      {
       
-        name: 'Time'
+        name: 'Time',
+        icon:'clock'
      },
      {
      
-        name: 'Radio Select'
+        name: 'Radio Select',
+        icon:'text'
      },
      {
       
-        name: 'Check Box'
+        name: 'Check Box',
+        icon:'checkbox-list'
      },
      {
       
-        name: 'Attachment'
+        name: 'Attachment',
+        icon:'attachment'
      },
      {
       
-        name: 'Asignee Select'
+        name: 'Asignee Select',
+        icon:'assign-user'
      }
 ]

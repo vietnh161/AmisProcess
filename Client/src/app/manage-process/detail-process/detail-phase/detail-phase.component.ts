@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { listProcessData } from '../../../data/list-process'
 import { phaseData } from '../../../data/phase'
 import { listType } from '../../../data/type'
@@ -6,8 +6,9 @@ import { employeeData } from '../../../data/employee'
 import { categoryData } from '../../../data/category'
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger } from '@angular/animations';
-import { throwIfEmpty } from 'rxjs/operators';
+import { throwIfEmpty, isEmpty } from 'rxjs/operators';
 import { fieldData } from 'src/app/data/field';
+import { AuthenticationService } from 'src/app/_services';
 
 @Component({
     selector: 'app-detail-phase',
@@ -16,6 +17,7 @@ import { fieldData } from 'src/app/data/field';
 })
 export class DetailPhaseComponent implements OnInit {
 
+    currentUser;
     mode;
     processId;
     process;
@@ -28,8 +30,9 @@ export class DetailPhaseComponent implements OnInit {
 
     types = listType;
 
-    constructor(private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) {
+    constructor(private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, ) {
 
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.listEmployee = employeeData;
 
         this.mode = this.route.snapshot.paramMap.get("mode");
@@ -40,33 +43,43 @@ export class DetailPhaseComponent implements OnInit {
             this.router.navigateByUrl('notfound');
         }
 
-        for (var i = 0; i < phaseData.length; i++) {
+        for (let i = 0; i < phaseData.length; i++) {
             if (phaseData[i].processId == this.processId) {
                 this.phases[i] = {};
                 Object.assign(this.phases[i], phaseData[i])
+
             }
 
         }
 
-        if(this.mode == 'edit'){
-           
+        this.phases = this.phases.filter((el) => {
+            return el != null;
+        });
+
+
+        if (this.mode == 'edit') {
+
             this.phases.forEach(x => {
-                if(x.serial == this.phaseSerial) x.active = true;
+                if (x.serial == this.phaseSerial) x.active = true;
                 x.fieldTemp = {
                     id: null,
                     name: '',
                     description: '',
                     type: '',
+                    valueOption: '',
+                    options: [],
                     required: false,
                     pharseId: null,
                 };
                 x.employeeCodeTemp = null;
                 x.errorAddPerson = '';
-    
+
+
             })
 
 
-        }else if(this.mode == 'add'){
+
+        } else if (this.mode == 'add') {
             var newPhase = {
                 id: phaseData.map(x => x.id).reduce((x, y) => Math.max(x, y)) + 1,
                 serial: null,
@@ -81,32 +94,37 @@ export class DetailPhaseComponent implements OnInit {
                 processId: parseInt(this.processId),
                 active: true
             }
-    
+
             newPhase.serial = this.phaseSerial + 1;
             this.phases.push(newPhase);
             this.phases.forEach(x => {
                 if (x.serial >= newPhase.serial && x.id != newPhase.id) {
                     x.serial++;
+                    x.active = false;
                 }
-    
+
                 x.fieldTemp = {
                     id: null,
                     name: '',
                     description: '',
                     type: '',
+                    valueOption: '',
+                    options: [],
                     required: false,
                     pharseId: null,
                 };
                 x.employeeCodeTemp = null;
                 x.errorAddPerson = '';
-    
+                x.errorAddField = '';
+                x.successAddPerson = '';
+                x.successAddField = '';
             })
 
-        }else{
-           router.navigateByUrl('notfound') ;
+        } else {
+            router.navigateByUrl('notfound');
         }
 
-       
+
 
         this.phases.sort((x, y) => x.serial - y.serial);
 
@@ -117,14 +135,15 @@ export class DetailPhaseComponent implements OnInit {
     }
 
     addPersonHandle(phase, event) {
-        phase.errorAddPerson = ''
+        phase.errorAddPerson = '';
+        phase.successAddPerson = ''
         if (event.keyCode == 13) {
             event.preventDefault();
             var employee = this.listEmployee.find(x => x.employeeCode == phase.employeeCode)
             if (employee != null) {
                 phase.personImplement.push(employee);
                 phase.employeeCode = '';
-
+                phase.successAddPerson = 'Thành công'
             } else {
                 phase.errorAddPerson = 'Nhân viên không tồn tại'
             }
@@ -132,58 +151,121 @@ export class DetailPhaseComponent implements OnInit {
 
     }
 
-    deletePersonHandle(phase,id){
+    deletePersonHandle(phase, id) {
 
-        var listPerson = this.phases.find(x=> x.id == phase.id).personImplement;
+        var listPerson = this.phases.find(x => x.id == phase.id).personImplement;
         // console.log(listPerson);
         // console.log(this.phases.find(x=> x.id == phase.id).personImplement);
         //  console.log(id);
-         
-         listPerson.splice(listPerson.findIndex(x => x.id == id),1)
+
+        listPerson.splice(listPerson.findIndex(x => x.id == id), 1)
     }
 
 
     addFieldHandle(phase) {
-        var newField = { ...phase.fieldTemp }
-        newField.id = fieldData.map(x => x.id).reduce((a, b) => Math.max(a, b))+1;
-        fieldData.push(newField);
-        this.phases.find(x => x.id == phase.id).fields.push(newField)
+
+        phase.errorAddField = '';
+        phase.successAddField = '';
+        if (phase.fieldTemp.name == '' || phase.fieldTemp.type == '') {
+            phase.errorAddField = 'Tên hoặc loại không được để trống';
+        } else {
+
+
+            let newField = <any>{};
+            Object.assign(newField, phase.fieldTemp);
+
+            console.log(newField);
+
+
+            var options = [...phase.fieldTemp.options]
+            // options[1] = 'aa'
+            // console.log(newField);
+            // console.log(options);
+
+            // console.log(newField);
+
+            newField.id = fieldData.map(x => x.id).reduce((a, b) => Math.max(a, b)) + 1;
+            //  fieldData.push(newField);
+            this.phases.find(x => x.id == phase.id).fields.push(newField);
+            console.log(this.phases.find(x => x.id == phase.id).fields);
+            phase.fieldTemp.options = [];
+            phase.fieldTemp.name = '';
+            phase.fieldTemp.description = '';
+            phase.fieldTemp.type = '';
+            phase.fieldTemp.required = false;
+            phase.successAddField = 'Thành công';
+        }
+
+
     }
 
-    handleSubmit(item) {
+    deleteFieldHandle(phase, id) {
+        var listField = this.phases.find(x => x.id == phase.id).fields;
+        listField.splice(listField.findIndex(x => x.id == id), 1)
+    }
+
+    addOptionForField(field, event) {
+        if (event.keyCode == 13) {
+            if (field.fieldTemp.valueOption != '') {
+                field.fieldTemp.options.push(field.fieldTemp.valueOption);
+                field.fieldTemp.valueOption = '';
+            }
+
+        }
+    }
+
+
+    submitHandle(item) {
         // console.log(item);
 
         if (item.description == '' || item.timeImplement == null) {
             return;
         } else {
 
-            // console.log(phaseClone);
+            console.log(this.phases);
 
 
             phaseData.forEach(x => {
-                if (x.id == this.processId) {
+                if (x.processId == this.processId) {
                     phaseData.splice(phaseData.indexOf(x));
                 }
+
             })
 
             this.phases.forEach(x => {
                 delete x.fieldTemp;
                 delete x.employeeCodeTemp;
                 delete x.errorAddPerson;
-                phaseData.push(x)
+                delete x.errorAddField;
+                delete x.successAddPerson;
+                delete x.successAddField;
+                phaseData.push(x);
             })
 
+            this.process.updatedTime = new Date();
+            this.process.updatedBy = this.currentUser.firstName + ' ' + this.currentUser.lastName;
+            //  console.log(phaseData);
             this.router.navigateByUrl('manage-process/process/' + this.processId);
 
         }
     }
 
-    handleCancel(event) {
+
+    cancelHandle(event) {
         event.preventDefault();
         this.router.navigateByUrl('manage-process/process/' + this.processId)
     }
 
-    handleAddPhase(item, e) {
+    deleteHandle(phase) {
+
+        this.phases.forEach(x => {
+            if (x.serial > phase.serial) x.serial--;
+            if (x.serial == phase.serial) x.active = true;
+        })
+        this.phases = this.phases.filter(x => x.id != phase.id);
+    }
+
+    addPhaseHandle(item, e) {
         e.preventDefault();
         var newPhase = {
             id: phaseData.map(x => x.id).reduce((x, y) => Math.max(x, y)) + 1,
@@ -204,23 +286,30 @@ export class DetailPhaseComponent implements OnInit {
                 name: '',
                 description: '',
                 type: '',
+                valueOption: '',
+                options: [],
                 required: false,
                 pharseId: null,
             },
             employeeCodeTemp: null,
-            errorAddPerson: ''
+            errorAddPerson: '',
+            errorAddField: '',
+            successAddField: '',
+            successAddPerson: '',
         }
 
         newPhase.serial = item.serial + 1;
         this.phases.forEach(x => {
             if (x.serial >= newPhase.serial) {
                 x.serial++;
+                x.active = false;
             }
 
         })
-     
+
         this.phases.push(newPhase);
         this.phases = this.phases.sort((x, y) => x.serial - y.serial);
+        console.log(this.phases)
     }
 
     showValue() {

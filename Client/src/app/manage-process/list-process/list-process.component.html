@@ -8,30 +8,42 @@
                 <h3 class="modal-title">Tạo quy trình mới</h3>
 
                 <div class="modal-body">
-                    <span *ngIf="errorMessage != null">{{ errorMessage}}</span>
+                    <clr-alert *ngIf="errorMessage" clrAlertType="danger">
+                        <div class="alert-item">
+                            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                            <span class="alert-text">
+                                {{ errorMessage}}
+                            </span>
+                        </div>
+                    </clr-alert>
+
                     <form clrForm>
                         <clr-input-container>
                             <label class="clr-control-label clr-col-12 clr-col-md-6">Tên quy trình</label>
                             <input clrInput type="text" [(ngModel)]="newProcess.name" name="example"
-                                class="clr-input clr-col-12 clr-col-md-12" required />
+                                class="clr-input clr-col-12 clr-col-md-12" (keyup)="errorMessage = ''" required />
                         </clr-input-container>
                         <clr-textarea-container>
                             <label class="clr-control-label clr-col-12 clr-col-md-6">Mô tả</label>
                             <textarea clrTextarea [(ngModel)]="newProcess.description" name="description"
                                 class=" clr-col-12 clr-col-md-12" required></textarea>
                         </clr-textarea-container>
-                        <clr-select-container>
+                        <clr-select-container *ngIf="!canAddCategory">
                             <label class="clr-control-label clr-col-12 clr-col-md-6">Danh mục</label>
                             <select clrSelect name="options" [(ngModel)]="newProcess.categoryId"
                                 (change)="showSortByOption()" class="clr-col-md-12 clr-col-12">
                                 <option [value]="item.id" *ngFor="let item of listCategory">{{ item.name}}</option>
                             </select>
                         </clr-select-container>
-                        <clr-input-container>
-                            <label class="clr-control-label clr-col-12 clr-col-md-6">Chưa có danh mục? Tạo mới</label>
+                        <clr-toggle-container>
+                            <clr-toggle-wrapper>
+                              <input type="checkbox" clrToggle value="option1" name="options" [(ngModel)]="canAddCategory" />
+                              <label>Tạo mới</label>
+                            </clr-toggle-wrapper>
+                          </clr-toggle-container>
+                        <clr-input-container style="margin-top: 0px;" *ngIf="canAddCategory">
                             <input clrInput type="text" [(ngModel)]="newCategory" name="example"
                                 class="clr-input clr-col-12 clr-col-md-12" />
-
                         </clr-input-container>
                     </form>
                 </div>
@@ -79,6 +91,22 @@
         </div>
     </div>
 
+  <!-- begin modal confirm -->
+  <clr-modal [(clrModalOpen)]="item.isDel" class="confirmModal" *ngFor="let item of listProcess">
+
+    <h3 class="modal-title" >Bạn có chắc xóa quy trình "{{item.name}}" không?</h3>
+
+    <div class="modal-body">
+       <p>Thao tác không thể hoàn lại</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="item.isDel = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="deleteProcess(item)">Ok</button>
+    </div>
+</clr-modal>
+
+<!-- end modal confirm  -->
+
 </div>
 <div>
     <clr-datagrid>
@@ -89,9 +117,14 @@
         <clr-dg-column>Trạng thái</clr-dg-column>
         <clr-dg-column>Danh mục</clr-dg-column>
         <clr-dg-row *clrDgItems="let item of listProcess">
+            
             <clr-dg-action-overflow>
                 <button class="action-item" (click)="router.navigateByUrl('manage-process/process/' + item.id)">Chi tiết</button>
-                <button class="action-item" (click)="onChangeStatus(item)">Chuyển trạng thái</button>
+                <!-- <button class="action-item" (click)="onChangeStatus(item)">Chuyển trạng thái</button> -->
+                <button class="action-item" (click)="item.isDel = true">Xóa</button>
+                <div>
+
+                </div>
             </clr-dg-action-overflow>
             <clr-dg-cell>{{item.name}}</clr-dg-cell>
             <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
@@ -99,6 +132,8 @@
             <clr-dg-cell>{{item.updatedTime | date : 'medium'}} bởi {{ item.updatedBy}}</clr-dg-cell>
             <clr-dg-cell>{{item.status}}</clr-dg-cell>
             <clr-dg-cell>{{item.category.name}}</clr-dg-cell>
+                  
+            
         </clr-dg-row>
 
         <clr-dg-footer>
@@ -109,4 +144,5 @@
             </clr-dg-pagination>
         </clr-dg-footer>
     </clr-datagrid>
+           
 </div>

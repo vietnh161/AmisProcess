@@ -16,6 +16,7 @@ export class MainLayoutComponent implements OnInit {
     {
       name: 'Quản lý quy trình',
       path: 'manage-process',
+      icon:'certificate',
       childs: [
         {
           name: 'Danh sách quy trình',
@@ -30,14 +31,17 @@ export class MainLayoutComponent implements OnInit {
     {
       name: 'Chạy quy trình',
       path: '/run-process',
+      icon:'play'
     },
     {
       name: 'Quy trình cần xử lý',
       path: '/handle-process',
+      icon:'pencil'
     },
     {
       name: 'Quy trình đã xử lý',
       path: '/done-process',
+      icon:'check'
     }, 
   ]
 

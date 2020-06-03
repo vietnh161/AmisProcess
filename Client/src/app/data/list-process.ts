@@ -8,7 +8,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/01/01 07:00',
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -22,7 +22,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/01/01 07:00',
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'maintain',
         categoryId: 1,
          category:{
            id: 1,
@@ -36,7 +36,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/01/01 07:00',
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -50,7 +50,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/01/01 07:00',
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -64,7 +64,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/01/01 07:00',
         updatedTime: '2020/01/11 12:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -78,7 +78,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'stop',
         categoryId: 1,
          category:{
            id: 1,
@@ -92,7 +92,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -105,7 +105,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'stop',
         categoryId: 1,
          category:{
            id: 1,
@@ -118,7 +118,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Dừng',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -131,7 +131,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'active',
         categoryId: 1,
          category:{
            id: 1,
@@ -145,7 +145,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'stop',
         categoryId: 1,
          category:{
            id: 1,
@@ -159,7 +159,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'maintain',
         categoryId: 1,
          category:{
            id: 1,
@@ -173,7 +173,7 @@ export var listProcessData : Process[] =  [
         createdTime: '2020/05/06 09:00',
         updatedTime: '2020/05/07 17:00',
         updatedBy: 'Nguyễn Văn An',
-        status: 'Đang hoạt động',
+        status: 'maintain',
         categoryId: 1,
          category:{
            id: 1,

@@ -20,32 +20,42 @@ export class ListProcessComponent implements OnInit {
     description:'',
     categoryId: null,
   };
-  newCategory;
+  newCategory='';
+
+  canAddCategory=false;
   errorMessage:string;
   optionFilterSelected:string = 'name';
   optionSortBySelected:string = 'updatedTime';
+
+
   constructor(private route:ActivatedRoute, private authenticationService: AuthenticationService ,private router: Router) { 
    
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.listProcess = listProcessData;
     this.listCategory = categoryData;
     
-
+    this.listProcess.forEach(element => {
+      element.isDel = false;
+    });
   }
 
   ngOnInit(): void {
   }
 
   addProcessHandle(){
+ //   console.log(this.newCategory);
+    
     if(this.newProcess.name == '' || this.newProcess.description == ''){
         this.errorMessage = "Tên quy trình hoặc mô tả không được để trống";
         return;
     }else{
-       if(this.newProcess.categoryId == ''){
+       if(this.newProcess.categoryId == null || this.canAddCategory){
           if(this.newCategory == ''){
             this.errorMessage = "Danh mục không được để trống"
             return;
           }else{
+            this.newProcess.categoryId == null
+
             var newCtg = {
               id: 1 + this.listCategory.map(x=> x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
               name : this.newCategory
@@ -63,11 +73,11 @@ export class ListProcessComponent implements OnInit {
       createdTime: new Date().toISOString(),
       updatedTime: new Date().toISOString(),
       updatedBy: this.currentUser.firstName + ' ' + this.currentUser.lastName,
-      status: 'Đang hoạt động',
+      status: 'maintain',
       categoryId: this.newProcess.categoryId,
       category: this.listCategory.find(x => x.id == this.newProcess.categoryId)
      }
-     console.log(item);
+
      this.listProcess.push(item);
 
      
@@ -78,6 +88,7 @@ export class ListProcessComponent implements OnInit {
       name: 'Khởi tạo',
       description: '',
       canDel:false,
+      isLastPhase:false,
       timeImplementType:'',
       timeImplement: null,
       personImplementType:'all',
@@ -86,12 +97,13 @@ export class ListProcessComponent implements OnInit {
       processId: item.id,
      },
      {
-      id: 1 + phaseData.map(x=> x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
+      id: 2 + phaseData.map(x=> x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
       serial: 2,
       name: 'Hoàn thành',
       description: '',
       timeImplementType:'',
       canDel:false,
+      isLastPhase:true,
         timeImplement: null,
         personImplementType:'all',
       personImplement: [],
@@ -107,7 +119,9 @@ export class ListProcessComponent implements OnInit {
    
   }
 
-
+  deleteProcess(process){
+    this.listProcess.splice(this.listProcess.findIndex(x=> x.id == process.id),1)
+  }
 
   showFilterOption(){
     console.log(this.optionFilterSelected)
@@ -122,5 +136,10 @@ export class ListProcessComponent implements OnInit {
   name(evt){
 
     console.log(evt)
+  }
+
+  test(item){
+    console.log(item.isDel);
+    
   }
 }

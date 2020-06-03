@@ -19,3 +19,8 @@ input[type="text"]{
 textarea{
     width: 95%;
 }
+.field{
+    max-height: 200px;
+   overflow: auto;
+   border-bottom: solid 1px;
+}
