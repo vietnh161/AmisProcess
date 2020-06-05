@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     Page404Component,
     TestComponent,
+    
   ],
   imports: [
     BrowserModule,

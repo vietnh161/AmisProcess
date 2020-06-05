@@ -9,19 +9,3 @@
 margin-top: 9px;
 
 }
-
-#search_input {
-    width: 100%;
-}
-
-.select{
-    margin-top: 0px;
-}
-
-.addModal input[type="text"], textarea{
-    width: 95%;
-}
-
-.border-none{
-    border: none !important;
-}

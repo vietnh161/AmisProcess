@@ -1,20 +1,5 @@
-<h3 class="title">{{ route.snapshot.data['title'] }}</h3>
-<div class="action">
-    <div class="clr-row ">
-        <div class="clr-col-md-2 clr-col-12">
-          <app-add-process></app-add-process>
-        </div>
-        <div class="clr-col-md-8 clr-col-12">
-            <app-search-list [options]="optionsForFilter" (emitterValue)="search($event)" ></app-search-list>
-        </div>
-        <div class="clr-col-md-2 clr-col-12">
-           <app-select [label]="'Sắp xếp theo'"  [options]="optionsForSort" (emitValue)="sort($event)" ></app-select>
-
-        </div>
-    </div>
-
-  <!-- begin modal confirm -->
-  <clr-modal [(clrModalOpen)]="item.isDel" class="confirmModal" *ngFor="let item of listProcess">
+ <!-- begin modal confirm -->
+ <clr-modal [(clrModalOpen)]="item.isDel" class="confirmModal" *ngFor="let item of listProcess">
 
     <h3 class="modal-title" >Bạn có chắc xóa quy trình "{{item.name}}" không?</h3>
 
@@ -66,5 +51,3 @@
             </clr-dg-pagination>
         </clr-dg-footer>
     </clr-datagrid>
-           
-</div>

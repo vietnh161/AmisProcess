@@ -8,8 +8,7 @@ import { ListProcessComponent } from './list-process.component';
 @NgModule({
   declarations: [
 
-   ListProcessComponent
-  
+   ListProcessComponent,
    
   ],
   imports: [
