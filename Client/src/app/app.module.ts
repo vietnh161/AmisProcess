@@ -12,6 +12,10 @@ import { TestComponent } from './test/test.component';
 import { LayoutModule } from './layout/layout.module';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RunProcessComponent } from './run-process/run-process.component';
+import { SearchListComponent } from './common/search/search-list.component';
+import { SelectComponent } from './common/select/select.component';
+import { CustomCommonModule } from './common/common.module';
 
 
 
@@ -22,7 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     Page404Component,
     TestComponent,
-    
+     
   ],
   imports: [
     BrowserModule,

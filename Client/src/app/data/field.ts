@@ -7,6 +7,8 @@ export var fieldData:Field[] = [
         description: '',
         type: 'Date',
         options:[],
+        valueForCheckBox:[],
+        value:'',
         required: true,
         pharseId: 2,
         
@@ -16,6 +18,8 @@ export var fieldData:Field[] = [
         name: 'Ngày kết thúc',
         description: '',
         type: 'Date',
+        value:'',
+        valueForCheckBox:[],
         required: true,
         pharseId: 2,
         options:[],

@@ -17,21 +17,160 @@ export var phaseData: Phase[] = [
             {
                 id: 1,
                 name: 'Ngày bắt đầu',
-                description: '',
+                description: 'test',
                 type: 'Date',
                 options:[],
+                value:'',
+                valueForCheckBox:[],
+
                 required: true,
-                pharseId: 2,
+                pharseId: 1,
                 
             },
             {
                 id: 2,
                 name: 'Ngày kết thúc',
-                description: '',
+                description: 'test test',
                 type: 'Date',
+                value:'',
+                valueForCheckBox:[],
+
                 options:[],
                 required: true,
-                pharseId: 2,
+                pharseId: 1,
+                
+            },
+            // {
+            //     id: 1,
+            //     name: 'Datetime',
+            //     description: '',
+            //     type: 'Datetime',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Time',
+            //     description: '',
+            //     type: 'Time',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 1,
+            //     name: 'Text',
+            //     description: '',
+            //     type: 'Text',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Long Text',
+            //     description: '',
+            //     type: 'Long Text',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Email',
+            //     description: '',
+            //     type: 'Email',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 1,
+            //     name: 'Number',
+            //     description: '',
+            //     type: 'Number',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Attachment',
+            //     description: '',
+            //     type: 'Attachment',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Asignee Select',
+            //     description: '',
+            //     type: 'Asignee Select',
+            //     options:[],
+            //     required: true,
+            //     pharseId: 1,
+                
+            // },
+            {
+                id: 2,
+                name: 'Check Box',
+                description: '',
+                type: 'Check Box',
+                value:'',
+                valueForCheckBox:[],
+                
+                options:[
+                    {
+                        id: 1,
+                        value: 'test checkbox 1',
+                        selected: false
+                    },
+                    {
+                        id: 2,
+                        value: 'test checkbox 2',
+                        selected: true
+                    },
+                    {
+                        id: 3,
+                        value: 'test checkbox 3',
+                        selected: false
+                    },
+                    {
+                        id: 4,
+                        value: 'test checkbox 4',
+                        selected: false
+                    },
+
+
+                ],
+                required: true,
+                pharseId: 1,
+                
+            },
+            {
+                id: 2,
+                name: 'Radio Select',
+                description: '',
+                type: 'Radio Select',
+                value:'',
+                valueForCheckBox:[],
+
+                options:[
+                    'test1',
+                    'test2'
+
+                ],
+                required: true,
+                pharseId: 1,
                 
             }
         ],

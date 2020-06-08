@@ -5,12 +5,14 @@ import { DetailProcessComponent } from './detail-process.component';
 import { DetailProcessRoutingModule } from './detail-process-routing.module';
 import { DetailPhaseComponent } from './detail-phase/detail-phase.component';
 import { FormsModule } from '@angular/forms';
+import { AddFieldComponent } from './detail-phase/add-field/add-field.component';
 
 @NgModule({
     declarations: [
 
         DetailProcessComponent,
-        DetailPhaseComponent
+        DetailPhaseComponent,
+        AddFieldComponent
 
     ],
     imports: [

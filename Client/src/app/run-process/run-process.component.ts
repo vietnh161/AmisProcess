@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {listProcessData} from '../../data/list-process'
-import { phaseData } from '../../data/phase'
-import {categoryData} from '../../data/category'
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/_services';
+import { AuthenticationService } from '../_services';
+import { listProcessData } from '../data/list-process';
+import { categoryData } from '../data/category';
 
 @Component({
-  selector: 'app-list-process',
-  templateUrl: './list-process.component.html',
-  styleUrls: ['./list-process.component.css'],
+  selector: 'app-run-process',
+  templateUrl: './run-process.component.html',
+  styleUrls: ['./run-process.component.css']
 })
-export class ListProcessComponent implements OnInit {
+export class RunProcessComponent implements OnInit {
 
   currentUser;
   listProcess;
@@ -87,6 +86,10 @@ export class ListProcessComponent implements OnInit {
   sort(e){
  // get from api at server
     console.log(e);
+  }
+
+  runProcess(id){
+    this.router.navigateByUrl('/run-process/'+ id);
   }
 
 }

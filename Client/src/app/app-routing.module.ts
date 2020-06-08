@@ -3,17 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { Page404Component } from './page404/page404.component';
-import { HomeComponent } from './home/home.component';
 import { TestComponent } from './test/test.component';
 
 import { AuthGuard } from './_helpers';
 import { from } from 'rxjs';
 import { MainLayoutComponent } from './layout/layout.component';
+import { RunProcessComponent } from './run-process/run-process.component'
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'run-process',
     pathMatch: 'full'
   },
   {
@@ -24,14 +24,14 @@ const routes: Routes = [
     path: 'test',
     component: MainLayoutComponent
   },
-  {
-    path: 'home',
-  // component: HomeComponent,
-   loadChildren: () => import(`./home/home.module`).then(m => m.HomeModule),
-  //  canActivate: [AuthGuard],
-  //   data: {role: [Role.Employee]}
-    //component: ListprocessComponent
-  },
+  // {
+  //   path: 'home',
+  // // component: HomeComponent,
+  //  loadChildren: () => import(`./home/home.module`).then(m => m.HomeModule),
+  // //  canActivate: [AuthGuard],
+  // //   data: {role: [Role.Employee]}
+  //   //component: ListprocessComponent
+  // },
   // {
   //   path: 'list-process',
   //  loadChildren: () => import(`./manage-process/list-process/list-process.module`).then(m => m.ListProcessModule),
@@ -40,6 +40,11 @@ const routes: Routes = [
   {
     path: 'manage-process',
    loadChildren: () => import(`./manage-process/manage-process.module`).then(m => m.ManageProcessModule),
+    
+  },
+  {
+    path: 'run-process',
+    loadChildren: () => import(`./run-process/run-process.module`).then(m=> m.RunProcessModule)
     
   },
   {

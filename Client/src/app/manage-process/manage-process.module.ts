@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AddProcessComponent } from './list-process/add-process/add-process.component';
 import { SearchListComponent } from '../common/search/search-list.component';
 import { SelectComponent } from '../common/select/select.component';
+import { CustomCommonModule } from '../common/common.module';
 
 
 @NgModule({
@@ -17,16 +18,13 @@ import { SelectComponent } from '../common/select/select.component';
    ManageProcessComponent,
   ListProcessComponent,
   AddProcessComponent,
-  SearchListComponent,
-  SelectComponent
-   
   ],
   imports: [
     CommonModule,
     FormsModule,
     ClarityModule,
     ManageProcessRoutingModule,
-    
+    CustomCommonModule
   ],
 })
 export class ManageProcessModule { }

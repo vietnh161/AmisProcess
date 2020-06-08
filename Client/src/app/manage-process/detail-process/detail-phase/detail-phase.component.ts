@@ -28,7 +28,6 @@ export class DetailPhaseComponent implements OnInit {
     optionForTime = 'h';
     optionForPerson;
 
-    types = listType;
 
     constructor(private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, ) {
 
@@ -162,56 +161,10 @@ export class DetailPhaseComponent implements OnInit {
     }
 
 
-    addFieldHandle(phase) {
-
-        phase.errorAddField = '';
-        phase.successAddField = '';
-        if (phase.fieldTemp.name == '' || phase.fieldTemp.type == '') {
-            phase.errorAddField = 'Tên hoặc loại không được để trống';
-        } else {
-
-
-            let newField = <any>{};
-            Object.assign(newField, phase.fieldTemp);
-
-            console.log(newField);
-
-
-            var options = [...phase.fieldTemp.options]
-            // options[1] = 'aa'
-            // console.log(newField);
-            // console.log(options);
-
-            // console.log(newField);
-
-            newField.id = fieldData.map(x => x.id).reduce((a, b) => Math.max(a, b)) + 1;
-            //  fieldData.push(newField);
-            this.phases.find(x => x.id == phase.id).fields.push(newField);
-            console.log(this.phases.find(x => x.id == phase.id).fields);
-            phase.fieldTemp.options = [];
-            phase.fieldTemp.name = '';
-            phase.fieldTemp.description = '';
-            phase.fieldTemp.type = '';
-            phase.fieldTemp.required = false;
-            phase.successAddField = 'Thành công';
-        }
-
-
-    }
 
     deleteFieldHandle(phase, id) {
         var listField = this.phases.find(x => x.id == phase.id).fields;
         listField.splice(listField.findIndex(x => x.id == id), 1)
-    }
-
-    addOptionForField(field, event) {
-        if (event.keyCode == 13) {
-            if (field.fieldTemp.valueOption != '') {
-                field.fieldTemp.options.push(field.fieldTemp.valueOption);
-                field.fieldTemp.valueOption = '';
-            }
-
-        }
     }
 
 

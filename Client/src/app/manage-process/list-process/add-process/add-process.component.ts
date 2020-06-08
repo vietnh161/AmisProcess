@@ -36,10 +36,6 @@ export class AddProcessComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.listProcess = listProcessData;
         this.listCategory = categoryData;
-
-        this.listProcess.forEach(element => {
-            element.isDel = false;
-        });
     }
 
     ngOnInit(): void {
