@@ -20,9 +20,6 @@ export var phaseData: Phase[] = [
                 description: 'test',
                 type: 'Date',
                 options:[],
-                value:'',
-                valueForCheckBox:[],
-
                 required: true,
                 pharseId: 1,
                 
@@ -32,9 +29,6 @@ export var phaseData: Phase[] = [
                 name: 'Ngày kết thúc',
                 description: 'test test',
                 type: 'Date',
-                value:'',
-                valueForCheckBox:[],
-
                 options:[],
                 required: true,
                 pharseId: 1,
@@ -110,44 +104,39 @@ export var phaseData: Phase[] = [
             //     pharseId: 1,
                 
             // },
-            // {
-            //     id: 2,
-            //     name: 'Asignee Select',
-            //     description: '',
-            //     type: 'Asignee Select',
-            //     options:[],
-            //     required: true,
-            //     pharseId: 1,
-                
-            // },
             {
-                id: 2,
+                id: 12,
+                name: 'Asignee Select',
+                description: '',
+                type: 'Asignee Select',
+                options:[],
+                required: true,
+                pharseId: 1,
+                
+            },
+            {
+                id: 10,
                 name: 'Check Box',
                 description: '',
                 type: 'Check Box',
-                value:'',
-                valueForCheckBox:[],
-                
                 options:[
                     {
                         id: 1,
                         value: 'test checkbox 1',
-                        selected: false
                     },
                     {
                         id: 2,
                         value: 'test checkbox 2',
-                        selected: true
                     },
                     {
                         id: 3,
                         value: 'test checkbox 3',
-                        selected: false
+                      
                     },
                     {
                         id: 4,
                         value: 'test checkbox 4',
-                        selected: false
+                       
                     },
 
 
@@ -157,16 +146,19 @@ export var phaseData: Phase[] = [
                 
             },
             {
-                id: 2,
+                id: 11,
                 name: 'Radio Select',
                 description: '',
                 type: 'Radio Select',
-                value:'',
-                valueForCheckBox:[],
-
                 options:[
-                    'test1',
-                    'test2'
+                    {
+                        id: 5,
+                        value: 'test radio 1',
+                    },
+                    {
+                        id: 6,
+                        value: 'test radio 2',
+                    },
 
                 ],
                 required: true,
@@ -222,6 +214,12 @@ export var phaseData: Phase[] = [
                 id: 3,
                 employeeCode:'3',
                 firstName: 'Bảo',
+                lastName: 'Lê Ngọc',
+            },
+            {
+                id: 4,
+                employeeCode:'4',
+                firstName: 'Test',
                 lastName: 'Lê Ngọc',
             },
         ],

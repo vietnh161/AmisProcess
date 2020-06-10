@@ -5,11 +5,11 @@ import { listProcessData } from '../data/list-process';
 import { categoryData } from '../data/category';
 
 @Component({
-  selector: 'app-run-process',
-  templateUrl: './run-process.component.html',
-  styleUrls: ['./run-process.component.css']
+  selector: 'app-handle-process',
+  templateUrl: './handle-process.component.html',
+  styleUrls: ['./handle-process.component.css']
 })
-export class RunProcessComponent implements OnInit {
+export class HandleProcessComponent implements OnInit {
 
   currentUser;
   listProcess;
@@ -88,9 +88,8 @@ export class RunProcessComponent implements OnInit {
     console.log(e);
   }
 
-  runProcess(item){
-    if(item.status == 'active')
-    this.router.navigateByUrl('/run-process/'+ item.id);
+  runProcess(id){
+    this.router.navigateByUrl('/run-process/'+ id);
   }
 
 }

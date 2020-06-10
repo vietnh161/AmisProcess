@@ -1,0 +1,16 @@
+.border-right{
+    border-right: solid 1px;
+}
+
+.title {
+    margin-top: 0px;
+}
+.action {
+margin-top: 9px;
+
+}
+.btn-custom{
+    margin: 0;
+    border: none;
+    /* height: 16px; */
+}

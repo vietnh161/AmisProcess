@@ -43,6 +43,11 @@ const routes: Routes = [
     
   },
   {
+    path: 'handle-process',
+    loadChildren: () => import(`./handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
+    
+  },
+  {
     path: 'run-process',
     loadChildren: () => import(`./run-process/run-process.module`).then(m=> m.RunProcessModule)
     

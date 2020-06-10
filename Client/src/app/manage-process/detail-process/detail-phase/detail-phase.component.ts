@@ -31,6 +31,9 @@ export class DetailPhaseComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, ) {
 
+        console.log(this.phases);
+        
+
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.listEmployee = employeeData;
 

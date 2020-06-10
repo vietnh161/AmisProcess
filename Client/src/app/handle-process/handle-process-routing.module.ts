@@ -4,8 +4,8 @@ import { NgModule, Component } from '@angular/core';
 import { AuthGuard } from '../_helpers/auth.guard';
 
 import { MainLayoutComponent } from '../layout/layout.component';
-import { RunProcessComponent } from './run-process.component';
-import { DetailRunComponent } from './detail-run/detail-run.component';
+import { HandleProcessComponent } from './handle-process.component';
+import { DetailHandleComponent } from './detail-handle/detail-handle.component';
 
 
 const routes: Routes = [
@@ -25,12 +25,12 @@ const routes: Routes = [
                 {
                     title: 'Danh sách quy trình',
                 },
-                component: RunProcessComponent,
+                component: HandleProcessComponent,
 
             },
             {
                 path: ':id',
-                component: DetailRunComponent,
+                component: DetailHandleComponent,
 
             }
         ]
@@ -42,6 +42,6 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class RunProcessRoutingModule {
+export class HandleProcessRoutingModule {
 
 }

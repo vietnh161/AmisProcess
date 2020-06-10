@@ -11,14 +11,14 @@ import { SelectComponent } from '../common/select/select.component';
 import { RunProcessComponent } from './run-process.component';
 import { RunProcessRoutingModule } from './run-process-routing.module';
 import { CustomCommonModule } from '../common/common.module';
-import { FirstPhaseComponent } from './first-phase/first-phase.component';
+import { DetailRunComponent } from './detail-run/detail-run.component';
 
 
 @NgModule({
     declarations: [
 
         RunProcessComponent,
-        FirstPhaseComponent
+        DetailRunComponent
 
     ],
     imports: [

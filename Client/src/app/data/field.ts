@@ -7,10 +7,8 @@ export var fieldData:Field[] = [
         description: '',
         type: 'Date',
         options:[],
-        valueForCheckBox:[],
-        value:'',
         required: true,
-        pharseId: 2,
+        pharseId: 1,
         
     },
     {
@@ -18,10 +16,68 @@ export var fieldData:Field[] = [
         name: 'Ngày kết thúc',
         description: '',
         type: 'Date',
-        value:'',
-        valueForCheckBox:[],
         required: true,
-        pharseId: 2,
+        pharseId: 1,
         options:[],
-    }
+    },
+    {
+        id: 10,
+        name: 'Check Box',
+        description: '',
+        type: 'Check Box',
+        options:[
+            {
+                id: 1,
+                value: 'test checkbox 1',
+            },
+            {
+                id: 2,
+                value: 'test checkbox 2',
+            },
+            {
+                id: 3,
+                value: 'test checkbox 3',
+              
+            },
+            {
+                id: 4,
+                value: 'test checkbox 4',
+               
+            },
+
+
+        ],
+        required: true,
+        pharseId: 1,
+        
+    },
+    {
+        id: 11,
+        name: 'Radio Select',
+        description: '',
+        type: 'Radio Select',
+        options:[
+            {
+                id: 5,
+                value: 'test radio 1',
+            },
+            {
+                id: 6,
+                value: 'test radio 2',
+            },
+        ],
+        required: true,
+        pharseId: 1,
+        
+    },
+    {
+        id: 12,
+        name: 'Asignee Select',
+        description: '',
+        type: 'Asignee Select',
+        options:[],
+        required: true,
+        pharseId: 1,
+        
+    },
 ]

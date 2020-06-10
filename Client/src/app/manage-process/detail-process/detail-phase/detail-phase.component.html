@@ -45,7 +45,7 @@
                                 {{field.type}} <clr-icon shape="close" (click)="deleteFieldHandle(item,field.id)"
                                     style="cursor: pointer;"></clr-icon>
                                     <ul>
-                                        <li *ngFor="let option of field.options"> {{option}}</li>
+                                        <li *ngFor="let option of field.options"> {{option.value}}</li>
                                     </ul>
                             </li>
                         </ul>
@@ -65,6 +65,7 @@
                             </select>
                         </clr-select-container>
                     </div>
+                    <div *ngIf="item.serial != 1">
                     <clr-radio-container clrInline class=" clr-col-12 clr-col-md-6">
                         <label>Người thực hiện</label>
                         <clr-radio-wrapper>
@@ -109,7 +110,7 @@
                             </ul>
                         </div>
                     </div>
-
+                </div>
                     <button class="btn btn-primary btn-sm" (click)="submitHandle(item)">Lưu lại</button>
                     <button class="btn btn-primary btn-sm" (click)="cancelHandle($event)">Hủy</button>
                     <button class="btn btn-primary btn-sm" (click)="deleteHandle(item)" *ngIf="item.canDel == true" >Xóa</button>

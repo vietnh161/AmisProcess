@@ -3,9 +3,7 @@ export class Field {
     name: string;
     description: string;
     options: any[];
-    valueForCheckBox:string[];
     type: string;
-    value:string;
     required: boolean;
     pharseId: number;
 }
