@@ -32,4 +32,10 @@ export var employeeData : Employee[] = [
         firstName: 'An',
         lastName: 'Lê Văn An',
     },
+    {
+        id: 8,
+        employeeCode:'8',
+        firstName: 'Test',
+        lastName: 'User',
+    },
 ];

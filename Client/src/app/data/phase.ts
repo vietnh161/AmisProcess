@@ -166,6 +166,21 @@ export var phaseData: Phase[] = [
                 
             }
         ],
+        process: {
+            id: 1,
+            name: 'Quy trình xin cấp tài sản',
+            description:'Quy trình giúp cho việc xin cấp tài sản như...cho nhân viên',
+            createdBy:'Nguyễn Văn An',
+            createdTime: '2020/01/01 07:00',
+            updatedTime: '2020/01/11 12:00',
+            updatedBy: 'Nguyễn Văn An',
+            status: 'active',
+            categoryId: 1,
+             category:{
+               id: 1,
+               name: 'Tài sản',
+             }
+          },
     },
     {
         id: 2,
@@ -184,6 +199,21 @@ export var phaseData: Phase[] = [
             
         ],
         processId: 1,
+        process: {
+            id: 1,
+            name: 'Quy trình xin cấp tài sản',
+            description:'Quy trình giúp cho việc xin cấp tài sản như...cho nhân viên',
+            createdBy:'Nguyễn Văn An',
+            createdTime: '2020/01/01 07:00',
+            updatedTime: '2020/01/11 12:00',
+            updatedBy: 'Nguyễn Văn An',
+            status: 'active',
+            categoryId: 1,
+             category:{
+               id: 1,
+               name: 'Tài sản',
+             }
+          },
 
     },
     {
@@ -222,11 +252,32 @@ export var phaseData: Phase[] = [
                 firstName: 'Test',
                 lastName: 'Lê Ngọc',
             },
+            {
+                id: 4,
+                employeeCode:'8',
+                firstName: 'Test',
+                lastName: 'User',
+            },
         ],
         fields: [
 
         ],
         processId: 1,
+        process: {
+            id: 1,
+            name: 'Quy trình xin cấp tài sản',
+            description:'Quy trình giúp cho việc xin cấp tài sản như...cho nhân viên',
+            createdBy:'Nguyễn Văn An',
+            createdTime: '2020/01/01 07:00',
+            updatedTime: '2020/01/11 12:00',
+            updatedBy: 'Nguyễn Văn An',
+            status: 'active',
+            categoryId: 1,
+             category:{
+               id: 1,
+               name: 'Tài sản',
+             }
+          },
 
     },
     {
@@ -246,6 +297,21 @@ export var phaseData: Phase[] = [
             
         ],
         processId: 1,
+        process: {
+            id: 1,
+            name: 'Quy trình xin cấp tài sản',
+            description:'Quy trình giúp cho việc xin cấp tài sản như...cho nhân viên',
+            createdBy:'Nguyễn Văn An',
+            createdTime: '2020/01/01 07:00',
+            updatedTime: '2020/01/11 12:00',
+            updatedBy: 'Nguyễn Văn An',
+            status: 'active',
+            categoryId: 1,
+             category:{
+               id: 1,
+               name: 'Tài sản',
+             }
+          },
 
     },
      

@@ -1,3 +1,5 @@
+import { Phase } from './phase';
+
 export  class PhaseEmployee {
     
         id : number;
@@ -7,5 +9,6 @@ export  class PhaseEmployee {
         createdTime: string;
         updatedTime: string;
         updatedBy: string;
+        phase: Phase;
     
 }

@@ -52,27 +52,30 @@ console.log( this.phase);
   }
 
   submitHandle(){
-
+    console.log(this.phase);
+    
     //  console.log(this.field_employee);
     var newItem1: PhaseEmployee = {
-      id : 1+  phaseEmployeeData.map(x => x.id).reduce((x,y) => Math.max(x,y)),
-      employeeCode: this.currentUser.employeeCode,
+      id : (phaseEmployeeData.length > 0)? 1+  phaseEmployeeData.map(x => x.id).reduce((x,y) => Math.max(x,y)): 1,
+      employeeCode: '',
       phaseId: this.phase.id,
       createdBy: this.currentUser.firstName + ' ' + this.currentUser.lastName ,
       createdTime: new Date().toString(),
       updatedTime: new Date().toString(),
       updatedBy: this.currentUser.firstName + ' ' + this.currentUser.lastName ,
+      phase: this.phase
     }
     phaseEmployeeData.push(newItem1)
 
     var newItem: PhaseEmployee = {
       id : 1+  phaseEmployeeData.map(x => x.id).reduce((x,y) => Math.max(x,y)),
-      employeeCode: this.field_employee.find(x => x.field.type == "Asignee Select").value,
+      employeeCode: this.phase.fields.find(x => x.type == "Asignee Select").value,
       phaseId: this.nextPhase.id,
       createdBy: this.currentUser.firstName + ' ' + this.currentUser.lastName ,
       createdTime: new Date().toString(),
       updatedTime: new Date().toString(),
       updatedBy: this.currentUser.firstName + ' ' + this.currentUser.lastName ,
+      phase: this.nextPhase
     }
 
     phaseEmployeeData.push(newItem)

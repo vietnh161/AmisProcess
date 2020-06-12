@@ -46,7 +46,7 @@ export class DetailProcessComponent implements OnInit {
             this.process.updatedTime= new Date();
           //  this.process.updatedBy = 
 
-
+          this.process.status = this.currentProcessStatus
 
         }else{
              this.currentProcessStatus = this.process.status ; 

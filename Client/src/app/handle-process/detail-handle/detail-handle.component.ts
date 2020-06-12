@@ -51,17 +51,17 @@ export class DetailHandleComponent implements OnInit {
 
     //  console.log(this.field_employee);
 
-    phaseEmployeeData.push(
-        {
-          id : 1+  phaseEmployeeData.map(x => x.id).reduce((x,y) => Math.max(x,y)),
-          employeeCode: this.field_employee.find(x => x.field.type == "Asignee Select").value,
-          phaseId: this.nextPhase.id,
-          createdBy:this.currentUser.firstName + ' ' +this.currentUser.lastName,
-          createdTime: new Date().toString(),
-          updatedTime: new Date().toString(),
-          updatedBy: this.currentUser.firstName + ' ' +this.currentUser.lastName,
-        }
-      )
+    // phaseEmployeeData.push(
+    //     {
+    //       id : 1+  phaseEmployeeData.map(x => x.id).reduce((x,y) => Math.max(x,y)),
+    //       employeeCode: this.field_employee.find(x => x.field.type == "Asignee Select").value,
+    //       phaseId: this.nextPhase.id,
+    //       createdBy:this.currentUser.firstName + ' ' +this.currentUser.lastName,
+    //       createdTime: new Date().toString(),
+    //       updatedTime: new Date().toString(),
+    //       updatedBy: this.currentUser.firstName + ' ' +this.currentUser.lastName,
+    //     }
+    //   )
       console.log(phaseEmployeeData);
   }
   setValueCheckBox(item, optionId,e){

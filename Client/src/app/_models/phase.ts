@@ -1,5 +1,6 @@
 import { Field } from './field';
 import { Employee } from './employee';
+import { Process } from './process';
 
 export class Phase {
     
@@ -15,5 +16,6 @@ export class Phase {
     personImplement: Employee[];
     fields: Field[];
     processId:number;
+    process: Process;
 
 }

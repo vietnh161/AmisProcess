@@ -39,14 +39,15 @@
         <clr-dg-column>Thời gian tạo</clr-dg-column>
         <clr-dg-column>Còn lại</clr-dg-column>
         <clr-dg-column>Danh mục</clr-dg-column>
-        <clr-dg-row *clrDgItems="let item of listProcess" (click)="runProcess(item)">
+        <clr-dg-row *clrDgItems="let item of listProcessHandle" (click)="runProcess(item)">
 
-            <clr-dg-cell>{{item.name}}</clr-dg-cell>
-            <clr-dg-cell>{{item.description}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.process.name}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.description}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.name}}</clr-dg-cell>
             <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
-            <clr-dg-cell>{{item.status}}</clr-dg-cell>
-            <clr-dg-cell>{{item.category.name}}</clr-dg-cell>
-                  
+            <clr-dg-cell>{{item.createdTime |  date : 'medium'}}</clr-dg-cell>
+            <clr-dg-cell>{{Date.now()}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.process.category.name}}</clr-dg-cell>   
             
         </clr-dg-row>
 

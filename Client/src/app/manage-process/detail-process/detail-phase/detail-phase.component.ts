@@ -43,6 +43,7 @@ export class DetailPhaseComponent implements OnInit {
         this.process = listProcessData.find(x => x.id == this.processId);
         if (this.process == null) {
             this.router.navigateByUrl('notfound');
+
         }
 
         for (let i = 0; i < phaseData.length; i++) {
@@ -58,6 +59,9 @@ export class DetailPhaseComponent implements OnInit {
             return el != null;
         });
 
+        if(this.phaseSerial > this.phases.map(x=> x.serial).reduce((x,y) => Math.max(x,y)) ){
+            this.router.navigateByUrl('notfound');
+        }
 
         if (this.mode == 'edit') {
 

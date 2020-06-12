@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../_services';
 import { listProcessData } from '../data/list-process';
 import { categoryData } from '../data/category';
+import { PhaseEmployee } from '../_models/phase-employee';
+import { phaseEmployeeData } from '../data/phase-emloyee';
 
 @Component({
   selector: 'app-handle-process',
@@ -12,7 +14,7 @@ import { categoryData } from '../data/category';
 export class HandleProcessComponent implements OnInit {
 
   currentUser;
-  listProcess;
+  listProcessHandle;
   listCategory;
 
   canAddCategory=false;
@@ -59,22 +61,18 @@ export class HandleProcessComponent implements OnInit {
   constructor(private route:ActivatedRoute, private authenticationService: AuthenticationService ,private router: Router) { 
    
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.listProcess = listProcessData;
+    this.listProcessHandle = phaseEmployeeData.filter(x => x.employeeCode == this.currentUser.employeeCode);
+
     this.listCategory = categoryData;
     
-    this.listProcess.forEach(element => {
-      element.isDel = false;
-    });
+    console.log( this.listProcessHandle);
+    
     
   }
 
   ngOnInit(): void {
   }
 
-
-  deleteProcess(process){
-    this.listProcess.splice(this.listProcess.findIndex(x=> x.id == process.id),1)
-  }
 
   search(e){
 

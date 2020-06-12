@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/_services';
 import { listProcessData } from 'src/app/data/list-process';
 import { categoryData } from 'src/app/data/category';
 import { phaseData } from 'src/app/data/phase';
+import { Process } from 'src/app/_models';
 
 
 
@@ -65,9 +66,10 @@ export class AddProcessComponent implements OnInit {
                 }
             }
         }
-        var item = {
+        var item:Process = {
             id: 1 + this.listProcess.map(x => x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
             name: this.newProcess.name,
+            description: ' ',
             createdBy: this.currentUser.firstName + ' ' + this.currentUser.lastName,
             createdTime: new Date().toISOString(),
             updatedTime: new Date().toISOString(),
@@ -94,6 +96,7 @@ export class AddProcessComponent implements OnInit {
                 personImplement: [],
                 fields: [],
                 processId: item.id,
+                process: item
             },
             {
                 id: 2 + phaseData.map(x => x.id).reduce((accumulator, currentValue) => Math.max(accumulator, currentValue)),
@@ -108,6 +111,7 @@ export class AddProcessComponent implements OnInit {
                 personImplement: [],
                 fields: [],
                 processId: item.id,
+                process: item
             },
         ]
         phaseData.push(newPhase[0])

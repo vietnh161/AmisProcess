@@ -29,3 +29,8 @@ margin-top: 9px;
 .border-none{
     border: none !important;
 }
+
+.button-add{
+    margin-top: 20px;
+    padding-left: 0px;
+}
