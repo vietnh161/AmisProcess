@@ -1,0 +1,68 @@
+<h3 class="title">{{process.name}}</h3>
+<p>Người tạo: {{ process.createdBy}}</p>
+<p>Thời gian tạo: {{ process.createdTime | date:'medium'}}</p>
+<p>Chỉnh sửa gần nhất: {{ process.updatedTime | date:'medium'}} bởi {{ process.updatedBy}}</p>
+<p>Trạng thái: 
+ <clr-select-container style="display: inline-block;margin-top: 0px;">
+    <select clrSelect name="options" [(ngModel)]="currentProcessStatus" (change)="showModal = true">
+      <option value="active">Hoạt động</option>
+      <option value="stop">Dừng</option>
+      <option value="maintain">Bảo trì</option>
+    </select>
+  </clr-select-container></p>
+ 
+<clr-modal [(clrModalOpen)]="showModal" class="addModal">
+
+    <h3 class="modal-title" >Bạn có chắc rằng thay đổi</h3>
+
+    <div class="modal-body">
+       <p>Thao tác không thể hoàn lại</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="showModal = false;changeStatus(showModal)">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="changeStatus(showModal); showModal=false">Ok</button>
+    </div>
+</clr-modal>
+
+<div class="clr-row">
+    <div class="clr-col-lg-3 clr-col-md-4 clr-col-12" *ngFor="let item of phases">
+        <div class="clr-row">
+        <div class="clr-col-md-10  clr-col-10">
+        <div class="card">
+            <div class="card-header title">
+               {{item.serial + '. ' + item.name}}
+            </div>
+            <div class="card-block">
+                <div class="card-title">
+                   {{item.description}}
+                </div>
+                <div class="card-text">
+                   
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm" *ngIf="!item.isLastPhase" (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/edit/' + item.serial)">Sửa</button>
+                <button class="btn btn-sm" *ngIf="item.canDel" (click)="item.isDel = true">Xóa</button>
+                <clr-modal [(clrModalOpen)]="item.isDel" class="addModal">
+
+                    <h3 class="modal-title" >Bạn có chắc xóa giai đoạn "{{item.name}}" không?</h3>
+        
+                    <div class="modal-body">
+                       <p>Thao tác không thể hoàn lại</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" (click)="item.isDel = false">Cancel</button>
+                        <button type="button" class="btn btn-primary" (click)="deletePhaseHandle(item)">Ok</button>
+                    </div>
+                </clr-modal>
+            </div>
+          </div>
+        </div>
+        <div class="clr-col-md-2 clr-col-2  button-add">
+            <button type="button" class="btn btn-icon" *ngIf="!item.isLastPhase" (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/add/' + item.serial)" aria-label="home">
+                <clr-icon shape="plus-circle"></clr-icon>
+            </button>  
+        </div>
+    </div>
+    </div>
+</div>

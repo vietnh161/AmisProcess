@@ -5,18 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms'
+import { EffectsModule } from '@ngrx/effects';
 
-import { LoginComponent } from './login/login.component';
-import { Page404Component } from './page404/page404.component';
-import { TestComponent } from './test/test.component';
-import { LayoutModule } from './layout/layout.module';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RunProcessComponent } from './run-process/run-process.component';
-import { SearchListComponent } from './common/search/search-list.component';
-import { SelectComponent } from './common/select/select.component';
-import { CustomCommonModule } from './common/common.module';
-
+import { LayoutModule } from './pages/main-page/layout.module';
+import { Page404Component } from './pages/page404/page404.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthEffects } from './store/effects/auth.effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.states';
 
 
 
@@ -25,7 +23,6 @@ import { CustomCommonModule } from './common/common.module';
     AppComponent,
     LoginComponent,
     Page404Component,
-    TestComponent,
      
   ],
   imports: [
@@ -37,7 +34,8 @@ import { CustomCommonModule } from './common/common.module';
     LayoutModule,
     ClarityModule,
     BrowserAnimationsModule,
-   
+    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot( reducers, {})
   ],
   providers: [
 

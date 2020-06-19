@@ -1,0 +1,26 @@
+
+
+.box {
+    /* width: 30%;
+    position:fixed;
+    top: 25%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; 
+    margin-left: -15em; 
+    border: 1px solid #ccc;
+    background-color: #f3f3f3; */
+
+    width: 40%;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    margin: auto;
+    margin-top: 20px;
+    /* height: 500px; */
+     
+}
+
+.custom-spinner{
+    margin: auto !important;
+}

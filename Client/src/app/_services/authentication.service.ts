@@ -8,6 +8,7 @@ import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
@@ -20,28 +21,19 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(username: string, password: string) {
+    login(username: string, password: string): Observable<any> {
         var user = {
             username: username,
             password: password
         }
         const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
-        return this.http.post<any>(`${environment.apiUrl}/account/authenticate`, user, httpOptions)
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
-
-                return user;
-            }));
+        return this.http.post<any>(`${environment.apiUrl}/account/authenticate`, user, httpOptions);
+           
     }
 
     logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+        
+        // localStorage.removeItem('currentUser');
+        // this.currentUserSubject.next(null);
     }
 }

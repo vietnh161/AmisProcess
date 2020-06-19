@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
-import { Page404Component } from './page404/page404.component';
-import { TestComponent } from './test/test.component';
+
 
 import { AuthGuard } from './_helpers';
 import { from } from 'rxjs';
-import { MainLayoutComponent } from './layout/layout.component';
-import { RunProcessComponent } from './run-process/run-process.component'
+
+import { LoginComponent } from './pages/login/login.component';
+import { MainLayoutComponent } from './pages/main-page/layout.component';
+import { Page404Component } from './pages/page404/page404.component';
 
 const routes: Routes = [
   {
@@ -19,10 +19,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'test',
-    component: MainLayoutComponent
   },
   // {
   //   path: 'home',
@@ -39,17 +35,17 @@ const routes: Routes = [
   // },
   {
     path: 'manage-process',
-   loadChildren: () => import(`./manage-process/manage-process.module`).then(m => m.ManageProcessModule),
+   loadChildren: () => import(`./components/manage-process/manage-process.module`).then(m => m.ManageProcessModule),
     
   },
   {
     path: 'handle-process',
-    loadChildren: () => import(`./handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
+    loadChildren: () => import(`./components/handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
     
   },
   {
     path: 'run-process',
-    loadChildren: () => import(`./run-process/run-process.module`).then(m=> m.RunProcessModule)
+    loadChildren: () => import(`./components/run-process/run-process.module`).then(m=> m.RunProcessModule)
     
   },
   {

@@ -3,4 +3,5 @@ export class Employee {
     employeeCode: string;
     firstName: string;
     lastName: string;
+    userId: number;
 }

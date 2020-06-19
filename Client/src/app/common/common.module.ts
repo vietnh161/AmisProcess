@@ -5,6 +5,7 @@ import { ClarityModule } from '@clr/angular';
 import { SearchListComponent } from './search/search-list.component';
 import { SelectComponent } from './select/select.component';
 import { FormsModule } from '@angular/forms';
+import { AutofocusDirectiveModule } from './directive/autofocus.directive';
 
 
 @NgModule({
@@ -12,12 +13,12 @@ import { FormsModule } from '@angular/forms';
 
    SearchListComponent,
    SelectComponent,
-   
   ],
   imports: [
     CommonModule,
     ClarityModule,
-    FormsModule
+    FormsModule,
+    AutofocusDirectiveModule
   ],
   exports:[
     SearchListComponent,

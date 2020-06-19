@@ -232,35 +232,66 @@ export var phaseData: Phase[] = [
                 employeeCode:'1',
                 firstName: 'Quang',
                 lastName: 'Lê Thanh',
-        
+                userId:1
             },
             {
                 id: 2,
                 employeeCode:'2',
                 firstName: 'Hà',
                 lastName: 'Hồ Quang',
+                userId:2
             },
             {
                 id: 3,
                 employeeCode:'3',
                 firstName: 'Bảo',
                 lastName: 'Lê Ngọc',
+                userId:3
             },
             {
                 id: 4,
                 employeeCode:'4',
-                firstName: 'Test',
-                lastName: 'Lê Ngọc',
+                firstName: 'Hưng',
+                lastName: 'Nguyễn Văn',
+                userId:4
             },
             {
-                id: 4,
+                id: 5,
+                employeeCode:'5',
+                firstName: 'An',
+                lastName: 'Lê Văn An',
+                userId:5
+            },
+            {
+                id: 8,
                 employeeCode:'8',
                 firstName: 'Test',
                 lastName: 'User',
+                userId:6
             },
         ],
         fields: [
-
+            
+                {
+                    id: 11,
+                    name: 'Radio Select',
+                    description: '',
+                    type: 'Radio Select',
+                    options:[
+                        {
+                            id: 5,
+                            value: 'test radio 1',
+                        },
+                        {
+                            id: 6,
+                            value: 'test radio 2',
+                        },
+                    ],
+                    required: true,
+                    pharseId: 1,
+                    
+                },
+            
         ],
         processId: 1,
         process: {
