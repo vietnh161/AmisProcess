@@ -1,0 +1,63 @@
+<h3 class="title">{{ route.snapshot.data['title'] }}</h3>
+<div class="action">
+    <div class="clr-row ">
+        <div class="clr-col-md-2 clr-col-12">
+        
+        </div>
+        <div class="clr-col-md-8 clr-col-12">
+            <app-search-list [options]="optionsForFilter" (emitterValue)="search($event)" ></app-search-list>
+        </div>
+        <div class="clr-col-md-2 clr-col-12">
+           <misa-selectbox [label]="'Sắp xếp theo'"  [options]="optionsForSort" (emitValue)="sort($event)" ></misa-selectbox>
+
+        </div>
+    </div>
+
+  <!-- begin modal confirm -->
+  <clr-modal [(clrModalOpen)]="item.isDel" class="confirmModal" *ngFor="let item of listProcess">
+
+    <h3 class="modal-title" >Bạn có chắc xóa quy trình "{{item.name}}" không?</h3>
+
+    <div class="modal-body">
+       <p>Thao tác không thể hoàn lại</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="item.isDel = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="deleteProcess(item)">Ok</button>
+    </div>
+</clr-modal>
+
+<!-- end modal confirm  -->
+
+</div>
+<div>
+    <clr-datagrid >
+        <clr-dg-column>Tên quy trình</clr-dg-column>
+        <clr-dg-column>Mô tả</clr-dg-column>
+        <clr-dg-column>Giai đoạn</clr-dg-column>
+        <clr-dg-column>Người tạo</clr-dg-column>
+        <clr-dg-column>Thời gian tạo</clr-dg-column>
+        <clr-dg-column>Còn lại</clr-dg-column>
+        <clr-dg-column>Danh mục</clr-dg-column>
+        <clr-dg-row *clrDgItems="let item of listProcessHandle" (click)="handleProcess(item.id)">
+
+            <clr-dg-cell>{{item.phase.process.name}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.description}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.name}}</clr-dg-cell>
+            <clr-dg-cell>{{item.createdBy}}</clr-dg-cell>
+            <clr-dg-cell>{{item.createdTime |  date : 'medium'}}</clr-dg-cell>
+            <clr-dg-cell>{{getTimeRemaining(item.createdTime)}}</clr-dg-cell>
+            <clr-dg-cell>{{item.phase.process.category.name}}</clr-dg-cell>   
+            
+        </clr-dg-row>
+
+        <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Item per page</clr-dg-page-size>
+                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                of {{pagination.totalItems}} items
+            </clr-dg-pagination>
+        </clr-dg-footer>
+    </clr-datagrid>
+           
+</div>

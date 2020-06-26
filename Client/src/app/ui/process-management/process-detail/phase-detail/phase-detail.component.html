@@ -1,0 +1,127 @@
+<h3 class="title">Thêm giai đoạn</h3>
+
+<clr-tabs>
+    <clr-tab *ngFor="let item of listPhase">
+        <button clrTabLink>{{item.name}}</button>
+        <ng-template [(clrIfActive)]="item.active">
+            <clr-tab-content>
+                <form clrForm clrLayout="vertical">
+                    <clr-alert *ngIf="item.errorAddPhase" clrAlertType="danger">
+                        <div class="alert-item">
+                            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                            <span class="alert-text">
+                               {{item.errorAddPhase}}
+                            </span>
+                            
+                        </div>
+                    </clr-alert>
+                   
+                    <clr-input-container>
+                        <label class="clr-col-12 clr-col-md-4">Tên</label>
+                        <input class="clr-col-12 clr-col-md-4" clrInput type="text" [(ngModel)]="item.name"
+                            name="item.name" appAutoFocus required *ngIf="!item.isLastPhase" (keyup)="resetError(item)" />
+                        <input class="clr-col-12 clr-col-md-4" clrInput type="text" [ngModel]="item.name"
+                            name="item.name" appAutoFocus disabled *ngIf="item.isLastPhase" />
+                    </clr-input-container>
+                    <clr-textarea-container>
+                        <label class="clr-col-12 clr-col-md-4">Mô tả</label>
+                        <textarea class="clr-col-12 clr-col-md-4" clrTextarea [(ngModel)]="item.description"
+                            name="description" (keyup)="resetError(item)" required></textarea>
+                    </clr-textarea-container>
+                    <div class="clr-col-12 clr-col-md-6">
+                        <clr-input-container *ngIf="!item.isLastPhase">
+                            <label>Các trường</label>
+                        </clr-input-container>
+
+                        <!-- add new field  -->
+                        <button class="btn btn-primary btn-sm" style="display: none;">Thêm trường mới</button>
+                        <button class="btn btn-primary btn-sm" (click)="$event.preventDefault(); showModalAdd = true"
+                            *ngIf="!item.isLastPhase">Thêm trường mới</button>
+                        <!-- begin  add field -->
+                        <app-add-field [phases]="listPhase" [phase]="item" [open]="showModalAdd"
+                            (close)="showModalAdd=false" (test)="test($e)"></app-add-field>
+
+                        <!-- end  add field -->
+                    </div>
+                    <div *ngIf="!item.isLastPhase">
+
+                        <!-- begin list field -->
+                        <div class="field clr-col-12 clr-col-md-4">
+                            <app-list-field [fields]="item.field" (onDeleteField)="deleteFieldHandle(item,$event)">
+                            </app-list-field>
+                        </div>
+                        <!-- end list field -->
+                        <div class=" clr-col-12 clr-col-md-6">
+                            <clr-input-container class="inline-block">
+                                <label>Thời gian thực hiện</label>
+                                <input clrInput type="number" [(ngModel)]="item.timeImplement" name="item.timeImplement" (keyup)="resetError(item)"
+                                    required />
+                            </clr-input-container>
+                            <clr-select-container class="inline-block">
+                                <select clrSelect name="options" [(ngModel)]="item.timeImplementType">
+                                    <option value="h">Giờ</option>
+                                    <option value="d">Ngày</option>
+                                    <option value="m">Tháng</option>
+                                </select>
+                            </clr-select-container>
+                        </div>
+                        <div *ngIf="item.serial != 1">
+                            <clr-radio-container clrInline class=" clr-col-12 clr-col-md-6">
+                                <label>Người thực hiện</label>
+                                <clr-radio-wrapper>
+                                    <input type="radio" clrRadio name="options" required value="all"
+                                        [(ngModel)]="item.personImplementType" />
+                                    <label>Tất cả</label>
+                                </clr-radio-wrapper>
+                                <clr-radio-wrapper>
+                                    <input type="radio" clrRadio name="options" required value="limit"
+                                        [(ngModel)]="item.personImplementType" />
+                                    <label>Giới hạn</label>
+                                </clr-radio-wrapper>
+                            </clr-radio-container>
+                            <div *ngIf="item.personImplementType == 'limit'" class=" clr-col-12 clr-col-md-2">
+                                <clr-input-container style="margin-top: 0;" class="inline-block">
+                                    <input clrInput type="text" [(ngModel)]="item.employeeCode" name="employeeCode"
+                                        (keyup)="addPersonHandle(item, $event)" />
+                                </clr-input-container>
+                                <clr-alert *ngIf="item.errorAddPerson" clrAlertType="danger" [clrAlertSizeSmall]="true">
+                                    <div class="alert-item">
+                                        <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                                        <span class="alert-text">
+                                            {{ item.errorAddPerson}}
+                                        </span>
+                                    </div>
+                                </clr-alert>
+                                <clr-alert *ngIf="item.successAddPerson" clrAlertType="success"
+                                    [clrAlertSizeSmall]="true">
+                                    <div class="alert-item">
+                                        <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                                        <span class="alert-text">
+                                            {{ item.successAddPerson}}
+                                        </span>
+                                    </div>
+                                </clr-alert>
+                                <div class="field">
+                                    <ul class="list-unstyled">
+                                        <li *ngFor="let person of item.personImplement">
+                                            {{person.firstName + ' '+ person.lastName}}
+                                            <clr-icon shape="close" (click)="deletePersonHandle(item,person.id)"
+                                                style="cursor: pointer;"></clr-icon>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" (click)="submitHandle(item)">Lưu lại</button>
+                        <button class="btn btn-primary btn-sm" (click)="cancelHandle($event)">Hủy</button>
+                        <button class="btn btn-primary btn-sm" (click)="deleteHandle(item)"
+                            *ngIf="!item.isFirstPhase && !item.isLastPhase">Xóa</button>
+                        <button class="btn btn-primary btn-sm" (click)="addPhaseHandle(item, $event)">Thêm giai đoạn
+                            mới</button>
+                    </div>
+                </form>
+            </clr-tab-content>
+        </ng-template>
+    </clr-tab>
+
+</clr-tabs>

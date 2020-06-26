@@ -1,4 +1,4 @@
-import { User } from 'src/app/_models';
+import { User } from 'src/app/models';
 
 export interface AuthState {
     isAuthenticated: boolean;

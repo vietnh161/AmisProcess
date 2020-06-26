@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 
-import { AuthGuard } from './_helpers';
+import { AuthGuard } from './helpers';
 import { from } from 'rxjs';
 
 import { LoginComponent } from './pages/login/login.component';
-import { MainLayoutComponent } from './pages/main-page/layout.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 import { Page404Component } from './pages/page404/page404.component';
 
 const routes: Routes = [
@@ -35,17 +35,17 @@ const routes: Routes = [
   // },
   {
     path: 'manage-process',
-   loadChildren: () => import(`./components/manage-process/manage-process.module`).then(m => m.ManageProcessModule),
+   loadChildren: () => import(`./ui/process-management/process-management.module`).then(m => m.ProcessManagementModule),
     
   },
   {
     path: 'handle-process',
-    loadChildren: () => import(`./components/handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
+    loadChildren: () => import(`./ui/handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
     
   },
   {
     path: 'run-process',
-    loadChildren: () => import(`./components/run-process/run-process.module`).then(m=> m.RunProcessModule)
+    loadChildren: () => import(`./ui/run-process/run-process.module`).then(m=> m.RunProcessModule)
     
   },
   {

@@ -1,4 +1,4 @@
-import { User } from 'src/app/_models';
+import { User } from 'src/app/models';
 import { AuthState } from '../states/auth.states';
 import { All, AuthActionTypes } from '../actions/auth.actions';
 

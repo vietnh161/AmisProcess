@@ -1,0 +1,46 @@
+<button class="btn btn-primary btn-sm" (click)="showModalAdd = true">Thêm mới</button>
+<clr-modal [(clrModalOpen)]="showModalAdd" class="addModal" *ngIf="showModalAdd"> <!    --them ngif de su dung directive appAutoFocus, -->
+
+    <h3 class="modal-title">Tạo quy trình mới</h3>
+
+    <div class="modal-body">
+        <clr-alert *ngIf="errorMessage" clrAlertType="danger">
+            <div class="alert-item">
+                <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                <span class="alert-text">
+                    {{ errorMessage}}
+                </span>
+                
+            </div>
+        </clr-alert>
+
+        <form clrForm >
+            <clr-input-container>
+                <label class="clr-control-label clr-col-12 clr-col-md-6">Tên quy trình</label>
+                <input clrInput type="text" [(ngModel)]="newProcess.name" name="example" id="test"
+                    class="clr-input clr-col-12 clr-col-md-12" (keyup)="errorMessage = ''" appAutoFocus />
+            </clr-input-container>
+            <clr-textarea-container>
+                <label class="clr-control-label clr-col-12 clr-col-md-6">Mô tả</label> 
+                <textarea clrTextarea [(ngModel)]="newProcess.description" name="description"
+                    class=" clr-col-12 clr-col-md-12" ></textarea>
+            </clr-textarea-container>
+          
+                <clr-datalist-container>
+                    <label  class="clr-control-label clr-col-12 clr-col-md-6">Danh mục</label>
+                    <input minlength="2" name="Category" required  
+                           clrDatalistInput [disabled]="disabled" [(ngModel)]="newProcess.category.name"/>
+                    <datalist>
+                        <option *ngFor="let item of listCategory" [value]="item.name"></option>
+                    </datalist>
+                    <clr-control-helper>Nếu danh mục không tồn tại, nhập để thêm mới</clr-control-helper>
+                    <clr-control-error>Có lỗi xảy ra</clr-control-error>
+                </clr-datalist-container>
+      
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="showModalAdd = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="addProcessHandle()">Ok</button>
+    </div>
+</clr-modal>

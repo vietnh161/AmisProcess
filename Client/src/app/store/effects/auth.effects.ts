@@ -5,9 +5,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 
-import { AuthenticationService } from 'src/app/_services';
+import { AuthenticationService } from 'src/app/services';
 import { AuthActionTypes, Login, LoginSuccess, LoginFail } from '../actions/auth.actions';
-import { User } from 'src/app/_models';
+import { User } from 'src/app/models';
 
 
 @Injectable()
@@ -53,6 +53,8 @@ export class AuthEffects {
         ofType(AuthActionTypes.LOGOUT),
         tap((user) => {
             localStorage.removeItem('token');
+            console.log('a');
+            
             this.router.navigateByUrl('/login');
         })
     );

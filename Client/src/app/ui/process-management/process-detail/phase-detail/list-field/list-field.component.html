@@ -1,0 +1,108 @@
+<div *ngFor="let field of fields" [ngSwitch]="field.type">
+    <clr-input-container *ngSwitchCase="'Text'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}} <clr-icon
+                shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon></label>
+
+        <input class="clr-col-12 " placeholder="Full name" clrInput name="name" required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+    <clr-textarea-container *ngSwitchCase="'LongText'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <textarea class="clr-col-12 " clrTextarea name="description" required></textarea>
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+    </clr-textarea-container>
+
+    <clr-input-container *ngSwitchCase="'Email'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <input class="clr-col-12 " type="email" placeholder="Full name" clrInput name="name" required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+    <clr-input-container *ngSwitchCase="'Number'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <input class="clr-col-12 " type="number" placeholder="Full name" clrInput name="name" required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+    <clr-input-container *ngSwitchCase="'Date'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}} <clr-icon
+                shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon></label>
+        <input class="clr-col-12 " type="date" clrInput name="demo">
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+    </clr-input-container>
+
+
+    <clr-input-container *ngSwitchCase="'Datetime'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <input class="clr-col-12 " type="datetime-local" placeholder="Full name" clrInput name="name"
+            required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+    <clr-input-container *ngSwitchCase="'Time'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <input class="clr-col-12 " type="time" placeholder="Full name" clrInput name="name" required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+    <clr-checkbox-container *ngSwitchCase="'Check Box'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <clr-checkbox-wrapper *ngFor="let option of field.option">
+            <input class="clr-col-12 " type="checkbox" clrCheckbox [value]="option.id" #option.id
+                name="options" />
+            <label>{{option.value}}</label>
+        </clr-checkbox-wrapper>
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-checkbox-container>
+
+    <clr-radio-container *ngSwitchCase="'Radio'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <clr-radio-wrapper *ngFor="let option of field.option">
+            <input class="clr-col-12 " type="radio" clrRadio name="field.type" required
+                [value]="option.id" />
+            <label>{{option.value}}</label>
+        </clr-radio-wrapper>
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-radio-container>
+
+    <clr-input-container *ngSwitchCase="'Attachment'">
+        <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
+            <clr-icon shape="close" (click)="emitDelete(field.id)" style="cursor: pointer;"></clr-icon>
+        </label>
+        <input class="clr-col-12 " type="file" placeholder="Full name" clrInput name="name" required />
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+    </clr-input-container>
+
+
+    <!-- <clr-select-container *ngSwitchCase="'Asignee Select'">
+        <label class="clr-col-12 " >{{field.name}}{{(field.required == true) ? '*': ''}}</label>
+        <select class="clr-col-12 clr-col-md-2" clrSelect name="options" required>
+          <option [value]="person.employeeCode" *ngFor="let person of nextPhase.personImplement" >{{person.firstName + ' ' + person.lastName}}</option>
+        </select>
+        <clr-control-helper>{{ field.description }}</clr-control-helper>
+        <clr-control-error>This field is required!</clr-control-error>
+      </clr-select-container> -->
+</div>

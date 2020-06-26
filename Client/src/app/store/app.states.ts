@@ -1,5 +1,5 @@
 // import * as auth from './reducers/auth.reducers';
-import { User } from 'src/app/_models';
+import { User } from 'src/app/models';
 import { AuthState } from './states/auth.states';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import  * as auth from './reducers/auth.reducers'

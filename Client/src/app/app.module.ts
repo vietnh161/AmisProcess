@@ -9,7 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from './pages/main-page/layout.module';
+import { MainPageModule } from './pages/main-page/main-page.module';
 import { Page404Component } from './pages/page404/page404.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthEffects } from './store/effects/auth.effects';
@@ -31,14 +31,14 @@ import { reducers } from './store/app.states';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    LayoutModule,
+    MainPageModule,
     ClarityModule,
     BrowserAnimationsModule,
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot( reducers, {})
   ],
   providers: [
-
+    
   ],
   bootstrap: [AppComponent]
 })

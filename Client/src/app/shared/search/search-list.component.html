@@ -1,0 +1,13 @@
+<div class="clr-row ">
+    <div class="clr-col-md-9 clr-col-12">
+        <form class="search">
+            <input id="search_input" type="text" placeholder="Tìm kiếm" [(ngModel)]="searchValue" (keyup)="emitSearchValue($event)"  name="search" appAutoFocus> 
+        </form>
+
+    </div>
+    <div class="clr-col-md-3 clr-col-12">
+        <misa-selectbox [label]="'Tìm theo'" [options]="options" (emitValue)="setOptionFilter($event)" ></misa-selectbox>
+    </div>
+</div>
+
+
