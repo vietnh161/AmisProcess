@@ -1,0 +1,12 @@
+C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.deps.json
+C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.runtimeconfig.json
+C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.runtimeconfig.dev.json
+C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.dll
+C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.pdb
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfoInputs.cache
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfo.cs
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.dll
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.pdb
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.genruntimeconfig.cache
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csprojAssemblyReference.cache
+C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.CoreCompileInputs.cache
