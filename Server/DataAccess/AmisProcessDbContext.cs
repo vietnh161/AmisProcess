@@ -9,76 +9,104 @@ namespace DataAccess
     {
         public AmisProcessDbContext()
         {
-
         }
 
         public AmisProcessDbContext(DbContextOptions<AmisProcessDbContext> options)
             : base(options)
         {
-            //this.ChangeTracker.LazyLoadingEnabled = false;
         }
 
-            public virtual DbSet<Employee> Employee { get; set; }
-            public virtual DbSet<Field> Field { get; set; }
-            public virtual DbSet<FieldValue> Fieldvalue { get; set; }
-            public virtual DbSet<Phase> Phase { get; set; }
-            public virtual DbSet<Process> Process { get; set; }
-            public virtual DbSet<ProcessCategory> ProcessCategory { get; set; }
-            public virtual DbSet<ProcessRunning> ProcessRunning { get; set; }
-            public virtual DbSet<Role> Role { get; set; }
-            public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Field> Field { get; set; }
+        public virtual DbSet<FieldValue> FieldValue { get; set; }
+        public virtual DbSet<Option> Option { get; set; }
+        public virtual DbSet<Phase> Phase { get; set; }
+        public virtual DbSet<PhaseEmployee> PhaseEmployee { get; set; }
+        public virtual DbSet<Process> Process { get; set; }
+        public virtual DbSet<ProcessRunning> ProcessRunning { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
             {
-                if (!optionsBuilder.IsConfigured)
-                {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                    optionsBuilder.UseMySQL("server=localhost;port=3307;user=root;password=12345678;database=misa.amisprocess");
-                }
+                optionsBuilder.UseMySql("server=192.168.15.18;port=3306;user=dev;password=12345678@Abc;database=MISA.AmisProcess", x => x.ServerVersion("10.3.22-mariadb"));
             }
+        }
 
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>(entity =>
             {
+                entity.ToTable("category");
+
+                entity.Property(e => e.CategoryId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+            });
+
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.ToTable("employee");
 
                 entity.HasIndex(e => e.UserId)
-                    .HasName("FK_Employee_User_idx");
+                    .HasName("Fk_Employee_User_UserId_idx");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.EmployeeCode)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(10)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.FrirstName)
+                entity.Property(e => e.FullName)
                     .IsRequired()
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Phone)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.UserId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Employee)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_Employee_User");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Field>(entity =>
@@ -86,28 +114,41 @@ namespace DataAccess
                 entity.ToTable("field");
 
                 entity.HasIndex(e => e.PhaseId)
-                    .HasName("FK_Field_Phase_idx");
+                    .HasName("fk_phase_field_idx");
+
+                entity.Property(e => e.FieldId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Description)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.Required).HasDefaultValueSql("'0'");
+                entity.Property(e => e.PhaseId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Required)
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.Field)
                     .HasForeignKey(d => d.PhaseId)
-                    .HasConstraintName("FK_Field_Phase");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<FieldValue>(entity =>
@@ -115,26 +156,42 @@ namespace DataAccess
                 entity.ToTable("fieldvalue");
 
                 entity.HasIndex(e => e.FieldId)
-                    .HasName("FK_FieldId_idx");
+                    .HasName("fk_field_fieldvalue_idx");
 
                 entity.HasIndex(e => e.ProcessRunningId)
-                    .HasName("FK_FieldValue_ProcessRunning_idx");
+                    .HasName("fk_processrunning_fieldvalue_idx");
 
-                entity.Property(e => e.Value).HasColumnType("mediumtext");
+                entity.Property(e => e.Id)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.FieldId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.ProcessRunningId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Value)
+                    .HasColumnType("mediumtext")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.ValueForCheckBox)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Field)
                     .WithMany(p => p.FieldValue)
                     .HasForeignKey(d => d.FieldId)
-                    .HasConstraintName("FK_FieldValue_Field");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.ProcessRunning)
-                    .WithMany(p => p.Fieldvalue)
+                    .WithMany(p => p.FieldValue)
                     .HasForeignKey(d => d.ProcessRunningId)
-                    .HasConstraintName("FK_FieldValue_ProcessRunning");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Option>(entity =>
@@ -142,16 +199,25 @@ namespace DataAccess
                 entity.ToTable("option");
 
                 entity.HasIndex(e => e.FieldId)
-                    .HasName("FK_Field_Option_FieldId_idx");
+                    .HasName("FK_option_field_fieldId_idx");
+
+                entity.Property(e => e.OptionId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.FieldId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Value)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Field)
                     .WithMany(p => p.Option)
                     .HasForeignKey(d => d.FieldId)
-                    .HasConstraintName("FK_Field_Option_FieldId");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Phase>(entity =>
@@ -159,45 +225,107 @@ namespace DataAccess
                 entity.ToTable("phase");
 
                 entity.HasIndex(e => e.ProcessId)
-                    .HasName("FK_Phase_Process_idx");
+                    .HasName("FK_phase_process_processId_idx");
+
+                entity.Property(e => e.PhaseId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.EmployeeImplement).HasColumnType("mediumtext");
+                entity.Property(e => e.EmployeeImplement)
+                    .HasColumnType("mediumtext")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.EmployeeImplementType)
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(5)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.IsFirstPhase).HasDefaultValueSql("'0'");
+                entity.Property(e => e.IsFirstPhase)
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.IsLastPhase).HasDefaultValueSql("'0'");
+                entity.Property(e => e.IsLastPhase)
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.ProcessId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Serial).HasColumnType("int(11)");
+
+                entity.Property(e => e.TimeImplement).HasColumnType("int(11)");
 
                 entity.Property(e => e.TimeImplementType)
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(5)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdatedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Process)
                     .WithMany(p => p.Phase)
                     .HasForeignKey(d => d.ProcessId)
-                    .HasConstraintName("FK_Phase_Process");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<PhaseEmployee>(entity =>
+            {
+                entity.ToTable("phaseemployee");
+
+                entity.HasIndex(e => e.EmployeeId)
+                    .HasName("FK_employee_phaseemployee_employeeId_idx");
+
+                entity.HasIndex(e => e.PhaseId)
+                    .HasName("FK_employee_phaseemployee_phaseId_idx");
+
+                entity.Property(e => e.PhaseEmployeeId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.PhaseId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.PhaseEmployee)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.Phase)
+                    .WithMany(p => p.PhaseEmployee)
+                    .HasForeignKey(d => d.PhaseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Process>(entity =>
@@ -205,52 +333,51 @@ namespace DataAccess
                 entity.ToTable("process");
 
                 entity.HasIndex(e => e.CategoryId)
-                    .HasName("FK_Process_ProcessCategory_idx");
+                    .HasName("FK_process_category_CategoryId");
+
+                entity.Property(e => e.ProcessId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.CategoryId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Status)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdatedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Process)
-                    .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK_Process_ProcessCategory");
-            });
-
-            modelBuilder.Entity<ProcessCategory>(entity =>
-            {
-                entity.HasKey(e => e.CategoryId)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("processcategory");
-
-                entity.Property(e => e.CreatedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .HasForeignKey(d => d.CategoryId);
             });
 
             modelBuilder.Entity<ProcessRunning>(entity =>
@@ -258,31 +385,57 @@ namespace DataAccess
                 entity.ToTable("processrunning");
 
                 entity.HasIndex(e => e.EmployeeId)
-                    .HasName("FK_ProcessRunning_Employee_idx");
+                    .HasName("Fk_Employee_Processrunning_EmployeeId_idx");
 
                 entity.HasIndex(e => e.PhaseId)
-                    .HasName("FK_ProcessRunning_Phase_idx");
+                    .HasName("Fk_Phase_Processrunning_PhaseId_idx");
+
+                entity.Property(e => e.ProcessRunningId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.EmployeeHandleId)
+                    .HasColumnType("varchar(36)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.PhaseId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Status).HasColumnType("tinyint(4)");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProcessRunning)
                     .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProcessRunning_Employee");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.ProcessRunning)
                     .HasForeignKey(d => d.PhaseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProcessRunning_Phase");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("role");
 
+                entity.Property(e => e.RoleId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
                 entity.Property(e => e.RoleName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(20)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -290,29 +443,34 @@ namespace DataAccess
                 entity.ToTable("user");
 
                 entity.HasIndex(e => e.RoleId)
-                    .HasName("FR");
+                    .HasName("Fk_Role_User_RoleId_idx");
+
+                entity.Property(e => e.UserId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Password)
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.RoleId)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Username)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar(10)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_User_Role");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             OnModelCreatingPartial(modelBuilder);
-
-
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-        }
     }
-
+}

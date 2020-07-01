@@ -10,7 +10,7 @@ namespace DataAccess.Models
             User = new HashSet<User>();
         }
 
-        public int RoleId { get; set; }
+        public Guid RoleId { get; set; }
         public string RoleName { get; set; }
 
         public virtual ICollection<User> User { get; set; }

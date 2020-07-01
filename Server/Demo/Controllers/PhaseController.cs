@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccess;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace WebApp.Controllers
         ///  API lay process theo id
         /// </summary>
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var result = phaseService.GetById(id);
             if(result == null) return BadRequest("phase khong ton tai");
@@ -31,13 +32,22 @@ namespace WebApp.Controllers
 
 
         [HttpGet("getbyprocess/{processId}")]
-        public IActionResult GetByProcessId(int processId)
+        public IActionResult GetByProcessId(Guid processId)
         {
-            string[] includes = new string[2] { "Field", "Field.Option" };
+            string[] includes = new string[4] { "Field", "Field.Option", "PhaseEmployee" , "PhaseEmployee.Employee" };
             var result = phaseService.GetMulti(x => x.ProcessId == processId,includes);
            
             if (!result.Any()) return BadRequest("process khong ton tai");
             return Ok(result);
+        }
+
+        [HttpPut()]
+        public IActionResult UpdateMultiPhase(Process process)
+        {
+
+           
+
+            return Ok();
         }
     }
 }

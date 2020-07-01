@@ -28,10 +28,10 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var sqlConnectionString = Configuration.GetConnectionString("MySqlConnection");
-            services.AddDbContext<AmisProcessDbContext>(options =>
-              options.UseMySQL(sqlConnectionString)
-          );
+          //  var sqlConnectionString = Configuration.GetConnectionString("MySqlConnection");
+          //  services.AddDbContext<AmisProcessDbContext>(options =>
+          //    options.UseMySQL(sqlConnectionString)
+          //);
 
 
             services.AddCors();
@@ -68,13 +68,14 @@ namespace WebApi
             });
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IProcessService, ProcessService>();
-            services.AddScoped<IProcessCategoryService, ProcessCategoryService>();
-            services.AddScoped<IPhaseService, PhaseService>();
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IProcessService, ProcessService>();
+            //services.AddScoped<IEmployeeService, EmployeeService>();
+            //services.AddScoped<IProcessCategoryService, ProcessCategoryService>();
+            //services.AddScoped<IPhaseService, PhaseService>();
 
-            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-            services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+            //services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            //services.AddTransient(typeof(IRepository<>), typeof(RepositoryBase<>));
 
 
 

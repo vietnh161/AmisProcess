@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using DataAccess.Models;
 
 namespace DataAccess.Infrastructure
 {
@@ -61,7 +62,7 @@ namespace DataAccess.Infrastructure
             return entity;
         }
 
-        public T Delete(int id)
+        public T Delete(Guid id)
         {
             var entity = dbSet.Find(id);
             if (entity != null)
@@ -73,7 +74,12 @@ namespace DataAccess.Infrastructure
             return null;
         }
 
-        public T GetSingleById(int id)
+        public T GetSingleById(Guid id)
+        {
+            return dbSet.Find(id);
+        }
+
+        public T GetSingleById(string id)
         {
             return dbSet.Find(id);
         }
@@ -92,6 +98,19 @@ namespace DataAccess.Infrastructure
             return dataContext.Set<T>().AsQueryable();
         }
 
+        public IEnumerable<User> GetAlla(string[] includes = null)
+        {
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = dataContext.Set<User>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.AsQueryable();
+            }
+
+            return dataContext.Set<User>().AsQueryable();
+        }
         public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)

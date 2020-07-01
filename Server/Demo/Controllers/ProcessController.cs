@@ -36,9 +36,7 @@ namespace WebApp.Controllers
             string [] includes = new string[1] { "Category"};
             var result = processService.GetAll(includes);
           
-            var r = result.First();
-
-            var rr = r.GetType().GetProperty("Description").Name;
+           
           
             return Ok(result);
 
@@ -49,11 +47,40 @@ namespace WebApp.Controllers
         /// Api cho việc lấy một process theo processId
         /// </summary>
         [HttpGet("{id}")]
-        public IActionResult getById(int id)
+        public IActionResult getById(Guid id)
         {
             string[] includes = new string[2] { "Phase", "Category" };
-            var result = processService.GetSingleByCondition(x => x.ProcessId == id, includes);
+            var result = processService.GetSingleByCondition(x => x.ProcessId.Equals(id), includes);
             if(result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("Process khong ton tai");
+
+        }
+
+        [HttpGet("test/{id}")]
+        public IActionResult getByIda(Guid id)
+        {
+            string[] includes = new string[2] { "Phase", "Category" };
+            var result = processService.GetSingleByCondition(x => x.ProcessId.Equals(id), includes);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("Process khong ton tai");
+
+        }
+
+        /// <summary>
+        /// Api cho việc lấy một process theo processId bao gồm cả field 
+        /// </summary>
+        [HttpGet("includeField/{id}")]
+        public IActionResult getByIdIncludeField(Guid id)
+        {
+            string[] includes = new string[5] { "Phase", "Phase.Field", "Phase.Field.Option", "Phase.PhaseEmployee", "Phase.PhaseEmployee.Employee" };
+            var result = processService.GetSingleByCondition(x => x.ProcessId == id, includes);
+            if (result != null)
             {
                 return Ok(result);
             }
@@ -85,10 +112,10 @@ namespace WebApp.Controllers
         ///  Api cho việc tạo mới process
         /// </summary>
         [HttpPost()]
-        public IActionResult AddProcess(Process process)
+        public IActionResult AddProcess(Process process)    
         {
 
-            ProcessCategory category = null;
+            Category category = null;
 
             if (categoryService.Add(process.Category) != null)   // them mới thành công
             {
@@ -113,7 +140,7 @@ namespace WebApp.Controllers
         public IActionResult UpdateProcess(Process process)
         {
 
-            ProcessCategory category = null;
+            Category category = null;
 
             if (categoryService.Add(process.Category) != null)   // them mới thành công
             {

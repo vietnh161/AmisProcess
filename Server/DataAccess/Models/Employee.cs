@@ -7,20 +7,21 @@ namespace DataAccess.Models
     {
         public Employee()
         {
+            PhaseEmployee = new HashSet<PhaseEmployee>();
             ProcessRunning = new HashSet<ProcessRunning>();
         }
 
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
         public string EmployeeCode { get; set; }
-        public string FrirstName { get; set; }
-        public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public int? UserId { get; set; }
+        public Guid UserId { get; set; }
+        public string FullName { get; set; }
 
         public virtual User User { get; set; }
+        public virtual ICollection<PhaseEmployee> PhaseEmployee { get; set; }
         public virtual ICollection<ProcessRunning> ProcessRunning { get; set; }
     }
 }

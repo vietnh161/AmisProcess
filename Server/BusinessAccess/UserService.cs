@@ -23,6 +23,7 @@ namespace BusinessAccess
 
 		//User Test();
 		IEnumerable<User> GetAll();
+		IEnumerable<User> GetAlla();
 		User Authenticate(string username, string password);
 
 		string GetToken(string username, string role);
@@ -59,10 +60,16 @@ namespace BusinessAccess
 
 		public IEnumerable<User> GetAll()
 		{
-			return userRepository.GetAll();
+			var result = userRepository.GetAll();
+			return result;
 		}
+			public IEnumerable<User> GetAlla()
+			{
+				var result = userRepository.GetAlla();
+				return result;
+			}
 
-		public User GetById(int id)
+			public User GetById(int id)
 		{
 			throw new NotImplementedException();
 		}

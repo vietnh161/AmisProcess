@@ -1,7 +1,7 @@
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csprojAssemblyReference.cache
-C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csproj.CoreCompileInputs.cache
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.AssemblyInfoInputs.cache
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.AssemblyInfo.cs
+C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csproj.CoreCompileInputs.cache
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.deps.json
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.dll
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.pdb

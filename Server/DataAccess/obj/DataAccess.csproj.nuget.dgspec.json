@@ -38,10 +38,6 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.1.4, )"
-            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -61,10 +57,6 @@
             "Microsoft.NETCore.App": {
               "target": "Package",
               "version": "[2.2.8, )"
-            },
-            "MySql.Data.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.20, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",

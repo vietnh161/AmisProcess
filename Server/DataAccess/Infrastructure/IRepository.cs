@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -16,14 +17,17 @@ namespace DataAccess.Infrastructure
         // Marks an entity to be removed
         T Delete(T entity);
 
-        T Delete(int id);
+        T Delete(Guid id);
 
         // Get an entity by int id
-        T GetSingleById(int id);
+        T GetSingleById(Guid id);
+        T GetSingleById(string id);
 
         T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);
 
         IEnumerable<T> GetAll(string[] includes = null);
+        IEnumerable<User> GetAlla(string[] includes = null);
+
 
         IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
 

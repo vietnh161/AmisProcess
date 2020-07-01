@@ -31,7 +31,7 @@ namespace WebApp.Controllers
 
         [HttpGet()]
         [Route("{id}")]
-        public IActionResult getById(int id)
+        public IActionResult getById(Guid id)
         {
 
             var result = processCategoryService.GetById(id);

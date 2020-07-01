@@ -5,9 +5,9 @@ namespace DataAccess.Models
 {
     public partial class FieldValue
     {
-        public int Id { get; set; }
-        public int? ProcessRunningId { get; set; }
-        public int? FieldId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ProcessRunningId { get; set; }
+        public Guid FieldId { get; set; }
         public string Value { get; set; }
         public string ValueForCheckBox { get; set; }
 

@@ -12,10 +12,10 @@ namespace BusinessAccess
     {
         void Add(Phase phase);
 
-        void AddWhenCreateProcess(int processId);
+        void AddWhenCreateProcess(Guid processId);
         void Update(Phase phase);
-        Phase Delete(int id);
-        Phase GetById(int id);
+        Phase Delete(Guid id);
+        Phase GetById(Guid id);
 
         IEnumerable<Phase> GetMulti(Expression<Func<Phase, bool>> expression, string[] includes = null);
 
@@ -45,11 +45,11 @@ namespace BusinessAccess
             throw new NotImplementedException();
         }
 
-        public void AddWhenCreateProcess(int processId)
+        public void AddWhenCreateProcess(Guid processId)
         {
             var firstPhase = new Phase()
             {
-                PhaseId = 0,
+                PhaseId = new Guid(),
                 Serial = 1,
                  Name ="Khởi tạo",
                  Description ="Giai đoạn khởi tạo",
@@ -68,7 +68,7 @@ namespace BusinessAccess
 
             var lastPhase = new Phase()
             {
-                PhaseId = 0,
+                PhaseId = new Guid(),
                 Serial = 2,
                 Name = "Hoàn thành",
                 Description = "Giai đoạn hoàn thành",
@@ -94,7 +94,7 @@ namespace BusinessAccess
             throw new NotImplementedException();
         }
 
-        public Phase Delete(int id)
+        public Phase Delete(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -104,7 +104,7 @@ namespace BusinessAccess
             return phaseRepository.GetAll();
         }
 
-        public Phase GetById(int id)
+        public Phase GetById(Guid id)
         {
             return phaseRepository.GetSingleById(id);
         }

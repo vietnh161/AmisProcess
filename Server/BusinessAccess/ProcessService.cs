@@ -15,8 +15,8 @@ namespace BusinessAccess
     {
         void Add(Process process);
         void Update(Process process);
-        Process Delete(int id);
-        Process GetById(int id);
+        Process Delete(Guid id);
+        Process GetById(Guid id);
 
         IEnumerable<Process> GetAll(string[] includes = null);
 
@@ -29,10 +29,10 @@ namespace BusinessAccess
     public class ProcessService : IProcessService
     {
         IRepository<Process> processRepository;
-        IRepository<ProcessCategory> processCategoryRepository;
+        IRepository<Category> processCategoryRepository;
         IUnitOfWork unitOfWork;
 
-        public ProcessService(IRepository<Process> processRepository, IRepository<ProcessCategory> processCategoryRepository, IUnitOfWork unitOfWork)
+        public ProcessService(IRepository<Process> processRepository, IRepository<Category> processCategoryRepository, IUnitOfWork unitOfWork)
         {
             this.processRepository = processRepository;
             this.processCategoryRepository = processCategoryRepository;
@@ -41,7 +41,7 @@ namespace BusinessAccess
         }
         public void Add(Process process)
         {
-            process.ProcessId = 0;                                          // Khoi tao Doi tuong process moi va 
+            process.ProcessId = new Guid();                                          // Khoi tao Doi tuong process moi va 
             process.Status = "draft";                                    //  gan cac gia tri mac dinh
             process.CreatedBy = "EmployeeName EmployeeCode";
             process.CreatedAt = DateTime.Now;
@@ -63,7 +63,7 @@ namespace BusinessAccess
 
             processRepository.Update(process);
         }
-        public Process Delete(int id)
+        public Process Delete(Guid id)
         {
             return processRepository.Delete(id);
         }
@@ -76,7 +76,7 @@ namespace BusinessAccess
         }
 
 
-        public Process GetById(int id)
+        public Process GetById(Guid id)
         {
             var result = processRepository.GetSingleById(id);
             if (result != null)

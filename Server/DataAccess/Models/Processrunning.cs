@@ -7,19 +7,19 @@ namespace DataAccess.Models
     {
         public ProcessRunning()
         {
-            Fieldvalue = new HashSet<FieldValue>();
+            FieldValue = new HashSet<FieldValue>();
         }
 
-        public int ProcessRunningId { get; set; }
-        public int EmployeeId { get; set; }
-        public int PhaseId { get; set; }
-        public int? EmployeeHandleId { get; set; }
+        public Guid ProcessRunningId { get; set; }
+        public Guid EmployeeId { get; set; }
+        public Guid PhaseId { get; set; }
+        public string EmployeeHandleId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public byte? Status { get; set; }
+        public sbyte? Status { get; set; }
 
         public virtual Employee Employee { get; set; }
         public virtual Phase Phase { get; set; }
-        public virtual ICollection<FieldValue> Fieldvalue { get; set; }
+        public virtual ICollection<FieldValue> FieldValue { get; set; }
     }
 }
