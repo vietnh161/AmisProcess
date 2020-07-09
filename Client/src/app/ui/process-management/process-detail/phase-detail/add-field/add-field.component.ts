@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {v4 as uuidv4} from 'uuid';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services';
@@ -11,61 +12,62 @@ import { typeData } from 'src/app/data/type';
 export class AddFieldComponent implements OnInit {
 
     @Input() phase;
-    @Input() phases;
     @Input() open;
     @Output() close = new EventEmitter();
-    @Output() test = new EventEmitter()
+
+    @ViewChild("nameInput",{read: ElementRef}) nameInPut: ElementRef;
+    @ViewChild("typeInput",{read: ElementRef}) typeInput: ElementRef;
+    @ViewChild("optionInput",{read: ElementRef}) optionInput: ElementRef;
+
 
     value;
-    options;
     field;
     types = typeData;
-   
+    errorAddField:string ;
+    successAddField:string ;
 
     constructor(private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, ) {
    
-       
-        this.options = [];
-        this.field = {
-            name:'',
-            description:'',
-            type: '',
-        }
+        this.errorAddField = '';
+        this.successAddField = '';
+      
+        this.field = this.resetField()
     }
 
     ngOnInit(): void {
-        
+      
     }
 
-    addFieldHandle(phase) {
-
-        console.log(this.field);
+    addFieldHandle() {
+      
+       
+        this.errorAddField = '';
+        this.successAddField = '';
+        if (this.field.name == '') {
+            this.errorAddField = 'Tên không được để trống';
+            this.nameInPut.nativeElement.focus();
+            return;
+        }else if(this.field.type == ''){
+            this.errorAddField = 'Loại không được để trống';
+            this.typeInput.nativeElement.focus();
+            return;
+        } else if(this.field.type == 'Radio' || this.field.type =='Check Box') {
+            if( this.field.fieldOption.length == 0){
+                this.errorAddField = 'Option không được để trống';
+                this.optionInput.nativeElement.focus();
+                return;
+            }
+           
+        } 
         
-        this.phase.field.push(this.field);
-        this.field = {
-        name:'',
-        description:'',
-        type: '',
-       }
-        console.log(this.phase);
-        this.test.emit();
-        // phase.errorAddField = '';
-        // phase.successAddField = '';
-        // if (phase.field.name == '' || phase.field.type == '') {
-        //     phase.errorAddField = 'Tên hoặc loại không được để trống';
-        // } else {
 
-
-        //     var options = [...phase.fieldTemp.options]
-        //     this.phases.find(x => x.id == phase.id).fields.push(newField);
-        //     console.log(this.phases.find(x => x.id == phase.id).fields);
-        //     phase.fieldTemp.options = [];
-        //     phase.fieldTemp.name = '';
-        //     phase.fieldTemp.description = '';
-        //     phase.fieldTemp.type = '';
-        //     phase.fieldTemp.required = false;
-        //     phase.successAddField = 'Thành công';
-        // }
+            this.phase.field.push(this.field);
+            this.field = this.resetField();
+            console.log(this.field.fieldOption);
+              this.optionInput.nativeElement.focus();
+            this.successAddField = 'Thành công';
+            this.nameInPut.nativeElement.focus();
+        
 
 
     }
@@ -76,11 +78,11 @@ export class AddFieldComponent implements OnInit {
         if (event.keyCode == 13) {
             if (this.value != '') {
                 var newOption = {
-                    id:Math.floor(Math.random() *1000000),
+                    id: uuidv4(),
                     value: this.value,
                    
                 }
-                this.options.push(newOption);
+                this.field.fieldOption.push(newOption);
                 this.value = '';
             }
 
@@ -89,10 +91,21 @@ export class AddFieldComponent implements OnInit {
     }
 
     deleteOption(optionId){
-        this.options.splice(this.options.findIndex(x => x.id == optionId),1);
+       this.field.fieldOption.splice(this.field.fieldOption.findIndex(x => x.id == optionId),1);
     }
 
     closeModal(){
         this.close.emit();
     }
+
+    resetField(){
+        return  {
+            name:'',
+            description:'',
+            type: '',
+            fieldOption: [],
+            required: false,
+        }
+    }
+
 }

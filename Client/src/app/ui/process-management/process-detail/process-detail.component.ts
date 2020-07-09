@@ -31,6 +31,8 @@ export class ProcessDetailComponent implements OnInit {
                 this.process = result;
                 this.phases = this.process.phase;
                 this.phases.sort((x,y) => x.serial - y.serial);
+                console.log(this.phases);
+                
             },
             error => {
                 console.log(error);

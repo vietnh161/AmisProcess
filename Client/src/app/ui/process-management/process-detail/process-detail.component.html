@@ -26,9 +26,9 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-sm "  *ngIf="!item.isLastPhase"
+                        <button class="btn btn-sm "  *ngIf="item.posittion != 3"
                             (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/edit/' + item.serial)">Sửa</button>
-                        <button class="btn btn-sm btn-danger-outline" *ngIf="!item.isLastPhase && !item.isFirstPhase"
+                        <button class="btn btn-sm btn-danger-outline" *ngIf="item.posittion == 2"
                             (click)="item.isDel = true">Xóa</button>
                         <clr-modal [(clrModalOpen)]="item.isDel" class="addModal">
 
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="clr-col-sm-2 clr-col-6  button-add">
-                <button type="button" class="btn btn-icon" *ngIf="!item.isLastPhase"
+                <button type="button" class="btn btn-icon" *ngIf="item.posittion != 3"
                     (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/add/' + item.serial)"
                     aria-label="home">
                     <clr-icon shape="plus-circle"></clr-icon>

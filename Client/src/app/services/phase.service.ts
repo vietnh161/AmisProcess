@@ -56,6 +56,11 @@ export class PhaseService {
         return this.http.put<Phase>(url,Phase,this.httpOptions);
     }
 
+    updateMulti(Process: any): Observable<any>{
+        const url = `${environment.apiUrl}/${this.PhaseUrl}`;
+        return this.http.put<any>(url,Process,this.httpOptions);
+    }
+
     handleError(error) {
         console.log(error.error);
         

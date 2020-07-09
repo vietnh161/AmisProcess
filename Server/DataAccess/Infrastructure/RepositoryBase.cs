@@ -73,6 +73,12 @@ namespace DataAccess.Infrastructure
             }
             return null;
         }
+      
+
+        public void AddOrUpdate(T entity)
+        {
+            dbSet.Update(entity);
+        }
 
         public T GetSingleById(Guid id)
         {
@@ -169,5 +175,6 @@ namespace DataAccess.Infrastructure
             throw new NotImplementedException();
         }
 
+       
     }
 }

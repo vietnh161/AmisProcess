@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger } from '@angular/animations';
-import { throwIfEmpty, isEmpty } from 'rxjs/operators';
+import { throwIfEmpty, isEmpty, debounceTime, filter, map, distinctUntilChanged, mergeMap, delay } from 'rxjs/operators';
+import {v4 as uuidv4} from 'uuid';
 
 import { AuthenticationService } from 'src/app/services';
 import { PhaseService } from 'src/app/services/phase.service';
+import { EmployeeService } from 'src/app/services/employee.service';
+import {  fromEvent, of } from 'rxjs';
+import { ProcessService } from 'src/app/services/process.service';
+
 
 @Component({
     selector: 'app-phase-detail',
@@ -20,69 +25,41 @@ export class PhaseDetailComponent implements OnInit {
     listPhase;
     phaseSerial: number;
     listEmployee;
+   
+    modifiedPhase;
 
-    optionForTime = 'h';
-    optionForPerson;
+    saveAllState:boolean;
 
+    @ViewChild("employeeInput") employeeInput : ElementRef;
 
     constructor(private route: ActivatedRoute, 
         private router: Router, 
         private authenticationService: AuthenticationService,
-        private phaseService: PhaseService
+        private phaseService: PhaseService,
+        private processService: ProcessService,
+        private employeeService: EmployeeService
          ) {
             this.processId = this.route.snapshot.paramMap.get("id");
             this.mode = this.route.snapshot.paramMap.get("mode");
             this.phaseSerial = parseInt(this.route.snapshot.paramMap.get("serial"));
-            
-    
-    
+
+            this.modifiedPhase = {
+                listPhaseDelete : [],
+                listFieldDelete : [],
+                listEmployeeDelete: [],
+                phase: [],
+                processId: this.processId,
+            }
 
 
-        //     newPhase.serial = this.phaseSerial + 1;
-        //     this.listPhase.push(newPhase);
-        //     this.listPhase.forEach(x => {
-        //         if (x.serial >= newPhase.serial && x.id != newPhase.id) {
-        //             x.serial++;
-        //             x.active = false;
-        //         }
-        //         if (x.serial <newPhase.serial) {
-        //             x.active = false;
-        //         }
-        //         x.fieldTemp = {
-        //             id: null,
-        //             name: '',
-        //             description: '',
-        //             type: '',
-        //             valueOption: '',
-        //             options: [],
-        //             required: false,
-        //             pharseId: null,
-        //         };
-        //         x.employeeCodeTemp = null;
-        //         x.errorAddPerson = '';
-        //         x.errorAddField = '';
-        //         x.successAddPerson = '';
-        //         x.successAddField = '';
-        //     })
-
-        // } else {
-        //     this.router.navigateByUrl('notfound');
-        // }
-
-
-
- //       this.listPhase.sort((x, y) => x.serial - y.serial);
-    
     }
-test(e){
-    console.log(this.listPhase);
-    
-}
     ngOnInit(): void {
-        this.phaseService.getByProcessId(this.processId).subscribe(
+       
+        this.processService.getIncludeById(this.processId).subscribe( // get data
             result => {
-                this.listPhase = result;
-                if(this.phaseSerial > this.listPhase.map(x=> x.serial).reduce((x,y) => Math.max(x,y)) ){
+                this.process = result;
+                this.listPhase = result.phase;
+                if(this.listPhase.find(x=> x.serial == this.phaseSerial) == null ){ //check serial không có thì chuyển tới trang notfound
                   this.router.navigateByUrl('notfound');
                  }
 
@@ -91,24 +68,14 @@ test(e){
                             if (x.serial == this.phaseSerial) x.active = true;
                         });
                        
-                        
-
                  }else if(this.mode == 'add'){
 
                     var newPhase = this.createNewPhase(this.phaseSerial);
-                    console.log(this.phaseSerial);
-                    
-                       console.log(newPhase);
-                       
-                        this.listPhase.forEach(x => {
-                                    if (x.serial >= newPhase.serial) {
-                                        x.serial++;
-                                        x.active = false;
-                                    }
-                                    if (x.serial <newPhase.serial) {
-                                        x.active = false;
-                                    }
-                        
+                
+                        this.listPhase.forEach(x => {                   
+                                    if (x.serial >= newPhase.serial) {  
+                                        x.serial++;                      // Tăng thứ tự phase đứng phía sau phase vừa thêm
+                                    }                                   
                                 });
                         this.listPhase.push(newPhase);
                                 
@@ -116,9 +83,7 @@ test(e){
                     this.router.navigateByUrl('notfound');
                  }
 
-
-                 this.listPhase.sort((x, y) => x.serial - y.serial);
-
+                 this.listPhase.sort((x, y) => x.serial - y.serial);    // Sắp xếp lại thứ tự phase
 
             },
             error => {
@@ -128,85 +93,88 @@ test(e){
         )
 
     }
+    
+    addEmployeeHandle(phase, event) {
+        phase.errorAddPerson = '';
+        phase.successAddPerson = '';
+      //  console.log(event);
+        
+        var newPhaseEmployee = {
+            id: uuidv4(),
+            phaseId: phase.phaseId,
+            employeeId: event.employeeId,
+            employee: event,
+        }
+        
+        var checkDuplicate = phase.phaseEmployee.findIndex( x => x.employeeId == newPhaseEmployee.employeeId && x.phaseId == newPhaseEmployee.phaseId);
+        
+        if(checkDuplicate == -1 ){
+            phase.phaseEmployee.push(newPhaseEmployee);
+            phase.successAddPerson = 'Thành công'
+        }else{
+            phase.successAddPerson = '';
+            phase.errorAddPerson = 'Nhân viên đã có trong giai đoạn này';
+        }
+       
+    }
 
-    // addPersonHandle(phase, event) {
-    //     phase.errorAddPerson = '';
-    //     phase.successAddPerson = ''
-    //     if (event.keyCode == 13) {
-    //         event.preventDefault();
-    //         var employee = this.listEmployee.find(x => x.employeeCode == phase.employeeCode)
-    //         if (employee != null) {
-    //             phase.personImplement.push(employee);
-    //             phase.employeeCode = '';
-    //             phase.successAddPerson = 'Thành công'
-    //         } else {
-    //             phase.errorAddPerson = 'Nhân viên không tồn tại'
-    //         }
-    //     }
+    deletePersonHandle(phase, id) {
 
-    // }
-
-    // deletePersonHandle(phase, id) {
-
-    //     var listPerson = this.phases.find(x => x.id == phase.id).personImplement;
-    //     // console.log(listPerson);
-    //     // console.log(this.phases.find(x=> x.id == phase.id).personImplement);
-    //     //  console.log(id);
-
-    //     listPerson.splice(listPerson.findIndex(x => x.id == id), 1)
-    // }
-
-
-
-    // deleteFieldHandle(phase, id) {
-    //     // console.log(phase);
-    //     // console.log(id);
-    //     var listField = this.phases.find(x => x.id == phase.id).fields;
-    //     listField.splice(listField.findIndex(x => x.id == id), 1)
-    // }
+      
+        this.modifiedPhase.listEmployeeDelete.push(id);
+        phase.phaseEmployee.splice( phase.phaseEmployee.findIndex(x => x.phaseEmployeeId == id), 1)
+    }
 
 
-     submitHandle() {
-         console.log(this.listPhase);
+
+    deleteFieldHandle(phase, id) {
+
+        this.modifiedPhase.listFieldDelete.push(id);
+        phase.field.splice( phase.field.findIndex(x => x.fieldId == id), 1)
+
+        
+    }
+
+
+     submitHandle(item) {
+        this.saveAllState = true;
          
-    //     // console.log(item);
-    //     if (item.description == '' || item.timeImplement == null) {
-    //         return;
-    //     }
+        if (item.description == '' || item.timeImplement == null) {
+            this.saveAllState = false;
+            return;
+        }
 
-    //         console.log(this.phases);
-    //         for(let i = 0; i < this.phases.length; i++){
-    //             if(this.phases[i].description == '' || this.phases[i].timeImplement == null){ 
-    //                 this.phases[i].active = true;     
-    //                 this.phases[i].errorAddPhase = "Vui lòng điền đủ các trường"            
-    //                 return;
-    //             }
-    //         }
+            for(let i = 0; i < this.listPhase.length; i++){
+                if(this.listPhase[i].description == '' || this.listPhase[i].timeImplement == null){ 
+                    if(!this.listPhase[i].isLastPhase){
+                        this.listPhase[i].active = true;     
+                        this.listPhase[i].errorAddPhase = "Vui lòng điền đủ các trường" ;
+                        this.saveAllState = false;           
+                        return;
+                    }  
+                }
 
-    //         phaseData.forEach(x => {
-    //             if (x.processId == this.processId) {
-    //                  phaseData.splice(phaseData.indexOf(x));
-    //             }
+                delete this.listPhase[i].employeeValueInput;
+                delete this.listPhase[i].errorAddField;
+                delete this.listPhase[i].errorAddPerson;
+                delete this.listPhase[i].errorAddPhase;
+                delete this.listPhase[i].successAddField;
+                delete this.listPhase[i].successAddPerson;
 
-    //         })
+            }
 
-           
-    //         this.phases.forEach(x => {
+            this.modifiedPhase.phase = this.process.phase;
+            this.phaseService.updateMulti(this.modifiedPhase).subscribe(
+                result => {
+                    this.saveAllState = false;
+                },
+                error => {
+                    console.log(error);
+                    
+                }
+            )
             
-    //             delete x.active;
-    //             delete x.fieldTemp;
-    //             delete x.employeeCodeTemp;
-    //             delete x.errorAddPerson;
-    //             delete x.errorAddField;
-    //             delete x.successAddPerson;
-    //             delete x.successAddField;
-    //             phaseData.push(x);
-    //         })
-
-    //         this.process.updatedTime = new Date();
-    //         this.process.updatedBy = this.currentUser.firstName + ' ' + this.currentUser.lastName;
-    //         //  console.log(phaseData);
-    //         this.router.navigateByUrl('manage-process/process/' + this.processId);
+          //  this.router.navigateByUrl('manage-process/process/' + this.processId);
         
     }
 
@@ -226,6 +194,9 @@ test(e){
             }
             if (x.serial == phase.serial) x.active = true;
         })
+        if(phase.phaseId){
+             this.modifiedPhase.listPhaseDelete.push(phase.phaseId);
+        }
         this.listPhase.splice(this.listPhase.indexOf(phase),1);
     }
 
@@ -240,7 +211,7 @@ test(e){
             }
 
         })
-
+        
         this.listPhase.push(newPhase);
         this.listPhase = this.listPhase.sort((x, y) => x.serial - y.serial);
       
@@ -257,16 +228,22 @@ test(e){
 
     createNewPhase(serial){
         return {
+            phaseId: uuidv4(),
             serial: serial + 1,
             name: 'Giai đoạn mới',
             description: '',
+            posittion: 2,
             timeImplementType: '',
             timeImplement: null,
             employeeImplementType: 'all',
-            employeeImplement: [],
+            employeeImplement: null,
+            phaseEmployee:[],
             field: [],
-            processId: parseInt(this.processId),
+            processRunning:[],
+            processId: this.processId,
             active: true,
+           
+            employeeValueInput: '',
             errorAddPhase:'',
             errorAddPerson: '',
             errorAddField: '',

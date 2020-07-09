@@ -18,7 +18,7 @@ namespace DataAccess.Models
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string Status { get; set; }
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<Phase> Phase { get; set; }

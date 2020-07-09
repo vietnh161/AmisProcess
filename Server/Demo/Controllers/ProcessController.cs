@@ -78,7 +78,7 @@ namespace WebApp.Controllers
         [HttpGet("includeField/{id}")]
         public IActionResult getByIdIncludeField(Guid id)
         {
-            string[] includes = new string[5] { "Phase", "Phase.Field", "Phase.Field.Option", "Phase.PhaseEmployee", "Phase.PhaseEmployee.Employee" };
+            string[] includes = new string[5] { "Phase", "Phase.Field", "Phase.Field.FieldOption", "Phase.PhaseEmployee", "Phase.PhaseEmployee.Employee" };
             var result = processService.GetSingleByCondition(x => x.ProcessId == id, includes);
             if (result != null)
             {

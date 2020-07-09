@@ -9,7 +9,7 @@ export class Phase {
     name: string;
     description: string;
     canDel:boolean;
-    isLastPhase:boolean;
+    posittion:number;
     timeImplementType:string;
     timeImplement: number;
     personImplementType:string;

@@ -2,8 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
-import { SearchListComponent } from './search/search-list.component';
-import { SelectBoxComponent } from './select/selectbox.component';
 import { FormsModule } from '@angular/forms';
 import { AutofocusDirectiveModule } from './directive/autofocus.directive';
 
@@ -11,8 +9,6 @@ import { AutofocusDirectiveModule } from './directive/autofocus.directive';
 @NgModule({
   declarations: [
 
-   SearchListComponent,
-   SelectBoxComponent,
   ],
   imports: [
     CommonModule,
@@ -21,8 +17,7 @@ import { AutofocusDirectiveModule } from './directive/autofocus.directive';
     AutofocusDirectiveModule
   ],
   exports:[
-    SearchListComponent,
-    SelectBoxComponent,
+    AutofocusDirectiveModule
   ]
 })
 export class SharedModule { }

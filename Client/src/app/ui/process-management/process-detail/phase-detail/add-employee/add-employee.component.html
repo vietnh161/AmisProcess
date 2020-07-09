@@ -1,0 +1,26 @@
+
+    <clr-datalist-container >
+        <input minlength="3" name="Option" required 
+               clrDatalistInput [disabled]="disabled" id="search" #employeeInput (change)="emitEmployee($event)" autocomplete="off"/>
+        <datalist class="clr-col-6">
+            <option *ngFor="let employee of listEmployee" [value]="employee.fullName +' - '+ employee.employeeCode" ></option>
+        </datalist>
+
+    </clr-datalist-container>
+    <clr-alert *ngIf="phase.errorAddPerson" clrAlertType="danger" [clrAlertSizeSmall]="true">
+        <div class="alert-item">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+            <span class="alert-text">
+                {{ phase.errorAddPerson}}
+            </span>
+        </div>
+    </clr-alert>
+    <clr-alert *ngIf="phase.successAddPerson" clrAlertType="success"
+        [clrAlertSizeSmall]="true">
+        <div class="alert-item">
+            <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+            <span class="alert-text">
+                {{ phase.successAddPerson}}
+            </span>
+        </div>
+    </clr-alert>

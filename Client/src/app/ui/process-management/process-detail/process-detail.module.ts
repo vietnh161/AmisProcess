@@ -7,16 +7,19 @@ import { PhaseDetailComponent } from './phase-detail/phase-detail.component';
 import { FormsModule } from '@angular/forms';
 import { AddFieldComponent } from './phase-detail/add-field/add-field.component';
 import { ListFieldComponent } from './phase-detail/list-field/list-field.component';
-import { AutofocusDirectiveModule } from 'src/app/shared/directive/autofocus.directive';
 import { ProcessActionModule } from '../process-action/process-action.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AddFieldModule } from './phase-detail/add-field/add-field.module';
+import { AddEmployeeComponent } from './phase-detail/add-employee/add-employee.component';
 
 @NgModule({
     declarations: [
 
         ProcessDetailComponent,
         PhaseDetailComponent,
-        AddFieldComponent,
+    //    AddFieldComponent,
         ListFieldComponent,
+    AddEmployeeComponent,
        
     ],
     imports: [
@@ -24,8 +27,9 @@ import { ProcessActionModule } from '../process-action/process-action.module';
         ClarityModule,
         FormsModule,
         DetailProcessRoutingModule,
-        AutofocusDirectiveModule,
+        SharedModule,
         ProcessActionModule,
+        AddFieldModule
     ],
 
 })

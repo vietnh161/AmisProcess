@@ -46,6 +46,7 @@ export class ProcessListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   refresh(state: ClrDatagridStateInterface) {
@@ -54,8 +55,8 @@ export class ProcessListComponent implements OnInit {
       currentPage: state.page.current,
       pageSize: state.page.size,
       filters: state.filters,
-      sort: (state.sort && state.sort.reverse)? 'DESC': 'ASC',
-      sortBy:  (state.sort && state.sort.by)? state.sort.by.toString(): '',
+      sort: (state.sort && state.sort.reverse)? 'ASC': 'DESC',
+      sortBy:  (state.sort && state.sort.by)? state.sort.by.toString(): 'createdAt',
     }
     this.processService.getMultiPaging(newPaging)
     .subscribe(

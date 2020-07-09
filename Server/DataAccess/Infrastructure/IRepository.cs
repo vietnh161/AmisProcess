@@ -19,6 +19,8 @@ namespace DataAccess.Infrastructure
 
         T Delete(Guid id);
 
+        void AddOrUpdate(T entity);
+
         // Get an entity by int id
         T GetSingleById(Guid id);
         T GetSingleById(string id);

@@ -7,8 +7,8 @@ namespace DataAccess.Models
     {
         public Field()
         {
+            FieldOption = new HashSet<FieldOption>();
             FieldValue = new HashSet<FieldValue>();
-            Option = new HashSet<Option>();
         }
 
         public Guid FieldId { get; set; }
@@ -19,7 +19,7 @@ namespace DataAccess.Models
         public Guid PhaseId { get; set; }
 
         public virtual Phase Phase { get; set; }
+        public virtual ICollection<FieldOption> FieldOption { get; set; }
         public virtual ICollection<FieldValue> FieldValue { get; set; }
-        public virtual ICollection<Option> Option { get; set; }
     }
 }

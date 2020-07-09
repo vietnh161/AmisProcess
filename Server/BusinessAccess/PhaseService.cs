@@ -14,8 +14,10 @@ namespace BusinessAccess
 
         void AddWhenCreateProcess(Guid processId);
         void Update(Phase phase);
+        void AddOrUpdate(Phase phase);
         Phase Delete(Guid id);
         Phase GetById(Guid id);
+        bool CheckExist(Expression<Func<Phase, bool>> predicate);
 
         IEnumerable<Phase> GetMulti(Expression<Func<Phase, bool>> expression, string[] includes = null);
 
@@ -51,14 +53,13 @@ namespace BusinessAccess
             {
                 PhaseId = new Guid(),
                 Serial = 1,
-                 Name ="Khởi tạo",
-                 Description ="Giai đoạn khởi tạo",
+                Name = "Khởi tạo",
+                Description = "Giai đoạn khởi tạo",
                 TimeImplement = 3,
                 TimeImplementType = "hour",
                 EmployeeImplementType = "self",
                 EmployeeImplement = null,
-                IsLastPhase = 0,
-                 IsFirstPhase =1,
+                Posittion = 1,
                 CreatedBy= "EmployeeName EmployeeCode",
                 CreatedAt= DateTime.Now,
                 UpdatedBy = "EmployeeName EmployeeCode",
@@ -76,8 +77,7 @@ namespace BusinessAccess
                 TimeImplementType = "hour",
                 EmployeeImplementType = null,
                 EmployeeImplement = null,
-                IsLastPhase = 1,
-                IsFirstPhase = 0,
+                Posittion = 3,
                 CreatedBy = "EmployeeName EmployeeCode",
                 CreatedAt = DateTime.Now,
                 UpdatedBy = "EmployeeName EmployeeCode",
@@ -96,7 +96,10 @@ namespace BusinessAccess
 
         public Phase Delete(Guid id)
         {
-            throw new NotImplementedException();
+
+            //var fieldToDelete = fieldRepository.GetMulti(x => x.FieldId == id);
+            //fieldRepository.DeleteMulti(fieldToDelete);
+            return phaseRepository.Delete(id);
         }
 
         public IEnumerable<Phase> GetAll(string[] includes = null)
@@ -116,7 +119,11 @@ namespace BusinessAccess
 
         public Phase GetSingleByCondition(Expression<Func<Phase, bool>> expression, string[] includes = null)
         {
-            throw new NotImplementedException();
+            return phaseRepository.GetSingleByCondition(expression,includes);
+        }
+        public bool CheckExist(Expression<Func<Phase, bool>> predicate)
+        {
+            return phaseRepository.CheckContains(predicate);
         }
 
         public void Save()
@@ -127,11 +134,35 @@ namespace BusinessAccess
         public IEnumerable<Phase> GetMulti(Expression<Func<Phase, bool>> expression, string[] includes = null)
         {
             var result = phaseRepository.GetMulti(expression, includes);
-            string[] option = new string[1] { "Option" };
+            string[] option = new string[1] { "FieldOption" };
           
             return result;
         }
 
-  
+        public void AddOrUpdate(Phase phase)
+        {
+            if(phase.CreatedAt == null)
+            {
+                phase.CreatedAt = DateTime.Now;
+                phase.CreatedBy = "E - 1234";
+            }
+
+
+            phase.UpdatedAt = DateTime.Now;
+            phase.UpdatedBy = "E - 1234";
+
+            var isPhaseExist = phaseRepository.CheckContains(x => x.PhaseId == phase.PhaseId);
+            if(isPhaseExist == true)
+            {
+                phaseRepository.Update(phase);
+            }
+            else
+            {
+                phaseRepository.Add(phase);
+            }
+
+           
+
+        }
     }
 }

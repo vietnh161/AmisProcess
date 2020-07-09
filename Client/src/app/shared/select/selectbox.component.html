@@ -1,9 +1,0 @@
-<form clrForm>
-    <clr-select-container class="clr-row select">
-        <label class="clr-col-md-5  clr-col-12">{{label}}</label>
-        <select clrSelect name="options" [(ngModel)]="optionSelected" (change)="emitOptionValue()"
-            class="clr-col-md-6 clr-col-12">
-            <option [value]="option.name" *ngFor="let option of options" >{{option.title}}</option>
-        </select>
-    </clr-select-container>
-</form>

@@ -1,22 +1,22 @@
-<clr-modal [(clrModalOpen)]="open" class="addModal" >
+<clr-modal [(clrModalOpen)]="open" class="addModal" [clrModalClosable]="false" >
 
     <h3 class="modal-title">Thêm trường mới</h3>
 
     <div class="modal-body">
 
-        <clr-alert *ngIf="phase.errorAddField" clrAlertType="danger">
+        <clr-alert *ngIf="errorAddField" clrAlertType="danger">
             <div class="alert-phase">
                 <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
                 <span class="alert-text">
-                    {{ phase.errorAddField}}
+                    {{ errorAddField}}
                 </span>
             </div>
         </clr-alert>
-        <clr-alert *ngIf="phase.successAddField" clrAlertType="success">
+        <clr-alert *ngIf="successAddField" clrAlertType="success">
             <div class="alert-phase">
                 <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
                 <span class="alert-text">
-                    {{ phase.successAddField}}
+                    {{ successAddField}}
                 </span>
             </div>
         </clr-alert>
@@ -25,26 +25,27 @@
             <clr-input-container>
                 <label class="clr-control-label clr-col-12 clr-col-md-6">Tên</label>
                 <input clrInput type="text" [(ngModel)]="field.name" name="name"
-                    class="clr-input clr-col-12 clr-col-md-12" autofocus
-                    (focus)="phase.successAddField=''" />
+                    class="clr-input clr-col-12 clr-col-md-12" appAutoFocus
+                    (focus)="successAddField=''" #nameInput />
             </clr-input-container>
             <clr-select-container>
                 <label class="clr-control-label clr-col-12 clr-col-md-6">Loại</label>
                 <select clrSelect name="type" [(ngModel)]="field.type"
-                    class="clr-col-md-12 clr-col-12">
+                    class="clr-col-md-12 clr-col-12" #typeInput  >
                     <option [value]="type" *ngFor="let type of types">{{ type}}</option>
                 </select>
             </clr-select-container>
-            <div *ngIf="field.type== 'Check Box' || field.type == 'Radio Select'"> 
+            <div *ngIf="field.type== 'Check Box' || field.type == 'Radio'"> 
                 <clr-input-container>
                     <label class="clr-control-label clr-col-12 clr-col-md-6">Options</label>
                     <input clrInput type="text" [(ngModel)]="value" name="options"
-                        class="clr-input clr-col-12 clr-col-md-12"
-                        (keyup)="addOptionForField($event)" />
+                        class="clr-input clr-col-12"
+                        (keyup)="addOptionForField($event)" #optionInput  />
+                    <clr-control-helper>Bấm enter để thêm</clr-control-helper>
                 </clr-input-container>
                 <div class="field clr-col-12">
                     <ul class="list-unstyled">
-                        <li *ngFor="let option of options">{{option.value}} <clr-icon
+                        <li *ngFor="let option of field.fieldOption">{{option.value}} <clr-icon
                                 shape="close" (click)="deleteOption(option.id)"
                                 style="cursor: pointer;"></clr-icon>
                         </li>
@@ -67,6 +68,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline" (click)="closeModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="addFieldHandle(phase)">Ok</button>
+        <button type="button" class="btn btn-primary" (click)="addFieldHandle()">Ok</button>
     </div>
 </clr-modal>

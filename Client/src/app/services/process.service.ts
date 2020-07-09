@@ -32,6 +32,12 @@ export class ProcessService {
         return this.http.get<Process>(url);
     }
 
+     /** Lây process theo id bao gom field option employee */
+     getIncludeById(id: number): Observable<Process> {
+        const url = `${environment.apiUrl}/${this.ProcessUrl}/includeField/${id}`;
+        return this.http.get<Process>(url);
+    }
+
     /** Phân trang */
     getMultiPaging(paging: Paging): Observable<any> {
         const url = `${environment.apiUrl}/${this.ProcessUrl}/page`;

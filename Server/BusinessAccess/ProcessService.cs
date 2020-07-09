@@ -79,11 +79,6 @@ namespace BusinessAccess
         public Process GetById(Guid id)
         {
             var result = processRepository.GetSingleById(id);
-            if (result != null)
-            {
-                result.Category = processCategoryRepository.GetSingleById(result.CategoryId);
-                return result;
-            }
             return result;
         }
 
@@ -178,7 +173,7 @@ namespace BusinessAccess
                     }
                 }
             }
-
+            
             if (!String.IsNullOrEmpty(paging.SortBy))
             {
                 var q = query.AsQueryable();

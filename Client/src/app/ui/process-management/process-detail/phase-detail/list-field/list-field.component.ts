@@ -18,7 +18,10 @@ export class ListFieldComponent implements OnInit {
     }
     ngOnInit(): void {
       
-     
+    //   setInterval(()=> {
+    //       console.log(this.fields);
+          
+    //   },3000);
     }
     
     emitDelete(id){

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Models
 {
-    public partial class Option
+    public partial class FieldOption
     {
         public Guid OptionId { get; set; }
         public string Value { get; set; }

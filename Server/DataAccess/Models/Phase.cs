@@ -20,8 +20,7 @@ namespace DataAccess.Models
         public string TimeImplementType { get; set; }
         public string EmployeeImplementType { get; set; }
         public string EmployeeImplement { get; set; }
-        public sbyte? IsLastPhase { get; set; }
-        public sbyte? IsFirstPhase { get; set; }
+        public int? Posittion { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
