@@ -63,14 +63,18 @@ export class AddFieldComponent implements OnInit {
 
             this.phase.field.push(this.field);
             this.field = this.resetField();
-            console.log(this.field.fieldOption);
-              this.optionInput.nativeElement.focus();
             this.successAddField = 'Thành công';
             this.nameInPut.nativeElement.focus();
         
 
 
     }
+
+    // submitAtTextArea(e){
+    //     if(e.keyCode == 13){
+    //         this.addFieldHandle();
+    //     }
+    // }
 
     addOptionForField( event) {
      
@@ -92,6 +96,18 @@ export class AddFieldComponent implements OnInit {
 
     deleteOption(optionId){
        this.field.fieldOption.splice(this.field.fieldOption.findIndex(x => x.id == optionId),1);
+    }
+
+    handleKeyUp(e,element, isEnd = false){
+        this.successAddField = '';
+        if(e.keyCode == 13){
+            if(isEnd == true){
+                this.addFieldHandle();
+            }else{
+                element.focus();
+
+            }
+        }
     }
 
     closeModal(){

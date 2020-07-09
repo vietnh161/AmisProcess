@@ -1,8 +1,9 @@
 
     <clr-datalist-container >
-        <input minlength="3" name="Option" required 
-               clrDatalistInput [disabled]="disabled" id="search" #employeeInput (change)="emitEmployee($event)" autocomplete="off"/>
-        <datalist class="clr-col-6">
+        <label class="clr-col-12">Nhập tên hoặc mã nhân viên</label>
+        <input class="clr-col-12" minlength="3" name="Option" required 
+               clrDatalistInput [disabled]="disabled" placeholder="Nhập" id="search" #employeeInput (change)="emitEmployee($event)" autocomplete="off"/>
+        <datalist class="clr-col-12">
             <option *ngFor="let employee of listEmployee" [value]="employee.fullName +' - '+ employee.employeeCode" ></option>
         </datalist>
 

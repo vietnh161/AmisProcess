@@ -8,6 +8,6 @@ textarea{
 .field{
     max-height: 200px;
    overflow: auto;
-   border-bottom: solid 1px;
+   /* border-bottom: solid 1px; */
    margin-top: 20px;
 }

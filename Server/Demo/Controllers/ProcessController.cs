@@ -5,12 +5,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using BusinessAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
-
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -61,18 +62,6 @@ namespace WebApp.Controllers
 
         }
 
-        [HttpGet("test/{id}")]
-        public IActionResult getByIda(Guid id)
-        {
-            string[] includes = new string[2] { "Phase", "Category" };
-            var result = processService.GetSingleByCondition(x => x.ProcessId.Equals(id), includes);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            return BadRequest("Process khong ton tai");
-
-        }
 
         /// <summary>
         /// Api cho việc lấy một process theo processId bao gồm cả field 
@@ -113,6 +102,7 @@ namespace WebApp.Controllers
         /// <summary>
         ///  Api cho việc tạo mới process
         /// </summary>
+        [Authorize(Roles = "admin")]
         [HttpPost()]
         public IActionResult AddProcess(Process process)    
         {
@@ -133,12 +123,13 @@ namespace WebApp.Controllers
             processService.Add(process, currentUser);
             processService.Save();
 
-            phaseService.AddWhenCreateProcess(process.ProcessId);
+            phaseService.AddWhenCreateProcess(process.ProcessId, currentUser);
             phaseService.Save();
 
             return Ok(process.ProcessId);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut()]
         public IActionResult UpdateProcess(Process process)
         {

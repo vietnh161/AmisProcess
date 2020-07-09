@@ -4,7 +4,10 @@
         <button clrTabLink>{{item.name}}</button>
         <ng-template [(clrIfActive)]="item.active">
             <clr-tab-content>
-               
+                <div class="clr-row">
+                    <div class="clr-col-12 clr-col-md-4">
+                      
+                   
                 <form clrForm clrLayout="vertical" autocomplete="off">
                     <clr-alert *ngIf="item.errorAddPhase" clrAlertType="danger">
                         <div class="alert-item">
@@ -17,15 +20,15 @@
                     </clr-alert>
                    
                     <clr-input-container>
-                        <label class="clr-col-12 clr-col-md-4">Tên</label>
-                        <input class="clr-col-12 clr-col-md-4" clrInput type="text" [(ngModel)]="item.name"
+                        <label class="clr-col-12">Tên</label>
+                        <input class="clr-col-12" clrInput type="text" [(ngModel)]="item.name"
                             name="item.name" appAutoFocus required *ngIf="item.posittion != 3" (keyup)="resetError(item)" />
-                        <input class="clr-col-12 clr-col-md-4" clrInput type="text" [ngModel]="item.name"
+                        <input class="clr-col-12" clrInput type="text" [ngModel]="item.name"
                             name="item.name" appAutoFocus disabled *ngIf="item.posittion == 3" />
                     </clr-input-container>
                     <clr-textarea-container>
-                        <label class="clr-col-12 clr-col-md-4">Mô tả</label>
-                        <textarea class="clr-col-12 clr-col-md-4" clrTextarea [(ngModel)]="item.description"
+                        <label class="clr-col-12">Mô tả</label>
+                        <textarea class="clr-col-12" clrTextarea [(ngModel)]="item.description"
                             name="description" (keyup)="resetError(item)" required></textarea>
                     </clr-textarea-container>
                     <div class="clr-col-12 clr-col-md-6">
@@ -46,22 +49,22 @@
                     <div *ngIf="item.posittion != 3">
 
                         <!-- begin list field -->
-                        <div class="field clr-col-12 clr-col-md-4">
+                        <div class="list-field clr-col-12">
                             <app-list-field [fields]="item.field" (onDeleteField)="deleteFieldHandle(item,$event)">
                             </app-list-field>
                         </div>
                         <!-- end list field -->
-                        <div class=" clr-col-12 clr-col-md-6">
+                        <div class=" clr-col-12">
                             <clr-input-container class="inline-block">
                                 <label>Thời gian thực hiện</label>
-                                <input clrInput type="number" [(ngModel)]="item.timeImplement" name="item.timeImplement" (keyup)="resetError(item)"
+                                <input clrInput type="number" [(ngModel)]="item.timeImplement" placeholder="Nhập số" name="item.timeImplement" (keyup)="resetError(item)"
                                     required />
                             </clr-input-container>
                             <clr-select-container class="inline-block">
                                 <select clrSelect name="options" [(ngModel)]="item.timeImplementType">
-                                    <option value="h">Giờ</option>
-                                    <option value="d">Ngày</option>
-                                    <option value="m">Tháng</option>
+                                    <option value="hour">Giờ</option>
+                                    <option value="day">Ngày</option>
+                                    <option value="month">Tháng</option>
                                 </select>
                             </clr-select-container>
                         </div>
@@ -80,11 +83,10 @@
                                         [(ngModel)]="item.employeeImplementType" />
                                     <label>Giới hạn</label>
                                 </clr-radio-wrapper>
-                                <clr-control-helper *ngIf="item.employeeImplementType == 'limit'">Nhập tên nhân viên hoặc mã số nhân viên </clr-control-helper>
                             </clr-radio-container>
-                            <div *ngIf="item.employeeImplementType == 'limit'" class=" clr-col-12 clr-col-md-4"> 
+                            <div *ngIf="item.employeeImplementType == 'limit'" class=" clr-col-12"> 
                                 <app-add-employee [phase]="item" (addEmployee)="addEmployeeHandle(item,$event)"></app-add-employee>
-                                <div class="field">
+                                <div class="list-employee">
                                    
                                     <ul class="list-unstyled">
                                         <li *ngFor="let phaseEmployee of item.phaseEmployee">
@@ -96,14 +98,23 @@
                                 </div>
                              </div> 
                         </div>
-                        <button [clrLoading]="saveAllState" class="btn btn-primary btn-sm" (click)="submitHandle(item)">Lưu lại</button>
-                        <button class="btn btn-primary btn-sm" (click)="cancelHandle($event)">Hủy</button>
-                        <button class="btn btn-primary btn-sm" (click)="deleteHandle(item)"
-                            *ngIf="item.posittion == 2">Xóa</button>
-                        <button class="btn btn-primary btn-sm" (click)="addPhaseHandle(item, $event)">Thêm giai đoạn
-                            mới</button>
                     </div>
+                    <div style="margin-top: 10px;">
+                        <button [clrLoading]="saveAllState" class="btn btn-primary btn-sm" (click)="submitHandle(item)" title="Lưu lại toàn bộ thay đổi">Lưu lại</button>
+                        <button class="btn btn-primary btn-sm" (click)="cancelHandle($event)">Hủy</button>
+                    </div>
+                       
+                   
                 </form>
+            </div>
+            <div class="clr-col-6" style="margin-top: 23px;">
+                <button class="btn btn-primary btn-sm btn-danger" (click)="deleteHandle(item)"
+                *ngIf="item.posittion == 2">Xóa</button>
+                <button class="btn btn-primary btn-sm" (click)="addPhaseHandle(item, $event)" *ngIf="item.posittion != 3">Thêm giai đoạn
+                    mới</button>
+            </div>
+        </div>
+               
             </clr-tab-content>
         </ng-template>
     </clr-tab>

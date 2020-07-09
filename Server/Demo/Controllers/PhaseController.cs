@@ -4,21 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PhaseController : ControllerBase
     {
+        IUserService userService;
         IFieldService fieldService;
         IPhaseService phaseService;
         IPhaseEmployeeService phaseEmployeeService;
         IProcessService processService;
-        public PhaseController(IFieldService fieldService, IPhaseEmployeeService phaseEmployeeService, IPhaseService phaseService, IProcessService processService)
+        public PhaseController(IUserService userService,IFieldService fieldService, IPhaseEmployeeService phaseEmployeeService, IPhaseService phaseService, IProcessService processService)
         {
+            this.userService = userService;
             this.fieldService = fieldService;
             this.phaseService = phaseService;
             this.processService = processService;
@@ -47,9 +51,13 @@ namespace WebApp.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut()]
         public IActionResult UpdateMultiPhase(ModifiedPhase modifiedPhase)
         {
+            var currentUser = userService.GetCurrentUser(User.Identity.Name);
+
+
             foreach (var i in modifiedPhase.ListPhaseDelete)     // Xóa những phase có trong danh sách id xóa
             {
 
@@ -88,11 +96,11 @@ namespace WebApp.Controllers
                     phase.PhaseId = Guid.NewGuid();
                 }
 
-                phaseService.AddOrUpdate(phase);
+                phaseService.AddOrUpdate(phase, currentUser);
             }
             var processUpdated = processService.GetById(modifiedPhase.ProcessId);
             processUpdated.UpdatedAt = DateTime.Now;
-            processUpdated.UpdatedBy = "e - 12345";
+            processUpdated.UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
 
 
             phaseService.Save();
@@ -100,9 +108,21 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteById(Guid id)
         {
+            var phaseToDelete = phaseService.GetById(id);
+            var ListPhase = phaseService.GetMulti(x => x.ProcessId == phaseToDelete.ProcessId);
+
+            foreach(var item in ListPhase)
+            {
+                if(item.Serial > phaseToDelete.Serial)
+                {
+                    item.Serial--;
+                }
+            }
+
             var result = phaseService.Delete(id);
             if (result == null) return BadRequest("phase khong ton tai");
             phaseService.Save();

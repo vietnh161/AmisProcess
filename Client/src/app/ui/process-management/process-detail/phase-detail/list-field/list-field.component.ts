@@ -17,6 +17,7 @@ export class ListFieldComponent implements OnInit {
 
     }
     ngOnInit(): void {
+      console.log(this.fields);
       
     //   setInterval(()=> {
     //       console.log(this.fields);

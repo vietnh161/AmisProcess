@@ -10,3 +10,15 @@ C:\Users\nhviet\source\repos\Demo\BusinessAccess\bin\Debug\netcoreapp3.1\DataAcc
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csproj.CopyComplete
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.dll
 C:\Users\nhviet\source\repos\Demo\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.pdb
+E:\Github\AmisProcess\Server\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.deps.json
+E:\Github\AmisProcess\Server\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.dll
+E:\Github\AmisProcess\Server\BusinessAccess\bin\Debug\netcoreapp3.1\BusinessAccess.pdb
+E:\Github\AmisProcess\Server\BusinessAccess\bin\Debug\netcoreapp3.1\DataAccess.dll
+E:\Github\AmisProcess\Server\BusinessAccess\bin\Debug\netcoreapp3.1\DataAccess.pdb
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csprojAssemblyReference.cache
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.AssemblyInfoInputs.cache
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.AssemblyInfo.cs
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csproj.CoreCompileInputs.cache
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.csproj.CopyComplete
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.dll
+E:\Github\AmisProcess\Server\BusinessAccess\obj\Debug\netcoreapp3.1\BusinessAccess.pdb

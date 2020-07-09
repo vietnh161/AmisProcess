@@ -12,9 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainPageModule } from './pages/main-page/main-page.module';
 import { Page404Component } from './pages/page404/page404.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthEffects } from './store/effects/auth.effects';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/app.states';
 import { JwtInterceptor } from './helpers';
 
 
@@ -35,8 +32,6 @@ import { JwtInterceptor } from './helpers';
     MainPageModule,
     ClarityModule,
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects]),
-    StoreModule.forRoot( reducers, {})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

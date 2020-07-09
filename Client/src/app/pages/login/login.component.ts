@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { AppState, selectAuthState } from 'src/app/store/app.states';
-import { Login } from 'src/app/store/actions/auth.actions';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from 'src/app/services';
+import { error } from '@angular/compiler/src/util';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,14 +18,21 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   getState: Observable<any>;
   submitted: boolean = false;
+  returnUrl: string;
   errMessage: string;
  
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<AppState>
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
-    this.getState = this.store.select(selectAuthState);
+    //Nếu đã đăng nhập redirect sang path /
+    if (this.authenticationService.currentUserValue) { 
+      this.router.navigate(['/']);
+  }
+
   }
 
   ngOnInit() {
@@ -33,13 +40,8 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.getState.subscribe(state => {  
-      this.errMessage = state.errorMessage;
-      
-      if(  this.errMessage != null){
-        this.submitted = false;
-      }
-    })
+    
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
 
@@ -56,7 +58,17 @@ export class LoginComponent implements OnInit {
       this.submitted = false;
       return;
     }
-    this.store.dispatch(new Login({username: this.data.username.value, password: this.data.password.value}));
+    this.authenticationService.login(this.data.username.value, this.data.password.value).subscribe(
+      result => {
+        this.submitted = false;
+        this.router.navigate([this.returnUrl]);
+        
+      },
+      error => {
+        this.errMessage ='Tên tài khoản hoặc mật khẩu không đúng!';
+        this.submitted = false;
+      }
+    )
   
     
   }

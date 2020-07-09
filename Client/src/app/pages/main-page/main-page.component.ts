@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppState, selectAuthState } from 'src/app/store/app.states';
-import { Store } from '@ngrx/store';
-import { LogOut, GetUserInfor } from 'src/app/store/actions/auth.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,7 +18,7 @@ export class MainPageComponent implements OnInit {
     {
       name: 'Quản lý quy trình',
       path: 'manage-process',
-      role: 'admin',
+      role: ['admin'],
       icon:'certificate',
       childs: [
         {
@@ -37,19 +34,19 @@ export class MainPageComponent implements OnInit {
     {
       name: 'Chạy quy trình',
       path: '/run-process',
-      role: 'user',
+      role: ['admin','employee'],
       icon:'play'
     },
     {
       name: 'Quy trình cần xử lý',
       path: '/handle-process',
-      role: 'user',
+      role: ['admin','employee'],
       icon:'pencil'
     },
     {
       name: 'Quy trình đã xử lý',
       path: '/done-process',
-      role: 'user',
+      role: ['admin','employee'],
       icon:'check'
     }, 
   ]
@@ -57,33 +54,21 @@ export class MainPageComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private store: Store<AppState>,
   ) {
-   
-    this.getState = this.store.select(selectAuthState);
-  
-    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    // if (this.currentUser.role == 'Admin') {
-    //   this.isAdmin = true;
-    // } else {
-    //   this.isAdmin = false;
-    // }
-    // console.log(this.currentUser)
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetUserInfor({}));
-
-    this.getState.subscribe(state => {  
-      this.currentUser = state.user;
-      console.log(this.currentUser);
-      
-    })
+    this.authenticationService.getUserLogged();
+    
   }
 
   logOut() {
-  
-    this.store.dispatch(new LogOut())
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
 
+  }
+  test(){
+    this.authenticationService.getUserLogged();
   }
 }

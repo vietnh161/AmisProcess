@@ -6,7 +6,7 @@
         <clr-icon shape="pencil" ></clr-icon>
        
         </button>
-<clr-modal [(clrModalOpen)]="showModal" class="addModal" *ngIf="showModal"> <!    --them ngif de su dung directive appAutoFocus, -->
+<clr-modal [(clrModalOpen)]="showModal" class="addModal" *ngIf="showModal"> <!--them ngif de su dung directive appAutoFocus, -->
 
     <h3 class="modal-title" *ngIf="mode == 'add'">Tạo quy trình mới</h3>
     <h3 class="modal-title" *ngIf="mode == 'edit'">Chỉnh sửa quy trình</h3>
@@ -24,19 +24,20 @@
 
         <form clrForm  autocomplete="off">
             <clr-input-container>
-                <label class="clr-control-label clr-col-12 clr-col-md-6">Tên quy trình</label>
-                <input clrInput type="text" [(ngModel)]="newProcess.name" name="example" id="test"
-                    class="clr-input clr-col-12 clr-col-md-12" (keyup)="errorMessage = ''" appAutoFocus />
+                <label class="clr-col-12">Tên quy trình</label>
+                <input clrInput type="text" [(ngModel)]="newProcess.name" name="example" id="test" #nameInput
+                    class="clr-col-12 " (keyup)="handleKeyUp($event,descriptionInput)" appAutoFocus />
             </clr-input-container>
-            <clr-textarea-container>
-                <label class="clr-control-label clr-col-12 clr-col-md-6">Mô tả</label>
-                <textarea clrTextarea [(ngModel)]="newProcess.description" name="description"
-                    class=" clr-col-12 clr-col-md-12" ></textarea>
-            </clr-textarea-container>
+            <clr-input-container>
+                <label class="clr-control-label clr-col-12">Mô tả</label>
+                <input clrInput type="text" [(ngModel)]="newProcess.description" name="description" #descriptionInput
+                    class="clr-col-12" (keyup)="handleKeyUp($event,categoryInput)"  />
+            </clr-input-container>
+           
           
                 <clr-datalist-container>
-                    <label  class="clr-control-label clr-col-12 clr-col-md-6">Danh mục</label>
-                    <input minlength="2" name="Category" required  
+                    <label  class="clr-col-12 ">Danh mục</label>
+                    <input minlength="2" name="Category" required   #categoryInput (keyup)="handleKeyUp($event,statusInput,true)" 
                            clrDatalistInput [disabled]="disabled" [(ngModel)]="newProcess.category.name"/>
                     <datalist>
                         <option *ngFor="let item of listCategory" [value]="item.name"></option>
@@ -47,7 +48,7 @@
 
                 <clr-select-container *ngIf="mode =='edit'">
                     <label class="clr-control-label clr-col-12 clr-col-md-6">Trạng thái</label>
-                    <select clrSelect name="options" [(ngModel)]="newProcess.status">
+                    <select clrSelect name="options" [(ngModel)]="newProcess.status"> 
                       <option value="maintain">Bảo trì</option>
                       <option value="stop">Dừng hoạt động</option>
                       <option value="active">Hoạt động</option>

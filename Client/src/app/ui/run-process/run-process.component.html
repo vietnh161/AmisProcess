@@ -1,18 +1,5 @@
 <h3 class="title">{{ route.snapshot.data['title'] }}</h3>
 <div class="action">
-    <div class="clr-row ">
-        <div class="clr-col-md-2 clr-col-12">
-        
-        </div>
-        <div class="clr-col-md-8 clr-col-12">
-            <app-search-list [options]="optionsForFilter" (emitterValue)="search($event)" ></app-search-list>
-        </div>
-        <div class="clr-col-md-2 clr-col-12">
-           <misa-selectbox [label]="'Sắp xếp theo'"  [options]="optionsForSort" (emitValue)="sort($event)" ></misa-selectbox>
-
-        </div>
-    </div>
-
   <!-- begin modal confirm -->
   <clr-modal [(clrModalOpen)]="item.isDel" class="confirmModal" *ngFor="let item of listProcess">
 
@@ -31,13 +18,13 @@
 
 </div>
 <div>
-    <clr-datagrid >
+    <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" >
         <clr-dg-column>Tên quy trình</clr-dg-column>
         <clr-dg-column>Mô tả</clr-dg-column>
         <clr-dg-column>Người tạo</clr-dg-column>
         <clr-dg-column>Trạng thái</clr-dg-column>
         <clr-dg-column>Danh mục</clr-dg-column>
-        <clr-dg-row *clrDgItems="let item of listProcess" (click)="runProcess(item)">
+        <clr-dg-row *ngFor="let item of listProcess" (click)="runProcess(item)">
 
             <clr-dg-cell>{{item.name}}</clr-dg-cell>
             <clr-dg-cell>{{item.description}}</clr-dg-cell>
@@ -50,9 +37,9 @@
 
         <clr-dg-footer>
             <clr-dg-pagination #pagination [clrDgPageSize]="10">
-                <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Item per page</clr-dg-page-size>
+                <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Hiển thị</clr-dg-page-size>
                 {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-                of {{pagination.totalItems}} users
+                trong {{total}} quy trình
             </clr-dg-pagination>
         </clr-dg-footer>
     </clr-datagrid>

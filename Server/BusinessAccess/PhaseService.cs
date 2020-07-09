@@ -12,9 +12,9 @@ namespace BusinessAccess
     {
         void Add(Phase phase);
 
-        void AddWhenCreateProcess(Guid processId);
+        void AddWhenCreateProcess(Guid processId, User currentUser);
         void Update(Phase phase);
-        void AddOrUpdate(Phase phase);
+        void AddOrUpdate(Phase phase, User currentUser);
         Phase Delete(Guid id);
         Phase GetById(Guid id);
         bool CheckExist(Expression<Func<Phase, bool>> predicate);
@@ -49,7 +49,7 @@ namespace BusinessAccess
             throw new NotImplementedException();
         }
 
-        public void AddWhenCreateProcess(Guid processId)
+        public void AddWhenCreateProcess(Guid processId, User currentUser)
         {
             var firstPhase = new Phase()
             {
@@ -62,9 +62,9 @@ namespace BusinessAccess
                 EmployeeImplementType = "self",
                 EmployeeImplement = null,
                 Posittion = 1,
-                CreatedBy= "EmployeeName EmployeeCode",
+                CreatedBy= currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode,
                 CreatedAt= DateTime.Now,
-                UpdatedBy = "EmployeeName EmployeeCode",
+                UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode,
                 UpdatedAt =DateTime.Now,
                 ProcessId = processId
             };
@@ -80,9 +80,9 @@ namespace BusinessAccess
                 EmployeeImplementType = null,
                 EmployeeImplement = null,
                 Posittion = 3,
-                CreatedBy = "EmployeeName EmployeeCode",
+                CreatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode,
                 CreatedAt = DateTime.Now,
-                UpdatedBy = "EmployeeName EmployeeCode",
+                UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode,
                 UpdatedAt = DateTime.Now,
                 ProcessId = processId
             };
@@ -139,17 +139,17 @@ namespace BusinessAccess
             return result;
         }
 
-        public void AddOrUpdate(Phase phase)
+        public void AddOrUpdate(Phase phase, User currentUser)
         {
             if(phase.CreatedAt == null)
             {
                 phase.CreatedAt = DateTime.Now;
-                phase.CreatedBy = "E - 1234";
+                phase.CreatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
             }
 
 
             phase.UpdatedAt = DateTime.Now;
-            phase.UpdatedBy = "E - 1234";
+            phase.UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
 
             var isPhaseExist = phaseRepository.CheckContains(x => x.PhaseId == phase.PhaseId);
 
@@ -176,7 +176,17 @@ namespace BusinessAccess
                 phaseRepository.Update(phase);
             }
             else
-            {      
+            {
+                foreach (var phaseEmployee in phase.PhaseEmployee)
+                {
+                    if (!phaseEmployeeRepository.CheckContains(x => x.PhaseEmployeeId == phaseEmployee.PhaseEmployeeId))
+                    {
+                        phaseEmployee.Employee = null;                  //set bằng null nếu không sẽ tự động insert vào bảng employee giá trị- 
+                                                                        //  phaseEmployee.Employee khi gọi lệnh add này.
+                    }
+
+
+                }
                 phaseRepository.Add(phase);
             }
         }

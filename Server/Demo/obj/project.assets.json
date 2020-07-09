@@ -8463,19 +8463,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nhviet\\.nuget\\packages\\": {}
+    "C:\\Users\\HuyViet\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nhviet\\source\\repos\\Demo\\Demo\\WebApp.csproj",
+      "projectUniqueName": "E:\\Github\\AmisProcess\\Server\\Demo\\WebApp.csproj",
       "projectName": "WebApp",
-      "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\Demo\\WebApp.csproj",
-      "packagesPath": "C:\\Users\\nhviet\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\Demo\\obj\\",
+      "projectPath": "E:\\Github\\AmisProcess\\Server\\Demo\\WebApp.csproj",
+      "packagesPath": "C:\\Users\\HuyViet\\.nuget\\packages\\",
+      "outputPath": "E:\\Github\\AmisProcess\\Server\\Demo\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nhviet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HuyViet\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8488,11 +8488,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj": {
-              "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj"
+            "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj": {
+              "projectPath": "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj"
             },
-            "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj"
+            "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -8559,7 +8559,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

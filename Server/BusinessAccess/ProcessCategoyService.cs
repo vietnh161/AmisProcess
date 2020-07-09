@@ -33,7 +33,7 @@ namespace BusinessAccess
 
         public Category Add(Category category)
         {
-            var result = processCategoryRepository.GetSingleByCondition(x => x.Name.ToUpper().Contains(category.Name.ToUpper()));
+            var result = processCategoryRepository.GetSingleByCondition(x => x.Name.ToUpper()==category.Name.ToUpper());
             if (result == null)
             {
                 category.CategoryId = new Guid(); // set id = 0 để lúc thêm mới không bị trùng id gây ra exception

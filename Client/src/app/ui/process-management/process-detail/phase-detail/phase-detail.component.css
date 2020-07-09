@@ -19,8 +19,18 @@ input[type="text"]{
 textarea{
     width: 95%;
 }
-.field{
+.list-field{
+    margin-top: 10px;
     max-height: 200px;
-   overflow: auto;
-   border-bottom: solid 1px;
+    overflow: auto;
+    border: solid 1px grey; 
+    padding: 10px;
+}
+
+.list-employee{
+    margin-top: 10px;
+    max-height: 200px;
+    overflow: auto;
+  /* border: solid 1px grey; */
+    padding-bottom: 10px;
 }

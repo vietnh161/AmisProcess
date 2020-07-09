@@ -169,6 +169,7 @@ export class PhaseDetailComponent implements OnInit {
             this.phaseService.updateMulti(this.modifiedPhase).subscribe(
                 result => {
                     this.saveAllState = false;
+                    this.router.navigateByUrl('manage-process/process/' + this.processId);
                 },
                 error => {
                     console.log(error);
@@ -176,7 +177,7 @@ export class PhaseDetailComponent implements OnInit {
                 }
             )
             
-          //  this.router.navigateByUrl('manage-process/process/' + this.processId);
+         
         
     }
 

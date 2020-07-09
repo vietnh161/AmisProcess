@@ -26,18 +26,34 @@ export class AuthenticationService {
             username: username,
             password: password
         }
-        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
-        return this.http.post<any>(`${environment.apiUrl}/account/authenticate`, user, httpOptions);
+        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+        return this.http.post<any>(`${environment.apiUrl}/account/authenticate`, user, httpOptions)
+            .pipe(map(user => {
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+                }
+
+                return user;
+            }));
+
+    }
+
+    getUserLogged() {
+        
+        return this.http.get<any>(`${environment.apiUrl}/account/getUserLogged`).subscribe(
+            user => {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+            }
+        )
            
     }
-
-    getUserLogged() : Observable<any> {
-        return this.http.get<any>(`${environment.apiUrl}/account/getUserLogged`);
-    }
-
     logout() {
-        
-        // localStorage.removeItem('currentUser');
-        // this.currentUserSubject.next(null);
+
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
     }
 }

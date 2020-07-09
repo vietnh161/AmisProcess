@@ -10,3 +10,15 @@ C:\Users\nhviet\source\repos\Demo\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.
 C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.dll
 C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.pdb
 C:\Users\nhviet\source\repos\Demo\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.genruntimeconfig.cache
+E:\Github\AmisProcess\Server\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.deps.json
+E:\Github\AmisProcess\Server\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.runtimeconfig.json
+E:\Github\AmisProcess\Server\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.runtimeconfig.dev.json
+E:\Github\AmisProcess\Server\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.dll
+E:\Github\AmisProcess\Server\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.pdb
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csprojAssemblyReference.cache
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfoInputs.cache
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfo.cs
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.CoreCompileInputs.cache
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.dll
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.pdb
+E:\Github\AmisProcess\Server\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.genruntimeconfig.cache

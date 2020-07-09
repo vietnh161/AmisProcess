@@ -1,3 +1,5 @@
+<div *ngIf="fields.length == 0">Chưa có trường nào</div>
+
 <div *ngFor="let field of fields" [ngSwitch]="field.type">
     <clr-input-container *ngSwitchCase="'Text'">
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}} <clr-icon

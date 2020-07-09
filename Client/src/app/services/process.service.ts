@@ -44,6 +44,12 @@ export class ProcessService {
         return this.http.post<any>(url,paging, this.httpOptions);
     }
 
+     /** Phân trang cho phần chạy quy trình*/
+     getMultiPagingToRun(paging: Paging): Observable<any> {
+        const url = `${environment.apiUrl}/${this.ProcessUrl}/pageToRun`;
+        return this.http.post<any>(url,paging, this.httpOptions);
+    }
+
     // Tạo mới Process
     addProcess(process: Process): Observable<any>{
         const url = `${environment.apiUrl}/${this.ProcessUrl}`;

@@ -13,8 +13,8 @@
 					<clr-icon shape="caret down"></clr-icon>
 				</button>
 				<clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-					<a href="..." clrDropdownItem> <clr-icon shape="user" ></clr-icon>Hồ sơ </a>
-					<a href="" (click)="logOut()" clrDropdownItem> <clr-icon shape="logout" ></clr-icon>Đăng xuất</a>
+					<a  clrDropdownItem (click)="test()"> <clr-icon shape="user" ></clr-icon>Hồ sơ </a>
+					<a  (click)="logOut()" clrDropdownItem> <clr-icon shape="logout" ></clr-icon>Đăng xuất</a>
 				</clr-dropdown-menu>
 			</clr-dropdown>
 		</div>
@@ -30,7 +30,7 @@
 		<clr-vertical-nav [clrVerticalNavCollapsible]="true">
 
 			<div *ngFor="let item of sidebarLinks">
-			<clr-vertical-nav-group routerLinkActive="" *ngIf="item.childs">
+			<clr-vertical-nav-group routerLinkActive="" *ngIf="item.childs && item.role.includes(currentUser.role)">
 				<clr-icon attr.shape="{{item.icon}}" clrVerticalNavIcon></clr-icon>
 				{{item.name}}
 				<clr-vertical-nav-group-children>
@@ -40,7 +40,7 @@
 				</clr-vertical-nav-group-children>
 			</clr-vertical-nav-group>
 
-			<a clrVerticalNavLink routerLinkActive="active" [routerLink]="'/'+ item.path" *ngIf="!item.childs " >
+			<a clrVerticalNavLink routerLinkActive="active" [routerLink]="'/'+ item.path" *ngIf="!item.childs && item.role.includes(currentUser.role)" >
 				<clr-icon attr.shape="{{item.icon}}" clrVerticalNavIcon></clr-icon>
 				{{item.name}}
 			</a>

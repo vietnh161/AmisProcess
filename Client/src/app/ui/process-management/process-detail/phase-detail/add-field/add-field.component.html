@@ -23,23 +23,29 @@
 
         <form clrForm autocomplete="off">
             <clr-input-container>
-                <label class="clr-control-label clr-col-12 clr-col-md-6">Tên</label>
-                <input clrInput type="text" [(ngModel)]="field.name" name="name"
-                    class="clr-input clr-col-12 clr-col-md-12" appAutoFocus
-                    (focus)="successAddField=''" #nameInput />
+                <label class="clr-col-12">Tên</label>
+                <input clrInput type="text" [(ngModel)]="field.name" name="name" placeholder="Nhập tên"
+                    class="clr-col-12" appAutoFocus
+                    (keyup)="handleKeyUp($event,descriptionInput)" #nameInput />
+            </clr-input-container>
+            <clr-input-container>
+                <label class="clr-col-12">Mô tả</label>
+                <input clrInput type="text" [(ngModel)]="field.description" name="description" placeholder="Nhập mô tả"
+                    class="clr-col-12" 
+                    (keyup)="handleKeyUp($event,descriptionInput,true)" #descriptionInput />
             </clr-input-container>
             <clr-select-container>
-                <label class="clr-control-label clr-col-12 clr-col-md-6">Loại</label>
+                <label class="clr-col-12 ">Loại</label>
                 <select clrSelect name="type" [(ngModel)]="field.type"
-                    class="clr-col-md-12 clr-col-12" #typeInput  >
+                    class="clr-col-12" #typeInput  >
                     <option [value]="type" *ngFor="let type of types">{{ type}}</option>
                 </select>
             </clr-select-container>
             <div *ngIf="field.type== 'Check Box' || field.type == 'Radio'"> 
                 <clr-input-container>
-                    <label class="clr-control-label clr-col-12 clr-col-md-6">Options</label>
+                    <label class=" clr-col-12">Options</label>
                     <input clrInput type="text" [(ngModel)]="value" name="options"
-                        class="clr-input clr-col-12"
+                        class="clr-col-12"
                         (keyup)="addOptionForField($event)" #optionInput  />
                     <clr-control-helper>Bấm enter để thêm</clr-control-helper>
                 </clr-input-container>
@@ -52,11 +58,7 @@
                     </ul>
                 </div>
             </div>
-            <clr-textarea-container>
-                <label class="clr-control-label clr-col-12 clr-col-md-6">Mô tả</label>
-                <textarea clrTextarea [(ngModel)]="field.description" name="description"
-                    class=" clr-col-12 clr-col-md-12"></textarea>
-            </clr-textarea-container>
+           
             <clr-toggle-container>
                 <label>Trường bắt buộc</label>
                 <clr-toggle-wrapper>

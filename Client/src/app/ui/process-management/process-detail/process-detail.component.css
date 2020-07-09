@@ -5,6 +5,7 @@
 .title {
     margin-top: 0px; 
     margin-bottom: 10px;
+    font-weight: 500;
 }
 div.card-header.title{
     white-space: nowrap;
@@ -38,4 +39,10 @@ margin-top: 9px;
 .button-add{
     margin-top: 20px;
     padding-left: 0px;
+}
+
+.text-black{
+    color: black;
+    font-weight: 500;
+    font-size: 13px;
 }

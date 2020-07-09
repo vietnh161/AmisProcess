@@ -3,10 +3,10 @@
 
     <h3 class="title">{{process.name }} &nbsp; <app-process-action mode='edit' [process]="process"></app-process-action>
     </h3>
-    <p>Người tạo: {{ process.createdBy}}</p>
-    <p>Thời gian tạo: {{ process.createdAt| date:'medium'}}</p>
-    <p>Chỉnh sửa gần nhất: {{ process.updatedAt | date:'medium'}} bởi {{ process.updatedBy}}</p>
-    <p>Trạng thái: {{process.status}} </p>
+    <p><span class="text-black">Người tạo :&emsp;</span>  {{ process.createdBy}}</p>
+    <p><span class="text-black">Thời gian tạo :&emsp; </span>{{ process.createdAt| date: 'dd/MM/yyyy h:mm:ss a'}}</p>
+    <p><span class="text-black">Chỉnh sửa gần nhất :&emsp;</span> {{ process.updatedAt | date: 'dd/MM/yyyy h:mm:ss a'}} bởi {{ process.updatedBy}}</p>
+    <p><span class="text-black">Trạng thái :&emsp;</span> {{process.status}} </p>
 </div>
 
 <div class="clr-row">
@@ -18,7 +18,7 @@
                         {{item.serial + '. ' + item.name}}
                     </div>
                     <div class="card-block">
-                        <div class="card-title">
+                        <div class="card-title" style="font-size: 16px;font-weight: 400;">
                             {{item.description}}
                         </div>
                         <div class="card-text">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-sm "  *ngIf="item.posittion != 3"
+                        <button class="btn btn-sm btn-success-outline"  *ngIf="item.posittion != 3"
                             (click)="router.navigateByUrl('/manage-process/process/' + processId+ '/edit/' + item.serial)">Sửa</button>
                         <button class="btn btn-sm btn-danger-outline" *ngIf="item.posittion == 2"
                             (click)="item.isDel = true">Xóa</button>

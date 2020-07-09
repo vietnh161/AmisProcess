@@ -36,6 +36,7 @@ const routes: Routes = [
   {
     path: 'manage-process',
     canActivate: [AuthGuard],
+    data: {role: ["admin"]},
    loadChildren: () => import(`./ui/process-management/process-management.module`).then(m => m.ProcessManagementModule),
     
   },

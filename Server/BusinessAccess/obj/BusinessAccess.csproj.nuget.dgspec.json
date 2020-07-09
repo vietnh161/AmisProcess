@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj": {}
+    "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj": {
+    "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj",
+        "projectUniqueName": "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj",
         "projectName": "BusinessAccess",
-        "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\BusinessAccess.csproj",
-        "packagesPath": "C:\\Users\\nhviet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\BusinessAccess\\obj\\",
+        "projectPath": "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\BusinessAccess.csproj",
+        "packagesPath": "C:\\Users\\HuyViet\\.nuget\\packages\\",
+        "outputPath": "E:\\Github\\AmisProcess\\Server\\BusinessAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nhviet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HuyViet\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj"
+              "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -74,21 +74,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj": {
+    "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\nhviet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhviet\\source\\repos\\Demo\\DataAccess\\obj\\",
+        "projectPath": "E:\\Github\\AmisProcess\\Server\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\HuyViet\\.nuget\\packages\\",
+        "outputPath": "E:\\Github\\AmisProcess\\Server\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nhviet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HuyViet\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -156,7 +156,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
