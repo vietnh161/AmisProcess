@@ -5,7 +5,7 @@
         <ng-template [(clrIfActive)]="item.active">
             <clr-tab-content>
                
-                <form clrForm clrLayout="vertical">
+                <form clrForm clrLayout="vertical" autocomplete="off">
                     <clr-alert *ngIf="item.errorAddPhase" clrAlertType="danger">
                         <div class="alert-item">
                             <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>

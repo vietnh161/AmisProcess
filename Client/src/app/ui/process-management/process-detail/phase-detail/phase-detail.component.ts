@@ -100,7 +100,7 @@ export class PhaseDetailComponent implements OnInit {
       //  console.log(event);
         
         var newPhaseEmployee = {
-            id: uuidv4(),
+            phaseEmployeeId: uuidv4(),
             phaseId: phase.phaseId,
             employeeId: event.employeeId,
             employee: event,
@@ -131,12 +131,15 @@ export class PhaseDetailComponent implements OnInit {
 
         this.modifiedPhase.listFieldDelete.push(id);
         phase.field.splice( phase.field.findIndex(x => x.fieldId == id), 1)
-
+        console.log(this.modifiedPhase.listFieldDelete);
+        
         
     }
 
 
      submitHandle(item) {
+      //   console.log(this.modifiedPhase);
+         
         this.saveAllState = true;
          
         if (item.description == '' || item.timeImplement == null) {
@@ -153,7 +156,6 @@ export class PhaseDetailComponent implements OnInit {
                         return;
                     }  
                 }
-
                 delete this.listPhase[i].employeeValueInput;
                 delete this.listPhase[i].errorAddField;
                 delete this.listPhase[i].errorAddPerson;

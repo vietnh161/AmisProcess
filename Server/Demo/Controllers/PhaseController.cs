@@ -15,12 +15,14 @@ namespace WebApp.Controllers
     {
         IFieldService fieldService;
         IPhaseService phaseService;
+        IPhaseEmployeeService phaseEmployeeService;
         IProcessService processService;
-        public PhaseController(IFieldService fieldService, IPhaseService phaseService, IProcessService processService)
+        public PhaseController(IFieldService fieldService, IPhaseEmployeeService phaseEmployeeService, IPhaseService phaseService, IProcessService processService)
         {
             this.fieldService = fieldService;
             this.phaseService = phaseService;
             this.processService = processService;
+            this.phaseEmployeeService = phaseEmployeeService;
         }
 
         /// <summary>
@@ -58,13 +60,24 @@ namespace WebApp.Controllers
                 }
             }
 
-            foreach (var i in modifiedPhase.ListFieldDelete)     // Xóa những phase có trong danh sách id xóa
+            foreach (var i in modifiedPhase.ListFieldDelete)     // Xóa những field có trong danh sách id xóa
             {
 
                 var isFieldExist = fieldService.CheckExist(x => x.FieldId == i);
                 if (isFieldExist == true)
                 {
                     fieldService.Delete(i);
+                }
+
+            }
+
+            foreach (var i in modifiedPhase.ListEmployeeDelete)     // Xóa những employee có trong danh sách id xóa
+            {
+
+                var isFieldExist = phaseEmployeeService.CheckExist(x => x.PhaseEmployeeId == i);
+                if (isFieldExist == true)
+                {
+                   phaseEmployeeService.Delete(i);
                 }
             }
 
@@ -74,6 +87,7 @@ namespace WebApp.Controllers
                 {
                     phase.PhaseId = Guid.NewGuid();
                 }
+
                 phaseService.AddOrUpdate(phase);
             }
             var processUpdated = processService.GetById(modifiedPhase.ProcessId);
@@ -85,5 +99,15 @@ namespace WebApp.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(Guid id)
+        {
+            var result = phaseService.Delete(id);
+            if (result == null) return BadRequest("phase khong ton tai");
+            phaseService.Save();
+            return Ok(result.ProcessId);
+        }
     }
+
 }

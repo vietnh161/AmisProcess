@@ -32,11 +32,13 @@ namespace BusinessAccess
     public class PhaseService : IPhaseService
     {
         IRepository<Phase> phaseRepository;
+        IRepository<PhaseEmployee> phaseEmployeeRepository;
         IRepository<Field> fieldRepository;
         IUnitOfWork unitOfWork;
-        public PhaseService(IRepository<Phase> phaseRepository, IRepository<Field> fieldRepository, IUnitOfWork unitOfWork)
+        public PhaseService(IRepository<Phase> phaseRepository, IRepository<PhaseEmployee> phaseEmployeeRepository, IRepository<Field> fieldRepository, IUnitOfWork unitOfWork)
         {
             this.phaseRepository = phaseRepository;
+            this.phaseEmployeeRepository = phaseEmployeeRepository;
             this.fieldRepository = fieldRepository;
             this.unitOfWork = unitOfWork;
         }
@@ -97,8 +99,6 @@ namespace BusinessAccess
         public Phase Delete(Guid id)
         {
 
-            //var fieldToDelete = fieldRepository.GetMulti(x => x.FieldId == id);
-            //fieldRepository.DeleteMulti(fieldToDelete);
             return phaseRepository.Delete(id);
         }
 
@@ -152,17 +152,33 @@ namespace BusinessAccess
             phase.UpdatedBy = "E - 1234";
 
             var isPhaseExist = phaseRepository.CheckContains(x => x.PhaseId == phase.PhaseId);
-            if(isPhaseExist == true)
+
+            if(isPhaseExist == true)        //nếu phase tồn tại thì sẽ thực hiện update
             {
+                foreach(var field in phase.Field)   // khi update phase sẽ không tự động update field, nên phải update bằng tay
+                {
+                    if(!fieldRepository.CheckContains(x => x.FieldId == field.FieldId))
+                            fieldRepository.Add(field);
+                }
+
+                foreach(var phaseEmployee in phase.PhaseEmployee)
+                {
+                    if (!phaseEmployeeRepository.CheckContains(x => x.PhaseEmployeeId == phaseEmployee.PhaseEmployeeId))
+                    {
+                        phaseEmployee.Employee = null;                  //set bằng null nếu không sẽ tự động insert vào bảng employee giá trị- 
+                        phaseEmployeeRepository.Add(phaseEmployee);    //  phaseEmployee.Employee khi gọi lệnh add này.
+                    }   
+
+                       
+                }
+                phase.Field = null;
+                phase.PhaseEmployee = null;
                 phaseRepository.Update(phase);
             }
             else
-            {
+            {      
                 phaseRepository.Add(phase);
             }
-
-           
-
         }
     }
 }

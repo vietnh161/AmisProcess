@@ -35,16 +35,19 @@ const routes: Routes = [
   // },
   {
     path: 'manage-process',
+    canActivate: [AuthGuard],
    loadChildren: () => import(`./ui/process-management/process-management.module`).then(m => m.ProcessManagementModule),
     
   },
   {
     path: 'handle-process',
+    canActivate: [AuthGuard],
     loadChildren: () => import(`./ui/handle-process/handle-process.module`).then(m=> m.HandleProcessModule)
     
   },
   {
     path: 'run-process',
+    canActivate: [AuthGuard],
     loadChildren: () => import(`./ui/run-process/run-process.module`).then(m=> m.RunProcessModule)
     
   },

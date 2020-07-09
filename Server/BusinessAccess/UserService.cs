@@ -26,6 +26,7 @@ namespace BusinessAccess
 		IEnumerable<User> GetAlla();
 		User Authenticate(string username, string password);
 
+		User GetCurrentUser(string username);
 		string GetToken(string username, string role);
 
 		User GetSingleByCondition(Expression<Func<User, bool>> expression);
@@ -36,11 +37,13 @@ namespace BusinessAccess
 	public class UserService : IUserService
 	{
 		IRepository<User> userRepository;
+		IRepository<Employee> employeeRepository;
 		IRepository<Role> roleRepository;
 		IUnitOfWork unitOfWork;
 
-		public UserService(IRepository<User> user, IRepository<Role> role,IUnitOfWork unitOfWork)
+		public UserService(IRepository<User> user, IRepository<Employee> employeeRepository, IRepository<Role> role,IUnitOfWork unitOfWork)
 		{
+			this.employeeRepository = employeeRepository;
 			this.userRepository = user;
 			this.roleRepository = role;
 			this.unitOfWork = unitOfWork;
@@ -98,7 +101,7 @@ namespace BusinessAccess
 
 			// authentication successful so generate jwt token
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes("This is the secret");
+			var key = Encoding.ASCII.GetBytes("dNYZfjES8AiGKFHRrWYF");
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[]
@@ -120,6 +123,8 @@ namespace BusinessAccess
 			if (user != null)
 			{
 				user.Role = roleRepository.GetSingleById(user.RoleId);
+				var em = employeeRepository.GetSingleByCondition(x=> x.UserId == user.UserId);
+				user.Employee.Add(em);
 			}
 			
 
@@ -129,6 +134,12 @@ namespace BusinessAccess
 		public void Save()
 		{
 			unitOfWork.Commit();
+		}
+
+		public User GetCurrentUser(string username)
+		{
+			string[] includes = new string[2] { "Employee","Role" };
+			return userRepository.GetSingleByCondition(x => x.Username == username,includes);
 		}
 	}
 }

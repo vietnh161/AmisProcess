@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {  ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms'
@@ -15,6 +15,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthEffects } from './store/effects/auth.effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/app.states';
+import { JwtInterceptor } from './helpers';
 
 
 
@@ -38,7 +39,7 @@ import { reducers } from './store/app.states';
     StoreModule.forRoot( reducers, {})
   ],
   providers: [
-    
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

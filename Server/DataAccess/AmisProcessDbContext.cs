@@ -101,7 +101,6 @@ namespace DataAccess
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Employee)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_employee_user_UserId");
             });
 
@@ -142,7 +141,6 @@ namespace DataAccess
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.Field)
                     .HasForeignKey(d => d.PhaseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_field_phase_PhaseId");
             });
 
@@ -170,7 +168,6 @@ namespace DataAccess
                 entity.HasOne(d => d.Field)
                     .WithMany(p => p.FieldOption)
                     .HasForeignKey(d => d.FieldId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_option_field_FieldId");
             });
 
@@ -207,13 +204,11 @@ namespace DataAccess
                 entity.HasOne(d => d.Field)
                     .WithMany(p => p.FieldValue)
                     .HasForeignKey(d => d.FieldId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_fieldvalue_field_FieldId");
 
                 entity.HasOne(d => d.ProcessRunning)
                     .WithMany(p => p.FieldValue)
                     .HasForeignKey(d => d.ProcessRunningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_fieldvalue_processrunning_ProcessRunningId");
             });
 
@@ -284,7 +279,6 @@ namespace DataAccess
                 entity.HasOne(d => d.Process)
                     .WithMany(p => p.Phase)
                     .HasForeignKey(d => d.ProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_phase_process_ProcessId");
             });
 
@@ -311,13 +305,11 @@ namespace DataAccess
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PhaseEmployee)
                     .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_phaseemployee_employee_EmployeeId");
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.PhaseEmployee)
                     .HasForeignKey(d => d.PhaseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_phaseemployee_phase_PhaseId");
             });
 
@@ -369,6 +361,7 @@ namespace DataAccess
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Process)
                     .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_process_category_CategoryId");
             });
 
@@ -406,13 +399,11 @@ namespace DataAccess
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProcessRunning)
                     .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_processrunning_employee_EmployeeId");
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.ProcessRunning)
                     .HasForeignKey(d => d.PhaseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_processrunning_phase_PhaseId");
             });
 
@@ -454,12 +445,12 @@ namespace DataAccess
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_role_RoleId");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

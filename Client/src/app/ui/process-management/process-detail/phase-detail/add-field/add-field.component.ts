@@ -31,11 +31,11 @@ export class AddFieldComponent implements OnInit {
         this.errorAddField = '';
         this.successAddField = '';
       
-        this.field = this.resetField()
+        
     }
 
     ngOnInit(): void {
-      
+        this.field = this.resetField()
     }
 
     addFieldHandle() {
@@ -100,11 +100,13 @@ export class AddFieldComponent implements OnInit {
 
     resetField(){
         return  {
+            fieldId: uuidv4(),
             name:'',
             description:'',
             type: '',
             fieldOption: [],
             required: false,
+            phaseId: this.phase.phaseId,
         }
     }
 

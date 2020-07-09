@@ -3,7 +3,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}} <clr-icon
                 shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon></label>
 
-        <input class="clr-col-12 " placeholder="Full name" clrInput name="name" required />
+        <input class="clr-col-12 " placeholder="Enter text" clrInput name="name" required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
     </clr-input-container>
@@ -20,7 +20,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
             <clr-icon shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon>
         </label>
-        <input class="clr-col-12 " type="email" placeholder="Full name" clrInput name="name" required />
+        <input class="clr-col-12 " type="email" placeholder="Enter email" clrInput name="name" required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
     </clr-input-container>
@@ -29,7 +29,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
             <clr-icon shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon>
         </label>
-        <input class="clr-col-12 " type="number" placeholder="Full name" clrInput name="name" required />
+        <input class="clr-col-12 " type="number" placeholder="Enter number" clrInput name="name" required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
     </clr-input-container>
@@ -46,7 +46,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
             <clr-icon shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon>
         </label>
-        <input class="clr-col-12 " type="datetime-local" placeholder="Full name" clrInput name="name"
+        <input class="clr-col-12 " type="datetime-local" clrInput name="name"
             required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
@@ -56,7 +56,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
             <clr-icon shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon>
         </label>
-        <input class="clr-col-12 " type="time" placeholder="Full name" clrInput name="name" required />
+        <input class="clr-col-12 " type="time"  clrInput name="name" required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
     </clr-input-container>
@@ -91,7 +91,7 @@
         <label class="clr-col-12 ">{{field.name}}{{(field.required == true) ? '*': ''}}
             <clr-icon shape="close" (click)="emitDelete(field.fieldId)" style="cursor: pointer;"></clr-icon>
         </label>
-        <input class="clr-col-12 " type="file" placeholder="Full name" clrInput name="name" required />
+        <input class="clr-col-12 " type="file" placeholder="Atachment" clrInput name="name" required />
         <clr-control-helper>{{ field.description }}</clr-control-helper>
         <clr-control-error>This field is required!</clr-control-error>
     </clr-input-container>

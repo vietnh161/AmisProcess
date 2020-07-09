@@ -48,14 +48,17 @@ namespace BusinessAccess
 
         public void AddOrUpdate(Field field)
         {
-            foreach(var option in field.FieldOption)
-            {
-                option.Field = null;
-                option.FieldId = field.FieldId;
-                fieldOptionRepository.AddOrUpdate(option);
-            }
+           
 
-            fieldRepository.AddOrUpdate(field);
+            var isFieldExist = fieldRepository.CheckContains(x => x.FieldId == field.FieldId);
+            if (isFieldExist == true)
+            {
+                fieldRepository.Update(field);
+            }
+            else
+            {
+                fieldRepository.Add(field);
+            }
         }
         public bool CheckExist(Expression<Func<Field, bool>> predicate)
         {
@@ -65,9 +68,6 @@ namespace BusinessAccess
 
         public Field Delete(Guid id)
         {
-
-            var fieldOptionToDelete = fieldOptionRepository.GetMulti(x => x.FieldId == id);
-            fieldOptionRepository.DeleteMulti(fieldOptionToDelete);
 
            return fieldRepository.Delete(id);
         }

@@ -40,7 +40,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline"
                                     (click)="item.isDel = false">Cancel</button>
-                                <button type="button" class="btn btn-primary"
+                                <button [clrLoading]="deletePhaseState" type="button" class="btn btn-primary"
                                     (click)="deletePhaseHandle(item)">Ok</button>
                             </div>
                         </clr-modal>

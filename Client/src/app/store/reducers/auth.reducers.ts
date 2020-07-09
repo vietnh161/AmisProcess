@@ -11,6 +11,20 @@ export const initialState: AuthState = {
 
 export function reducer(state = initialState, action: All): AuthState {
     switch (action.type) {
+      case AuthActionTypes.GET_USER_SUCCESS: {
+        return {
+          ...state,
+          isAuthenticated: true,
+          user: {
+            token: action.payload.token,
+            username: action.payload.username,
+            fullName: action.payload.fullName,
+            role: action.payload.role,
+            id: action.payload.id
+          },
+          errorMessage: ''
+        };
+      }
       case AuthActionTypes.LOGIN_SUCCESS: {
         return {
           ...state,
@@ -18,6 +32,7 @@ export function reducer(state = initialState, action: All): AuthState {
           user: {
             token: action.payload.token,
             username: action.payload.username,
+            fullName: action.payload.fullName,
             role: action.payload.role,
             id: action.payload.id
           },

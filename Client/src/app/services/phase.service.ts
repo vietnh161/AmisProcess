@@ -56,9 +56,14 @@ export class PhaseService {
         return this.http.put<Phase>(url,Phase,this.httpOptions);
     }
 
-    updateMulti(Process: any): Observable<any>{
+    updateMulti(modifiedPhase: any): Observable<any>{
         const url = `${environment.apiUrl}/${this.PhaseUrl}`;
-        return this.http.put<any>(url,Process,this.httpOptions);
+        return this.http.put<any>(url,modifiedPhase,this.httpOptions);
+    }
+
+    deleteById(id): Observable<any>{
+        const url = `${environment.apiUrl}/${this.PhaseUrl}/${id}`;
+        return this.http.delete<any>(url,this.httpOptions);
     }
 
     handleError(error) {

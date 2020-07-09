@@ -59,9 +59,9 @@ export class RunProcessComponent implements OnInit {
    
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     
-    this.listProcess.forEach(element => {
-      element.isDel = false;
-    });
+    // this.listProcess.forEach(element => {
+    //   element.isDel = false;
+    // });
     
   }
 

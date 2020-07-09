@@ -1,9 +1,9 @@
 <div class="box">
     <div class="login-wrapper">
-        <form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
             <section class="title">
                 <h3 class="welcome">Chào mừng đến với</h3>
-                Amiss Process
+                Amis Process
                 <!-- <h5 class="hint">Use your Company ID to sign in or create one now</h5> -->
             </section>
             <div class="login-group">
@@ -19,8 +19,7 @@
                 <div class="error active" *ngIf="errMessage">
                     {{errMessage}}
                 </div>
-                <button type="submit" *ngIf="!submitted" class="btn btn-primary"> Đăng nhập</button>
-                <clr-spinner class="custom-spinner" *ngIf="submitted" clrMedium ></clr-spinner>
+                <button [clrLoading]="submitted"type="submit" class="btn btn-primary"> Đăng nhập</button>
             </div>
         </form>
     </div>

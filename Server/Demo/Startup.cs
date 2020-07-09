@@ -70,6 +70,7 @@ namespace WebApi
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFieldService, FieldService>();
+            services.AddScoped<IPhaseEmployeeService, PhaseEmployeeService>();
             services.AddScoped<IProcessService, ProcessService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IProcessCategoryService, ProcessCategoryService>();

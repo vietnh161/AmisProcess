@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppState, selectAuthState } from 'src/app/store/app.states';
 import { Store } from '@ngrx/store';
-import { LogOut } from 'src/app/store/actions/auth.actions';
+import { LogOut, GetUserInfor } from 'src/app/store/actions/auth.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -59,6 +59,7 @@ export class MainPageComponent implements OnInit {
     private router: Router,
     private store: Store<AppState>,
   ) {
+   
     this.getState = this.store.select(selectAuthState);
   
     // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -71,15 +72,12 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new GetUserInfor({}));
+
     this.getState.subscribe(state => {  
       this.currentUser = state.user;
       console.log(this.currentUser);
       
-      // if (this.currentUser.role == 'Admin') {
-      //   this.isAdmin = true;
-      // } else {
-      //   this.isAdmin = false;
-      // }
     })
   }
 

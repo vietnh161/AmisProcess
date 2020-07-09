@@ -31,6 +31,10 @@ export class AuthenticationService {
            
     }
 
+    getUserLogged() : Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/account/getUserLogged`);
+    }
+
     logout() {
         
         // localStorage.removeItem('currentUser');

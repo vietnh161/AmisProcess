@@ -17,12 +17,14 @@ namespace WebApp.Controllers
     public class ProcessController : ControllerBase
     {
         IProcessService processService;
+        IUserService userService;
         IProcessCategoryService categoryService;
         IPhaseService phaseService;
 
-        public ProcessController(IProcessService processService, IProcessCategoryService categoryService, IPhaseService phaseService)
+        public ProcessController(IProcessService processService, IUserService userService, IProcessCategoryService categoryService, IPhaseService phaseService)
         {
             this.processService = processService;
+            this.userService = userService;
             this.categoryService = categoryService;
             this.phaseService = phaseService;
         }
@@ -114,6 +116,7 @@ namespace WebApp.Controllers
         [HttpPost()]
         public IActionResult AddProcess(Process process)    
         {
+            User currentUser = userService.GetCurrentUser(User.Identity.Name);
 
             Category category = null;
 
@@ -127,7 +130,7 @@ namespace WebApp.Controllers
 
             process.CategoryId = category.CategoryId;
 
-            processService.Add(process);
+            processService.Add(process, currentUser);
             processService.Save();
 
             phaseService.AddWhenCreateProcess(process.ProcessId);
@@ -139,6 +142,7 @@ namespace WebApp.Controllers
         [HttpPut()]
         public IActionResult UpdateProcess(Process process)
         {
+            User currentUser = userService.GetCurrentUser(User.Identity.Name);
 
             Category category = null;
 
@@ -152,7 +156,7 @@ namespace WebApp.Controllers
 
             process.CategoryId = category.CategoryId;
 
-            processService.Update(process);
+            processService.Update(process, currentUser);
             processService.Save();
 
             return Ok(process.ProcessId);

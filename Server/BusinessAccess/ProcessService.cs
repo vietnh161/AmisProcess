@@ -13,8 +13,8 @@ namespace BusinessAccess
 {
     public interface IProcessService
     {
-        void Add(Process process);
-        void Update(Process process);
+        void Add(Process process, User currentUser);
+        void Update(Process process, User currentUser);
         Process Delete(Guid id);
         Process GetById(Guid id);
 
@@ -39,13 +39,15 @@ namespace BusinessAccess
             this.unitOfWork = unitOfWork;
 
         }
-        public void Add(Process process)
+        public void Add(Process process, User currentUser)
         {
+            
+
             process.ProcessId = new Guid();                                          // Khoi tao Doi tuong process moi va 
             process.Status = "draft";                                    //  gan cac gia tri mac dinh
-            process.CreatedBy = "EmployeeName EmployeeCode";
+            process.CreatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
             process.CreatedAt = DateTime.Now;
-            process.UpdatedBy = "EmployeeName EmployeeCode";
+            process.UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
             process.UpdatedAt = DateTime.Now;
             process.Phase = null;
             process.Category = null;                                         //
@@ -53,10 +55,10 @@ namespace BusinessAccess
 
             processRepository.Add(process);
         }
-        public void Update(Process process)
+        public void Update(Process process, User currentUser)
         {
             process.UpdatedAt = DateTime.Now;
-            process.UpdatedBy = "EmployeeName EmployeeCode";
+            process.UpdatedBy = currentUser.Employee.First().FullName + " - " + currentUser.Employee.First().EmployeeCode;
             process.Phase = null;
             process.Category = null;
 

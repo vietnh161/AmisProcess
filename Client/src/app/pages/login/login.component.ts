@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-
+    this.errMessage ='';
     this.submitted = true;
     
     if (this.loginForm.invalid) {

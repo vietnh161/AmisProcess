@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProcessService } from 'src/app/services/process.service';
 import { Process } from 'src/app/models';
+import { PhaseService } from 'src/app/services/phase.service';
 
 @Component({
     selector: 'app-process-detail',
@@ -15,10 +16,13 @@ export class ProcessDetailComponent implements OnInit {
     process : Process;
     phases;
     currentProcessStatus;
+    deletePhaseState: boolean;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private processService: ProcessService,
+        private phaseService: PhaseService,
         ) {
         this.processId =  this.route.snapshot.paramMap.get("id");
         
@@ -49,6 +53,17 @@ export class ProcessDetailComponent implements OnInit {
     }
 
     deletePhaseHandle(phase){
-
+        this.deletePhaseState = true;
+        this.phaseService.deleteById(phase.phaseId).subscribe(
+            result => {
+                this.deletePhaseState = false;
+                this.router.navigateByUrl('/manage-process/list-process', { skipLocationChange: true }).then(() => {
+                    this.router.navigateByUrl("manage-process/process/" + result)
+                }); 
+            },
+            error => {
+                this.router.navigateByUrl('notfound');
+            }
+        )
     }
 }
